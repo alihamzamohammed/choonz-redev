@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/css/style.css" rel="stylesheet">
+    <!--Changed to BS5-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <title>Choonz Music</title>
+</head>
+
+<body style="background-color: var(--bg);">
+    <wrapper class="d-flex flex-column min-vh-100">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: var(--elementBgColor)">
+            <div class="container-fluid">
+                <img src="./img/Choonz.png" alt="" width="100" height="40" class="d-inline-block align-text-top me-3">
+                <a class="navbar-brand ml-2" href="#">Choonz</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Artists</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Albums</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Genres</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Playlist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Tracks</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sign Up</a>
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        </nav>
+        <!-- /Navbar -->
+        <main class="flex-fill d-flex align-items-center">
+            <div class="container-fluid text-center">
+                <!--Login Form-->
+                <div class="row">
+                    <div style="background-color: var(--itemBgColor);height:330px;border-radius:12px;" class="col-3 mx-auto">
+                        <h2 class="mt-2">Login</h2>
+                        <!--Send data to SubmitForm and then post to endpoint-->
+                        <form onsubmit="SubmitForm()" style="position: relative;">
+                            <div class="form-group mt-3 mb-3">
+                                <label for="exampleFormControlInput1" style="float:left;font-size:20px;">Username</label>
+                                <input type="text" class="form-control form-control-lg" id="UName"
+                                 placeholder="Enter your username" required>
+                            </div>
+                            <div class="form-group mt-3 mb-3">
+                                <label for="exampleFormControlInput1" style="float:left;font-size:20px;">Password</label>
+                                <input type="text" class="form-control form-control-lg" id="Password"
+                                    placeholder="Enter your password" required>
+                            </div>
+                            <button style="position: absolute;right:0" class="btn btn-primary btn-lg">Login</button>
+                        </form>
+                    </div>
+                </div>
+                <!--Login end form-->
+            </div>
+        </main>
+        <footer class="mt-5" style="background-color: var(--elementBgColor)">
+            <!--Footer-->
+            <div class="text-center p-2">
+                <h5>Copyright &#169; CAPI</h4>
+            </div>
+            <!--End of Footer-->
+        </footer>
+
+        <!--Changed to BS5-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+        </script>
+    </wrapper>
+</body>
+
+</html>

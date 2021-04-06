@@ -11,7 +11,7 @@ body{
 }
 
 wrapper{
-  
+  min-height: 100vh;/* Force footer to bottopm of page */
 }
 
 .ListItem{
