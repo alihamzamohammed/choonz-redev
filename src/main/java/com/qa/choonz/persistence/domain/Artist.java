@@ -18,7 +18,7 @@ public class Artist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @NotNull
     @Size(max = 100)
@@ -32,18 +32,18 @@ public class Artist {
         super();
     }
 
-    public Artist(long id, @NotNull @Size(max = 100) String name, List<Album> albums) {
+    public Artist(int id, @NotNull @Size(max = 100) String name, List<Album> albums) {
         super();
         this.id = id;
         this.name = name;
         this.albums = albums;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
