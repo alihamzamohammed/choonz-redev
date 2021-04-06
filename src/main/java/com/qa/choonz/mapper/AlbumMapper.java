@@ -15,17 +15,17 @@ public class AlbumMapper {
 	private ModelMapper mapper;
 	
 
-	private AlbumDTO mapToDTO(Album album) {
+	public AlbumDTO mapToDTO(Album album) {
 	   return this.mapper.map(album, AlbumDTO.class);
 	    
 	}
 	
-	private Album mapToAlbum(AlbumDTO albumDTO) {
+	public Album mapToAlbum(AlbumDTO albumDTO) {
 		return this.mapper.map(albumDTO, Album.class);
 	}
 
 	
-	private List<AlbumDTO> mapToDTO(List<Album> album) {
+	public List<AlbumDTO> mapToDTO(List<Album> album) {
 		
 		List<AlbumDTO> albumDTO = new ArrayList<>();
 		
@@ -34,7 +34,7 @@ public class AlbumMapper {
 		return albumDTO;
 	}
 	
-	private List<Album> mapToAlbum(List<AlbumDTO> albumDTO) {
+	public List<Album> mapToAlbum(List<AlbumDTO> albumDTO) {
 		
 		List<Album> album = new ArrayList<>();
 		
