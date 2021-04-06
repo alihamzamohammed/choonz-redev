@@ -24,6 +24,7 @@ public class PlaylistController {
 
     private PlaylistService service;
 
+    @Autowired
     public PlaylistController(PlaylistService service) {
         super();
         this.service = service;
@@ -40,17 +41,17 @@ public class PlaylistController {
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<PlaylistDTO> read(@PathVariable long id) {
+    public ResponseEntity<PlaylistDTO> read(@PathVariable int id) {
         return new ResponseEntity<PlaylistDTO>(this.service.read(id), HttpStatus.OK);
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<PlaylistDTO> update(@RequestBody Playlist playlist, @PathVariable long id) {
+    public ResponseEntity<PlaylistDTO> update(@RequestBody Playlist playlist, @PathVariable int id) {
         return new ResponseEntity<PlaylistDTO>(this.service.update(playlist, id), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<PlaylistDTO> delete(@PathVariable long id) {
+    public ResponseEntity<PlaylistDTO> delete(@PathVariable int id) {
         return this.service.delete(id) ? new ResponseEntity<PlaylistDTO>(HttpStatus.NO_CONTENT)
                 : new ResponseEntity<PlaylistDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
