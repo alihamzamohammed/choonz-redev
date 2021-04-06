@@ -30,7 +30,6 @@ public class Artist {
 
     public Artist() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public Artist(long id, @NotNull @Size(max = 100) String name, List<Album> albums) {
