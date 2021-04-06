@@ -54,7 +54,7 @@ public class ArtistController {
     @DeleteMapping("delete/{id}")
     public ResponseEntity<ArtistDTO> delete(@PathVariable int id) {
         return this.service.delete(id) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
-                : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
