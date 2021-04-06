@@ -1,14 +1,19 @@
 package com.qa.choonz.rest.dto;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Playlist;
+import com.qa.choonz.persistence.domain.PlaylistTracks;
 
 public class TrackDTO {
 
     private long id;
     private String name;
     private Album album;
-    private Playlist playlist;
+    private List<PlaylistTracks> playlistTracks;
     private int duration;
     private String lyrics;
 
@@ -19,12 +24,12 @@ public class TrackDTO {
 
     
     
-	public TrackDTO(long id, String name, Album album, Playlist playlist, int duration, String lyrics) {
+	public TrackDTO(long id, String name, Album album,  List<PlaylistTracks> playlistTracks, int duration, String lyrics) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.album = album;
-		this.playlist = playlist;
+		this.playlistTracks = playlistTracks;
 		this.duration = duration;
 		this.lyrics = lyrics;
 	}
@@ -55,12 +60,12 @@ public class TrackDTO {
 		this.album = album;
 	}
 
-	public Playlist getPlaylist() {
-		return playlist;
+	public List<Playlist> getPlaylistTracks() {
+		return playlistTracks.stream().map(playlistTrack -> playlistTrack.getPlaylist()).collect(Collectors.toList());
 	}
 
-	public void setPlaylist(Playlist playlist) {
-		this.playlist = playlist;
+	public void setPlaylistTracks(List<PlaylistTracks> playlistTracks) {
+		this.playlistTracks = playlistTracks;
 	}
 
 	public int getDuration() {
@@ -80,65 +85,33 @@ public class TrackDTO {
 	}
 
 
-
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((album == null) ? 0 : album.hashCode());
-		result = prime * result + duration;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((lyrics == null) ? 0 : lyrics.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((playlist == null) ? 0 : playlist.hashCode());
-		return result;
+		return Objects.hash(album, duration, id, lyrics, name, playlistTracks);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof TrackDTO))
 			return false;
 		TrackDTO other = (TrackDTO) obj;
-		if (album == null) {
-			if (other.album != null)
-				return false;
-		} else if (!album.equals(other.album))
-			return false;
-		if (duration != other.duration)
-			return false;
-		if (id != other.id)
-			return false;
-		if (lyrics == null) {
-			if (other.lyrics != null)
-				return false;
-		} else if (!lyrics.equals(other.lyrics))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (playlist == null) {
-			if (other.playlist != null)
-				return false;
-		} else if (!playlist.equals(other.playlist))
-			return false;
-		return true;
+		return Objects.equals(album, other.album) && duration == other.duration && id == other.id
+				&& Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
+				&& Objects.equals(playlistTracks, other.playlistTracks);
 	}
-
-
 
 	@Override
 	public String toString() {
-		return "TrackDTO [id=" + id + ", name=" + name + ", album=" + album + ", playlist=" + playlist + ", duration="
-				+ duration + ", lyrics=" + lyrics + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("TrackDTO [id=").append(id).append(", name=").append(name).append(", album=").append(album)
+				.append(", playlistTracks=").append(playlistTracks).append(", duration=").append(duration)
+				.append(", lyrics=").append(lyrics).append("]");
+		return builder.toString();
 	}
+
+
 
 	
 }
