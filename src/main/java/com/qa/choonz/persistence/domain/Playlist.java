@@ -35,8 +35,8 @@ public class Playlist {
     @Column(unique = true)
     private String artwork;
 
-    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL)
-    private List<Track> tracks;
+    @OneToMany(mappedBy = "Playlist", cascade = CascadeType.ALL)
+    private List<PlaylistTracks> playlistTracks;
 
     public Playlist() {
         super();
@@ -44,13 +44,13 @@ public class Playlist {
     }
 
     public Playlist(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
-            @NotNull @Size(max = 100) String artwork, List<Track> tracks) {
+            @NotNull @Size(max = 100) String artwork, List<PlaylistTracks> playlistTracks) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
         this.artwork = artwork;
-        this.tracks = tracks;
+        this.playlistTracks = playlistTracks;
     }
 
     public long getId() {
@@ -85,26 +85,26 @@ public class Playlist {
         this.artwork = artwork;
     }
 
-    public List<Track> getTracks() {
-        return tracks;
+    public List<PlaylistTracks> getPlaylistTracks() {
+        return playlistTracks;
     }
 
-    public void setTracks(List<Track> tracks) {
-        this.tracks = tracks;
+    public void setPlaylistTracks(List<PlaylistTracks> playlistTracks) {
+        this.playlistTracks = playlistTracks;
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Playlist [id=").append(id).append(", name=").append(name).append(", description=")
-                .append(description).append(", artwork=").append(artwork).append(", tracks=").append(tracks)
+                .append(description).append(", artwork=").append(artwork).append(", tracks=").append(playlistTracks)
                 .append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artwork, description, id, name, tracks);
+        return Objects.hash(artwork, description, id, name, playlistTracks);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class Playlist {
         }
         Playlist other = (Playlist) obj;
         return Objects.equals(artwork, other.artwork) && Objects.equals(description, other.description)
-                && id == other.id && Objects.equals(name, other.name) && Objects.equals(tracks, other.tracks);
+                && id == other.id && Objects.equals(name, other.name) && Objects.equals(playlistTracks, other.playlistTracks);
     }
 
 }
