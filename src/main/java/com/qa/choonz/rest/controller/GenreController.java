@@ -2,6 +2,7 @@ package com.qa.choonz.rest.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,28 +32,38 @@ public class GenreController {
 
     @PostMapping("/create")
     public ResponseEntity<GenreDTO> create(@RequestBody Genre genre) {
-        return new ResponseEntity<GenreDTO>(this.service.create(genre), HttpStatus.CREATED);
+        GenreDTO newGenre = service.create(genre);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", String.valueOf(newGenre.getId()));
+        
+        return new ResponseEntity<GenreDTO>(newGenre, headers, HttpStatus.CREATED);
     }
 
     @GetMapping("/read")
-    public ResponseEntity<List<GenreDTO>> read() {
-        return new ResponseEntity<List<GenreDTO>>(this.service.read(), HttpStatus.OK);
+    public ResponseEntity<List<GenreDTO>> readAll() {
+    	List<GenreDTO> data = service.readAll();
+		return new ResponseEntity<List<GenreDTO>>(data, HttpStatus.OK);
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<GenreDTO> read(@PathVariable long id) {
-        return new ResponseEntity<GenreDTO>(this.service.read(id), HttpStatus.OK);
+    public ResponseEntity<GenreDTO> readById(@PathVariable long id) {
+        GenreDTO genre = service.readById(id);
+        
+        return new ResponseEntity<GenreDTO>(genre, HttpStatus.OK);
     }
 
     @PostMapping("/update/{id}")
     public ResponseEntity<GenreDTO> update(@RequestBody Genre genre, @PathVariable long id) {
-        return new ResponseEntity<GenreDTO>(this.service.update(genre, id), HttpStatus.ACCEPTED);
+    	 GenreDTO updateGenre = service.update(genre, id);
+    	 
+         return new ResponseEntity<GenreDTO>(updateGenre, HttpStatus.OK);
+    	 
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<GenreDTO> delete(@PathVariable long id) {
-        return this.service.delete(id) ? new ResponseEntity<GenreDTO>(HttpStatus.NO_CONTENT)
-                : new ResponseEntity<GenreDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<Boolean> delete(@PathVariable long id) {
+    	service.delete(id);
+    	return new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);  
     }
 
 }
