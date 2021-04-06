@@ -17,8 +17,8 @@ import javax.validation.constraints.Size;
 public class Playlist {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private int id;
 
     @NotNull
     @Size(max = 100)
@@ -31,7 +31,7 @@ public class Playlist {
     private String description;
 
     @NotNull
-    @Size(max = 1000)
+    @Size(max = 100)
     @Column(unique = true)
     private String artwork;
 
@@ -40,11 +40,11 @@ public class Playlist {
 
     public Playlist() {
         super();
-        // TODO Auto-generated constructor stub
+  
     }
 
-    public Playlist(long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
-            @NotNull @Size(max = 1000) String artwork, List<Track> tracks) {
+    public Playlist(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
+            @NotNull @Size(max = 100) String artwork, List<Track> tracks) {
         super();
         this.id = id;
         this.name = name;
@@ -57,7 +57,7 @@ public class Playlist {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
