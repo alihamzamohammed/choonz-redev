@@ -36,12 +36,12 @@ public class ArtistService {
         return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
     }
 
-    public ArtistDTO read(long id) {
+    public ArtistDTO read(int id) {
         Artist found = this.repo.findById(id).orElseThrow(ArtistNotFoundException::new);
         return this.mapToDTO(found);
     }
 
-    public ArtistDTO update(Artist artist, long id) {
+    public ArtistDTO update(Artist artist, int id) {
         Artist toUpdate = this.repo.findById(id).orElseThrow(ArtistNotFoundException::new);
         toUpdate.setName(artist.getName());
         toUpdate.setAlbums(artist.getAlbums());
@@ -49,7 +49,7 @@ public class ArtistService {
         return this.mapToDTO(updated);
     }
 
-    public boolean delete(long id) {
+    public boolean delete(int id) {
         this.repo.deleteById(id);
         return !this.repo.existsById(id);
     }
