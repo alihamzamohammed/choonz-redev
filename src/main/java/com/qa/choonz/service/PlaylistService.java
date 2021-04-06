@@ -39,12 +39,12 @@ public class PlaylistService {
   
     }
 
-    public PlaylistDTO read(long id) {
+    public PlaylistDTO read(int id) {
         Playlist found = this.repo.findById(id).orElseThrow(PlaylistNotFoundException::new);
         return this.mapper.mapToDTO(found);
     }
 
-    public PlaylistDTO update(Playlist playlist, long id) {
+    public PlaylistDTO update(Playlist playlist, int id) {
         Playlist toUpdate = this.repo.findById(id).orElseThrow(PlaylistNotFoundException::new);
         toUpdate.setName(playlist.getName());
         toUpdate.setDescription(playlist.getDescription());
@@ -54,7 +54,7 @@ public class PlaylistService {
         return this.mapper.mapToDTO(updated);
     }
 
-    public boolean delete(long id) {
+    public boolean delete(int id) {
         this.repo.deleteById(id);
         return !this.repo.existsById(id);
     }
