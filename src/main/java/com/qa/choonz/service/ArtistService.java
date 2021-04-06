@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.ArtistNotFoundException;
@@ -17,6 +18,7 @@ public class ArtistService {
     private ArtistRepository repo;
     private ModelMapper mapper;
 
+    @Autowired
     public ArtistService(ArtistRepository repo, ModelMapper mapper) {
         super();
         this.repo = repo;
