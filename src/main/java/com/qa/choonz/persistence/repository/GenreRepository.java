@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.qa.choonz.persistence.domain.Genre;
 
 @Repository
-public interface GenreRepository extends JpaRepository<Genre, Long> {
+public interface GenreRepository extends JpaRepository<Genre, Integer> {
 
 }

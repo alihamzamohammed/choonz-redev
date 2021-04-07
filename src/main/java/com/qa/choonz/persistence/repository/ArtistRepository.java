@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.qa.choonz.persistence.domain.Artist;
 
 @Repository
-public interface ArtistRepository extends JpaRepository<Artist, Long> {
+public interface ArtistRepository extends JpaRepository<Artist, Integer> {
 
 }
