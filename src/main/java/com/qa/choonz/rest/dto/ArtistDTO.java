@@ -7,13 +7,13 @@ public class ArtistDTO {
 
     private int id;
     private String name;
-    private List<AlbumRelationshipDTO> albums;
+    private List<AlbumArtistRelationshipDTO> albums;
 
     public ArtistDTO() {
         super();
     }
 
-    public ArtistDTO(int id, String name, List<AlbumRelationshipDTO> albums) {
+    public ArtistDTO(int id, String name, List<AlbumArtistRelationshipDTO> albums) {
         super();
         this.id = id;
         this.name = name;
@@ -36,11 +36,11 @@ public class ArtistDTO {
         this.name = name;
     }
 
-    public List<AlbumRelationshipDTO> getAlbums() {
+    public List<AlbumArtistRelationshipDTO> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<AlbumRelationshipDTO> albums) {
+    public void setAlbums(List<AlbumArtistRelationshipDTO> albums) {
         this.albums = albums;
     }
 

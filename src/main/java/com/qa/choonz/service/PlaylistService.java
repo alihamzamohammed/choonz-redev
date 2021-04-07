@@ -32,11 +32,11 @@ public class PlaylistService {
     }
 
     public List<PlaylistDTO> read() {
-      
-    	List<Playlist> playlistDTO = this.repo.findAll();
-    	
-    	return this.mapper.mapToDTO(playlistDTO);
-  
+
+        List<Playlist> playlistDTO = this.repo.findAll();
+
+        return this.mapper.mapToDTO(playlistDTO);
+
     }
 
     public PlaylistDTO read(int id) {
@@ -49,7 +49,7 @@ public class PlaylistService {
         toUpdate.setName(playlist.getName());
         toUpdate.setDescription(playlist.getDescription());
         toUpdate.setArtwork(playlist.getArtwork());
-        toUpdate.setTracks(playlist.getTracks());
+        toUpdate.setPlaylistTracks(playlist.getPlaylistTracks());
         Playlist updated = this.repo.save(playlist);
         return this.mapper.mapToDTO(updated);
     }

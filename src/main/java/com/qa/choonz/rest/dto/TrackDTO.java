@@ -2,35 +2,32 @@ package com.qa.choonz.rest.dto;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import com.qa.choonz.persistence.domain.Album;
-import com.qa.choonz.persistence.domain.Playlist;
 import com.qa.choonz.persistence.domain.PlaylistTracks;
 
 public class TrackDTO {
 
 	private int id;
 	private String name;
-	private Album album;
-	private List<PlaylistTracks> playlistTracks;
+	private AlbumRelationshipDTO album;
 	private int duration;
 	private String lyrics;
+	private ArtistRelationshipDTO artist;
 
 	public TrackDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public TrackDTO(int id, String name, Album album, List<PlaylistTracks> playlistTracks, int duration,
-			String lyrics) {
+	public TrackDTO(int id, String name, AlbumRelationshipDTO album, int duration, String lyrics,
+			ArtistRelationshipDTO artist) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.album = album;
-		this.playlistTracks = playlistTracks;
 		this.duration = duration;
 		this.lyrics = lyrics;
+		this.artist = artist;
+
 	}
 
 	public int getId() {
@@ -49,20 +46,12 @@ public class TrackDTO {
 		this.name = name;
 	}
 
-	public Album getAlbum() {
+	public AlbumRelationshipDTO getAlbum() {
 		return album;
 	}
 
-	public void setAlbum(Album album) {
+	public void setAlbum(AlbumRelationshipDTO album) {
 		this.album = album;
-	}
-
-	public List<Playlist> getPlaylistTracks() {
-		return playlistTracks.stream().map(playlistTrack -> playlistTrack.getPlaylist()).collect(Collectors.toList());
-	}
-
-	public void setPlaylistTracks(List<PlaylistTracks> playlistTracks) {
-		this.playlistTracks = playlistTracks;
 	}
 
 	public int getDuration() {
@@ -81,9 +70,17 @@ public class TrackDTO {
 		this.lyrics = lyrics;
 	}
 
+	public ArtistRelationshipDTO getArtist() {
+		return this.artist;
+	}
+
+	public void setArtist(ArtistRelationshipDTO artist) {
+		this.artist = artist;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(album, duration, id, lyrics, name, playlistTracks);
+		return Objects.hash(album, duration, id, lyrics, name, artist);
 	}
 
 	@Override
@@ -95,15 +92,15 @@ public class TrackDTO {
 		TrackDTO other = (TrackDTO) obj;
 		return Objects.equals(album, other.album) && duration == other.duration && id == other.id
 				&& Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
-				&& Objects.equals(playlistTracks, other.playlistTracks);
+				&& Objects.equals(artist, other.artist);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("TrackDTO [id=").append(id).append(", name=").append(name).append(", album=").append(album)
-				.append(", playlistTracks=").append(playlistTracks).append(", duration=").append(duration)
-				.append(", lyrics=").append(lyrics).append("]");
+				.append(", duration=").append(duration).append(", lyrics=").append(", artist=").append(artist)
+				.append(lyrics).append("]");
 		return builder.toString();
 	}
 

@@ -8,14 +8,14 @@ public class GenreDTO {
     private int id;
     private String name;
     private String description;
-    private List<AlbumDTO> albums;
+    private List<AlbumGenresRelationshipDTO> albums;
 
     public GenreDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public GenreDTO(int id, String name, String description, List<AlbumDTO> albums) {
+    public GenreDTO(int id, String name, String description, List<AlbumGenresRelationshipDTO> albums) {
         super();
         this.id = id;
         this.name = name;
@@ -47,11 +47,11 @@ public class GenreDTO {
         this.description = description;
     }
 
-    public List<AlbumDTO> getAlbums() {
+    public List<AlbumGenresRelationshipDTO> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<AlbumDTO> albums) {
+    public void setAlbums(List<AlbumGenresRelationshipDTO> albums) {
         this.albums = albums;
     }
 

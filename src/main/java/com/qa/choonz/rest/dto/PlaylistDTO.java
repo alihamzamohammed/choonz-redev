@@ -17,9 +17,8 @@ public class PlaylistDTO {
 
     public PlaylistDTO() {
         super();
-      
-    }
 
+    }
 
     public PlaylistDTO(int id, String name, String description, String artwork, List<PlaylistTracks> playlistTracks) {
         super();
@@ -33,7 +32,7 @@ public class PlaylistDTO {
     /**
      * @return the id
      */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -89,8 +88,16 @@ public class PlaylistDTO {
     /**
      * @return the tracks
      */
-    public List<Track> getPlaylistTracks() {
-        return playlistTracks.stream().map(playlistTrack -> playlistTrack.getTrack()).collect(Collectors.toList());
+    public List<TrackRelationshipDTO> getPlaylistTracks() {
+        return playlistTracks.stream().map(playlistTrack -> playlistTrack.getTrack()).map(track -> {
+            TrackRelationshipDTO dto = new TrackRelationshipDTO();
+            dto.setId(track.getId());
+            dto.setName(track.getName());
+            dto.setDuration(track.getDuration());
+            dto.setLyrics(track.getLyrics());
+            return dto;
+        }).collect(Collectors.toList());
+
     }
 
     /**
@@ -124,7 +131,8 @@ public class PlaylistDTO {
         }
         PlaylistDTO other = (PlaylistDTO) obj;
         return Objects.equals(artwork, other.artwork) && Objects.equals(description, other.description)
-                && id == other.id && Objects.equals(name, other.name) && Objects.equals(playlistTracks, other.playlistTracks);
+                && id == other.id && Objects.equals(name, other.name)
+                && Objects.equals(playlistTracks, other.playlistTracks);
     }
 
 }
