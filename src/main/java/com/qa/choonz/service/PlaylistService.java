@@ -38,9 +38,7 @@ public class PlaylistService {
     }
 
     public List<PlaylistDTO> read() {
-
         List<Playlist> playlistDTO = this.repo.findAll();
-
         return this.mapper.mapToDTO(playlistDTO);
 
     }
@@ -52,24 +50,22 @@ public class PlaylistService {
 
     public PlaylistDTO update(Playlist playlist, int id) {
         Playlist toUpdate = this.repo.findById(id).orElseThrow(PlaylistNotFoundException::new);
-        toUpdate.setName(playlist.getName());
-        toUpdate.setDescription(playlist.getDescription());
-        toUpdate.setArtwork(playlist.getArtwork());
-        toUpdate.setPlaylistTracks(playlist.getPlaylistTracks());
+        toUpdate.setName(playlist.getName() != null ? playlist.getName() : toUpdate.getName());
+        toUpdate.setDescription(
+                playlist.getDescription() != null ? playlist.getDescription() : toUpdate.getDescription());
+        toUpdate.setArtwork(playlist.getArtwork() != null ? playlist.getArtwork() : toUpdate.getArtwork());
+        toUpdate.setPlaylistTracks(
+                playlist.getPlaylistTracks() != null ? playlist.getPlaylistTracks() : toUpdate.getPlaylistTracks());
         toUpdate.getPlaylistTracks().forEach(playlistTrack -> this.playlistTracksRepo.save(playlistTrack));
         Playlist updated = this.repo.save(playlist);
         return this.mapper.mapToDTO(updated);
     }
 
     public boolean delete(int id) {
-        Optional<Playlist> optional = this.repo.findById(id);
-        if (optional.isPresent()) {
-            optional.get().getPlaylistTracks()
-                    .forEach(playlistTrack -> this.playlistTracksRepo.deleteById(playlistTrack.getId()));
-            this.repo.deleteById(id);
-        } else {
-            throw new PlaylistNotFoundException();
-        }
+        Playlist playlist = this.repo.findById(id).orElseThrow(PlaylistNotFoundException::new);
+        playlist.getPlaylistTracks()
+                .forEach(playlistTrack -> this.playlistTracksRepo.deleteById(playlistTrack.getId()));
+        this.repo.deleteById(id);
         return !this.repo.existsById(id);
     }
 
