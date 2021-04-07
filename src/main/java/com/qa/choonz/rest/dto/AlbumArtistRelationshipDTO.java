@@ -3,27 +3,25 @@ package com.qa.choonz.rest.dto;
 import java.util.List;
 import java.util.Objects;
 
-public class AlbumDTO {
+public class AlbumArtistRelationshipDTO {
 
     private int id;
     private String name;
     private List<TrackRelationshipDTO> tracks;
-    private ArtistRelationshipDTO artist;
     private GenreRelationshipDTO genre;
     private String cover;
 
-    public AlbumDTO() {
+    public AlbumArtistRelationshipDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public AlbumDTO(int id, String name, List<TrackRelationshipDTO> tracks, GenreRelationshipDTO genre, String cover,
-            ArtistRelationshipDTO artist) {
+    public AlbumArtistRelationshipDTO(int id, String name, List<TrackRelationshipDTO> tracks,
+            GenreRelationshipDTO genre, String cover) {
         super();
         this.id = id;
         this.name = name;
         this.tracks = tracks;
-        this.artist = artist;
         this.genre = genre;
         this.cover = cover;
     }
@@ -52,14 +50,6 @@ public class AlbumDTO {
         this.tracks = tracks;
     }
 
-    public ArtistRelationshipDTO getArtist() {
-        return artist;
-    }
-
-    public void setArtist(ArtistRelationshipDTO artist) {
-        this.artist = artist;
-    }
-
     public GenreRelationshipDTO getGenre() {
         return genre;
     }
@@ -79,15 +69,14 @@ public class AlbumDTO {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("AlbumDTO [id=").append(id).append(", name=").append(name).append(", tracks=").append(tracks)
-                .append(", genre=").append(", artist=").append(artist).append(genre).append(", cover=").append(cover)
-                .append("]");
+        builder.append("AlbumArtistRelationshipDTO [id=").append(id).append(", name=").append(name).append(", tracks=")
+                .append(tracks).append(", genre=").append(genre).append(", cover=").append(cover).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cover, artist, genre, id, name, tracks);
+        return Objects.hash(cover, genre, id, name, tracks);
     }
 
     @Override
@@ -95,13 +84,12 @@ public class AlbumDTO {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof AlbumDTO)) {
+        if (!(obj instanceof AlbumArtistRelationshipDTO)) {
             return false;
         }
-        AlbumDTO other = (AlbumDTO) obj;
-        return Objects.equals(artist, other.artist) && Objects.equals(cover, other.cover)
-                && Objects.equals(genre, other.genre) && id == other.id && Objects.equals(name, other.name)
-                && Objects.equals(tracks, other.tracks);
+        AlbumArtistRelationshipDTO other = (AlbumArtistRelationshipDTO) obj;
+        return Objects.equals(cover, other.cover) && Objects.equals(genre, other.genre) && id == other.id
+                && Objects.equals(name, other.name) && Objects.equals(tracks, other.tracks);
     }
 
 }

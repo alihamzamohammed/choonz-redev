@@ -32,36 +32,36 @@ public class TrackController {
 
     @PostMapping("/create")
     public ResponseEntity<TrackDTO> create(@RequestBody Track track) {
-    	TrackDTO newTrack = service.create(track);
+        TrackDTO newTrack = service.create(track);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", String.valueOf(newTrack.getId()));
-        
+
         return new ResponseEntity<TrackDTO>(newTrack, headers, HttpStatus.CREATED);
     }
 
     @GetMapping("/read")
     public ResponseEntity<List<TrackDTO>> readAll() {
-    	List<TrackDTO> data = service.readAll();
-		return new ResponseEntity<List<TrackDTO>>(data, HttpStatus.OK);
+        List<TrackDTO> data = service.readAll();
+        return new ResponseEntity<List<TrackDTO>>(data, HttpStatus.OK);
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<TrackDTO> readById(@PathVariable long id) {
-    	 TrackDTO track = service.readById(id);
-         
-         return new ResponseEntity<TrackDTO>(track, HttpStatus.OK);
+    public ResponseEntity<TrackDTO> readById(@PathVariable int id) {
+        TrackDTO track = service.readById(id);
+
+        return new ResponseEntity<TrackDTO>(track, HttpStatus.OK);
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<TrackDTO> update(@RequestBody Track track, @PathVariable long id) {
+    public ResponseEntity<TrackDTO> update(@RequestBody Track track, @PathVariable int id) {
         TrackDTO updateTrack = service.update(track, id);
-    	 
-         return new ResponseEntity<TrackDTO>(updateTrack, HttpStatus.OK);
+
+        return new ResponseEntity<TrackDTO>(updateTrack, HttpStatus.OK);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable long id) {
-    	service.delete(id);
-    	return new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT); 
+    public ResponseEntity<Boolean> delete(@PathVariable int id) {
+        service.delete(id);
+        return new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     }
 }

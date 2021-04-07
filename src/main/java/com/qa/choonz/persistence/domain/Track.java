@@ -1,24 +1,30 @@
 package com.qa.choonz.persistence.domain;
 
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Track {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @NotNull
     @Size(max = 100)
@@ -28,8 +34,10 @@ public class Track {
     @ManyToOne
     private Album album;
 
-    @OneToMany(mappedBy = "Track", cascade = CascadeType.ALL)
-    private PlaylistTracks playlistTracks;
+    @OneToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @JoinColumn(name = "fk_artist_id")
+    private Artist artist;
 
     // in seconds
     private int duration;
@@ -38,26 +46,31 @@ public class Track {
 
     public Track() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public Track(long id, @NotNull @Size(max = 100) String name, Album album, PlaylistTracks playlistTracks, int duration,
-            String lyrics) {
+    public Track(int id, @NotNull @Size(max = 100) String name, Album album, int duration, String lyrics) {
         super();
         this.id = id;
         this.name = name;
         this.album = album;
-        this.playlistTracks = playlistTracks;
         this.duration = duration;
         this.lyrics = lyrics;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public Artist getArtist() {
+        return this.artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     public String getName() {
@@ -74,14 +87,6 @@ public class Track {
 
     public void setAlbum(Album album) {
         this.album = album;
-    }
-
-    public PlaylistTracks getPlaylistTracks() {
-        return playlistTracks;
-    }
-
-    public void setPlaylist(PlaylistTracks playlistTracks) {
-        this.playlistTracks = playlistTracks;
     }
 
     public int getDuration() {
@@ -104,14 +109,14 @@ public class Track {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Track [id=").append(id).append(", name=").append(name).append(", album=").append(album)
-                .append(", playlist=").append(playlistTracks).append(", duration=").append(duration).append(", lyrics=")
-                .append(lyrics).append("]");
+                .append(", duration=").append(duration).append(", lyrics=").append(lyrics).append(", artist=")
+                .append(artist).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(album, duration, id, lyrics, name, playlistTracks);
+        return Objects.hash(artist, album, duration, id, lyrics, name);
     }
 
     @Override
@@ -125,7 +130,7 @@ public class Track {
         Track other = (Track) obj;
         return Objects.equals(album, other.album) && duration == other.duration && id == other.id
                 && Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
-                && Objects.equals(playlistTracks, other.playlistTracks);
+                && Objects.equals(artist, other.artist);
     }
 
 }
