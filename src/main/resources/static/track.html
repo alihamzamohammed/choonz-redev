@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="/css/style.css" rel="stylesheet">
-    <link href="/css/Album.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/Album.css" rel="stylesheet">
     <!--Changed to BS5-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -73,7 +73,7 @@
                     </div>
                     <div class="col-5">
                         <div class="row w-25 ms-auto me-3">
-                            <button class="col-12 btn btn-primary mb-2">Edit Btn</button>
+                            <button class="col-12 btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#EditTrackModal">Edit Btn</button>
                             <button class="col-12 btn btn-primary">Delete</button>
                             <div class="col-12">
                                 <small style="float: right !important;">Track ID:</small>
@@ -129,5 +129,42 @@
         </script>
     </wrapper>
 </body>
+<!--Modals-->
+<div class="modal" tabindex="-1" id="EditTrackModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create a Playlist</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="EditTrack()">
+                <!--Prevent default etc-->
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Track Name</label>
+                        <input type="text" class="form-control" id="TrackName">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Track Duration</label>
+                        <input type="text" class="form-control" id="TrackDuration">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Lyrics</label>
+                        <textarea type="file" class="form-control" id="TrackLyrics"></textarea>
+                    </div>
+                    <select id="TrackAlbum">
+                        <!--Options are here-->
+                        <!--List of Albums or single-->
+                    </select>
+                    
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit Track</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </html>
