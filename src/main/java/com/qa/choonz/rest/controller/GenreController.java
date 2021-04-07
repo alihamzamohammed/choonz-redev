@@ -35,35 +35,35 @@ public class GenreController {
         GenreDTO newGenre = service.create(genre);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", String.valueOf(newGenre.getId()));
-        
+
         return new ResponseEntity<GenreDTO>(newGenre, headers, HttpStatus.CREATED);
     }
 
     @GetMapping("/read")
     public ResponseEntity<List<GenreDTO>> readAll() {
-    	List<GenreDTO> data = service.readAll();
-		return new ResponseEntity<List<GenreDTO>>(data, HttpStatus.OK);
+        List<GenreDTO> data = service.readAll();
+        return new ResponseEntity<List<GenreDTO>>(data, HttpStatus.OK);
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<GenreDTO> readById(@PathVariable long id) {
+    public ResponseEntity<GenreDTO> readById(@PathVariable int id) {
         GenreDTO genre = service.readById(id);
-        
+
         return new ResponseEntity<GenreDTO>(genre, HttpStatus.OK);
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<GenreDTO> update(@RequestBody Genre genre, @PathVariable long id) {
-    	 GenreDTO updateGenre = service.update(genre, id);
-    	 
-         return new ResponseEntity<GenreDTO>(updateGenre, HttpStatus.OK);
-    	 
+    public ResponseEntity<GenreDTO> update(@RequestBody Genre genre, @PathVariable int id) {
+        GenreDTO updateGenre = service.update(genre, id);
+
+        return new ResponseEntity<GenreDTO>(updateGenre, HttpStatus.OK);
+
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable long id) {
-    	service.delete(id);
-    	return new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);  
+    public ResponseEntity<Boolean> delete(@PathVariable int id) {
+        service.delete(id);
+        return new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     }
 
 }
