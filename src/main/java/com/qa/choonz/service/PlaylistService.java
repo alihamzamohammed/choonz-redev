@@ -57,7 +57,7 @@ public class PlaylistService {
         toUpdate.setPlaylistTracks(
                 playlist.getPlaylistTracks() != null ? playlist.getPlaylistTracks() : toUpdate.getPlaylistTracks());
         toUpdate.getPlaylistTracks().forEach(playlistTrack -> this.playlistTracksRepo.save(playlistTrack));
-        Playlist updated = this.repo.save(playlist);
+        Playlist updated = this.repo.save(toUpdate);
         return this.mapper.mapToDTO(updated);
     }
 
