@@ -1,12 +1,13 @@
 package com.qa.choonz.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.TrackNotFoundException;
+import com.qa.choonz.mapper.TracksMapper;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.TrackDTO;
@@ -15,46 +16,67 @@ import com.qa.choonz.rest.dto.TrackDTO;
 public class TrackService {
 
     private TrackRepository repo;
-    private ModelMapper mapper;
+    private TracksMapper mapper;
 
-    public TrackService(TrackRepository repo, ModelMapper mapper) {
+    public TrackService(TrackRepository repo, TracksMapper mapper) {
         super();
         this.repo = repo;
         this.mapper = mapper;
     }
 
-    private TrackDTO mapToDTO(Track track) {
-        return this.mapper.map(track, TrackDTO.class);
-    }
-
     public TrackDTO create(Track track) {
-        Track created = this.repo.save(track);
-        return this.mapToDTO(created);
+        Track newTrack = repo.save(track);
+        return mapper.mapToDTO(newTrack);
     }
 
-    public List<TrackDTO> read() {
-        return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
+    public List<TrackDTO> readAll() {
+        List<Track> tracks = repo.findAll();
+        List<TrackDTO> trackDTOs = new ArrayList<TrackDTO>();
+
+        tracks.forEach(t -> trackDTOs.add(mapper.mapToDTO(t)));
+        return trackDTOs;
     }
 
-    public TrackDTO read(long id) {
-        Track found = this.repo.findById(id).orElseThrow(TrackNotFoundException::new);
-        return this.mapToDTO(found);
+    public TrackDTO readById(int id) {
+        Optional<Track> track = repo.findById(id);
+
+        if (track.isPresent()) {
+            return mapper.mapToDTO(track.get());
+        } else {
+            throw new TrackNotFoundException();
+        }
     }
 
-    public TrackDTO update(Track track, long id) {
-        Track toUpdate = this.repo.findById(id).orElseThrow(TrackNotFoundException::new);
-        toUpdate.setName(track.getName());
-        toUpdate.setAlbum(track.getAlbum());
-        toUpdate.setDuration(track.getDuration());
-        toUpdate.setLyrics(track.getLyrics());
-        toUpdate.setPlaylist(track.getPlaylist());
-        Track updated = this.repo.save(toUpdate);
-        return this.mapToDTO(updated);
+    public TrackDTO update(Track track, int id) {
+        Optional<Track> trackInDbOpt = repo.findById(id);
+        Track trackInDb;
+
+        if (trackInDbOpt.isPresent()) {
+            trackInDb = trackInDbOpt.get();
+        } else {
+            throw new TrackNotFoundException();
+        }
+
+        trackInDb.setName(track.getName());
+        trackInDb.setAlbum(track.getAlbum());
+        trackInDb.setDuration(track.getDuration());
+        trackInDb.setLyrics(track.getLyrics());
+
+        Track updatedTrack = repo.save(trackInDb);
+        return mapper.mapToDTO(updatedTrack);
     }
 
-    public boolean delete(long id) {
-        this.repo.deleteById(id);
-        return !this.repo.existsById(id);
+    public boolean delete(int id) {
+        if (!repo.existsById(id)) {
+            throw new TrackNotFoundException();
+        }
+
+        repo.deleteById(id);
+
+        boolean exists = repo.existsById(id);
+
+        return !exists;
+
     }
 
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.qa.choonz.persistence.domain.Track;
 
 @Repository
-public interface TrackRepository extends JpaRepository<Track, Long> {
+public interface TrackRepository extends JpaRepository<Track, Integer> {
 
 }
