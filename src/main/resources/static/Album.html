@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/Album.css" rel="stylesheet">
     <!--Changed to BS5-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -59,56 +60,37 @@
         <!-- /Navbar -->
         <main class="flex-fill">
             <div class="container-fluid">
-                <!-- Search -->
-                <div class="col-lg-6 col-md-6 col-12 mx-auto mt-5">
-                    <div class="input-group mb-3 input-group-lg">
-                        <input type="text" name="user" class="form-control" placeholder="Search for some Choonz"
-                            style="background-color: var(--elementBgColor);">
-                        <div class="input-group-append">
-                            <select class="form-control" name="SearchType"
-                                style="padding: .5rem 1rem;font-size: 1.25rem;border-radius: .3rem;appearance: auto; background-color: var(--elementBgColor);">
-                                <option value="+91">Albums</option>
-                                <option value="+351">Artists</option>
-                                <option value="+1">Genre</option>
-                                <option value="+1">Playlists</option>
-                                <option value="+1">Tracks</option>
-                                <option value="+1" selected>All</option>
-                            </select>
+                <!--Album Info / CRUD-->
+                <div class="row mt-5">
+                    <img src="./img/Choonz.png" alt="Album Art" class="col-3" />
+                    <div class="col-4">
+                        <div class="ms-5 ">
+                            <h2>Album name</h2>
+                            <h2>Artist name(link)</h2>
+                            <h2>Genre(s)</h2>
+                        </div>
+                    </div>
+                    <div class="col-5">
+                        <div class="row w-25 ms-auto me-3">
+                            <button class="col-12 btn btn-primary mb-2" data-bs-target="#EditAlbumModal" data-bs-toggle="modal">Edit Btn</button>
+                            <button class="col-12  btn btn-primary">Delete</button>
+                            <div class="col-12">
+                                <small style="float: right !important;">Album ID:</small>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <!-- /Search -->
-                <!--Albums List-->
-                <h2 class="ms-5">Albums</h2>
-                <div id="AlbumsList" class="row justify-content-center">
+                <!--Songs-->
+                <h2 class="mt-5">Songs</h2>
+                <div id="SongsList" class="row justify-content-center">
                     <!--Add Albums here that are loaded from backend-->
-                    
-                </div>
-                <div class="text-center">
-                    <button class="mx-auto btn btn-lg btn-primary w-25">Load More Albums</button>
-                </div>
-                <!--End of Albums-->
-
-                <!--Playlist List-->
-
-                <h2 class="ms-5">Playlists</h2>
-                <div id="PlaylistList" class="row justify-content-center">
-                    <!--Add playlists here that are loaded from backend-->
-                    <div class="ListItem col-2 ms-5 mb-5 text-center" style="border-radius: 12px;">
-                        <img src="./img/Choonz.png" class="img-fluid mt-3" alt="Playlist Cover"
-                            style="border-radius: 12px;">
-                        <div class="text-center">
-                            <h4>Playlist name</h4>
-                            <h4>Description</h4>
-                            <h4>Number of tracks</h4>
-                        </div>
+                    <div class="SongItem col-1 ms-5 mb-5 text-center" style="border-radius: 12px;">
+                            <h4>Name</h4>
+                            <h4>Duration</h4>
+                            <button class="btn btn-lg btn-primary">Load song</button>
                     </div>
                 </div>
-                <div class="text-center">
-                    <button class="mx-auto btn btn-lg btn-primary w-25">Load More Playlists</button>
-                </div>
-
-                <!--End of playlists-->
             </div>
         </main>
         <footer class="mt-5" style="background-color: var(--elementBgColor)">
@@ -125,4 +107,48 @@
         </script>
     </wrapper>
 </body>
+<!--Modals-->
+<div class="modal" tabindex="-1" id="EditAlbumModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit an PUT ALBUM NAME HERE Album</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="EditAlbum()">
+                <!--Prevent default etc-->
+                <div class="modal-body">
+
+                    <!--Load info into here-->
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Album Name</label>
+                        <input type="text" class="form-control" id="AlbumName">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Album Cover Art</label>
+                        <input type="file" class="form-control" id="AlbumCoverArt">
+                    </div>
+                    <select class="form-control" name="Artists" id="Artists"
+                        style="background-color: var(--elementBgColor);">
+                        <!--<option value="+91">Albums</option> Example option needs to be made make sure first is set to select 
+                                    so that -->
+
+                    </select>
+
+                    <select class="form-control" name="Genres" id="Genres"
+                        style="background-color: var(--elementBgColor);">
+                        <!--<option value="+91">Albums</option> Example option needs to be made make sure first is set to select 
+                            so that -->
+
+                    </select>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit Album</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </html>

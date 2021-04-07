@@ -12,7 +12,7 @@
 </head>
 
 <body style="background-color: var(--bg);">
-    <wrapper class="d-flex flex-column">
+    <wrapper class="d-flex flex-column min-vh-100">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: var(--elementBgColor)">
             <div class="container-fluid">
@@ -57,58 +57,38 @@
             </div>
         </nav>
         <!-- /Navbar -->
-        <main class="flex-fill">
-            <div class="container-fluid">
-                <!-- Search -->
-                <div class="col-lg-6 col-md-6 col-12 mx-auto mt-5">
-                    <div class="input-group mb-3 input-group-lg">
-                        <input type="text" name="user" class="form-control" placeholder="Search for some Choonz"
-                            style="background-color: var(--elementBgColor);">
-                        <div class="input-group-append">
-                            <select class="form-control" name="SearchType"
-                                style="padding: .5rem 1rem;font-size: 1.25rem;border-radius: .3rem;appearance: auto; background-color: var(--elementBgColor);">
-                                <option value="+91">Albums</option>
-                                <option value="+351">Artists</option>
-                                <option value="+1">Genre</option>
-                                <option value="+1">Playlists</option>
-                                <option value="+1">Tracks</option>
-                                <option value="+1" selected>All</option>
-                            </select>
-                        </div>
+        <main class="flex-fill d-flex align-items-center">
+            <div class="container-fluid text-center">
+                <!--Sign Up Form-->
+                <div class="row">
+                    <div style="background-color: var(--itemBgColor);height:600px;border-radius: 12px;" class="col-3 mx-auto">
+                        <h2 class="mt-2">Sign Up</h2>
+                        <!--Send data to SubmitForm and then post to endpoint-->
+                        <form onsubmit="SubmitForm()" style="position: relative;">
+                            <div class="form-group mt-3 mb-3">
+                                <label for="exampleFormControlInput1" style="float:left;font-size:20px;">Username</label>
+                                <input type="text" class="form-control form-control-lg" id="UName"
+                                 placeholder="Choose a username" required>
+                            </div>
+                            <div class="form-group mt-3 mb-3">
+                                <label for="exampleFormControlInput1" style="float:left;font-size:20px;">Password</label>
+                                <input type="text" class="form-control form-control-lg" id="Password"
+                                    placeholder="Choose a password" required>
+                            </div>
+                            <div class="form-group mt-3 mb-3">
+                                <label for="exampleFormControlInput1" style="float:left;font-size:20px;">Confirm Password</label>
+                                <input type="text" class="form-control form-control-lg" id="CPassword"
+                                     placeholder="Confirm password" required>
+                            </div>
+                            <div class="form-group mt-3 mb-3">
+                                <label for="exampleFormControlInput1" style="float:left;font-size:20px;">Email address</label>
+                                <input type="email" class="form-control form-control-lg" id="Email"
+                                    placeholder="name@example.com" required>
+                            </div>
+                            <button style="position: absolute;right:0" class="btn btn-primary btn-lg">Sign Up</button>
+                        </form>
                     </div>
                 </div>
-                <!-- /Search -->
-                <!--Albums List-->
-                <h2 class="ms-5">Albums</h2>
-                <div id="AlbumsList" class="row justify-content-center">
-                    <!--Add Albums here that are loaded from backend-->
-                    
-                </div>
-                <div class="text-center">
-                    <button class="mx-auto btn btn-lg btn-primary w-25">Load More Albums</button>
-                </div>
-                <!--End of Albums-->
-
-                <!--Playlist List-->
-
-                <h2 class="ms-5">Playlists</h2>
-                <div id="PlaylistList" class="row justify-content-center">
-                    <!--Add playlists here that are loaded from backend-->
-                    <div class="ListItem col-2 ms-5 mb-5 text-center" style="border-radius: 12px;">
-                        <img src="./img/Choonz.png" class="img-fluid mt-3" alt="Playlist Cover"
-                            style="border-radius: 12px;">
-                        <div class="text-center">
-                            <h4>Playlist name</h4>
-                            <h4>Description</h4>
-                            <h4>Number of tracks</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <button class="mx-auto btn btn-lg btn-primary w-25">Load More Playlists</button>
-                </div>
-
-                <!--End of playlists-->
             </div>
         </main>
         <footer class="mt-5" style="background-color: var(--elementBgColor)">
@@ -125,4 +105,5 @@
         </script>
     </wrapper>
 </body>
+
 </html>
