@@ -77,13 +77,14 @@
                 <!--Albums List-->
                 <div class="col-12">
                     <h2 class="ms-5" style="float: left;">Genres</h2>
-                    <button style="float: right;" class="btn btn-primary btn-lg me-3">Create New Genre</button>
+                    <button style="float: right;" class="btn btn-primary btn-lg me-3" data-bs-toggle="modal" data-bs-target="#CreateGenreModal">Create New Genre</button>
                 </div>
                 <div id="AlbumsList" class="row justify-content-center mt-5">
                     <!--Add Albums here that are loaded from backend-->
                     <div class="ListItem col-2 ms-5 mb-5 text-center" style="border-radius: 12px;">
                         <div class="text-center">
                             <h4>Genre</h4>
+                            <h4>Description</h4>
                         </div>
                     </div>
                 </div>
@@ -107,5 +108,37 @@
         </script>
     </wrapper>
 </body>
+<!--Modals-->
+<div class="modal" tabindex="-1" id="CreateGenreModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create a Genre</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="CreateGenre()">
+                <!--Prevent default etc-->
+                <div class="modal-body">
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Genre Name</label>
+                        <input type="text" class="form-control" id="GenreName">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Genre Description</label>
+                        <input type="text" class="form-control" id="GenreDescription">
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create Genre</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 </html>
