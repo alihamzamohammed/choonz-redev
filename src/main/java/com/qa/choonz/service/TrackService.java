@@ -24,65 +24,59 @@ public class TrackService {
         this.mapper = mapper;
     }
 
-
     public TrackDTO create(Track track) {
         Track newTrack = repo.save(track);
         return mapper.mapToDTO(newTrack);
     }
 
     public List<TrackDTO> readAll() {
-    	 List <Track> tracks = repo.findAll(); 
-         List<TrackDTO> trackDTOs = new ArrayList<TrackDTO>();
-         
-         tracks.forEach(t -> trackDTOs.add(mapper.mapToDTO(t)));
-         return trackDTOs;
+        List<Track> tracks = repo.findAll();
+        List<TrackDTO> trackDTOs = new ArrayList<TrackDTO>();
+
+        tracks.forEach(t -> trackDTOs.add(mapper.mapToDTO(t)));
+        return trackDTOs;
     }
 
-    public TrackDTO readById(long id) {
-    	 Optional <Track> track = repo.findById(id);
-         
-         if (track.isPresent()) {
-  			return mapper.mapToDTO(track.get());
-  		} else {
-  			throw new TrackNotFoundException();
-  		}
-      }
-    
+    public TrackDTO readById(int id) {
+        Optional<Track> track = repo.findById(id);
 
-    public TrackDTO update(Track track, long id) {
+        if (track.isPresent()) {
+            return mapper.mapToDTO(track.get());
+        } else {
+            throw new TrackNotFoundException();
+        }
+    }
+
+    public TrackDTO update(Track track, int id) {
         Optional<Track> trackInDbOpt = repo.findById(id);
         Track trackInDb;
-    	
-        if(trackInDbOpt.isPresent()) {
-        	trackInDb = trackInDbOpt.get();
+
+        if (trackInDbOpt.isPresent()) {
+            trackInDb = trackInDbOpt.get();
         } else {
-        	throw new TrackNotFoundException();
+            throw new TrackNotFoundException();
         }
-        
+
         trackInDb.setName(track.getName());
         trackInDb.setAlbum(track.getAlbum());
         trackInDb.setDuration(track.getDuration());
         trackInDb.setLyrics(track.getLyrics());
-        trackInDb.setPlaylist(track.getPlaylist());
-        
+
         Track updatedTrack = repo.save(trackInDb);
         return mapper.mapToDTO(updatedTrack);
     }
 
-    public boolean delete(long id) {
-    	if (!repo.existsById(id)) {
-			throw new TrackNotFoundException();
-		}
-    	
-		repo.deleteById(id);
+    public boolean delete(int id) {
+        if (!repo.existsById(id)) {
+            throw new TrackNotFoundException();
+        }
 
-		boolean exists = repo.existsById(id);
+        repo.deleteById(id);
 
-		return !exists;
-		
+        boolean exists = repo.existsById(id);
+
+        return !exists;
+
     }
-    
-    
-    
-}
 
+}

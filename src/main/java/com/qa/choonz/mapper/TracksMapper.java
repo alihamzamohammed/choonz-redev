@@ -2,25 +2,26 @@ package com.qa.choonz.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.rest.dto.TrackDTO;
 
-
+@Component
 public class TracksMapper {
-private ModelMapper modelMapper;
-	
+	private ModelMapper modelMapper;
+
 	@Autowired
-	public TracksMapper (ModelMapper modelMapper) {
+	public TracksMapper(ModelMapper modelMapper) {
 		this.modelMapper = modelMapper;
 	}
-	
+
 	public TrackDTO mapToDTO(Track track) {
 		return this.modelMapper.map(track, TrackDTO.class);
 	}
-	
-	public Track mapToGenre(TrackDTO trackDTO) {
-        return this.modelMapper.map(trackDTO, Track.class);
+
+	public Track mapToTrack(TrackDTO trackDTO) {
+		return this.modelMapper.map(trackDTO, Track.class);
 	}
-	
+
 }

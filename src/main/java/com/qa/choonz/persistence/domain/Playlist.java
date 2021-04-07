@@ -3,9 +3,9 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,11 +13,14 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class Playlist {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotNull
@@ -35,12 +38,12 @@ public class Playlist {
     @Column(unique = true)
     private String artwork;
 
-    @OneToMany(mappedBy = "Playlist", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "playlist", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<PlaylistTracks> playlistTracks;
 
     public Playlist() {
         super();
-  
     }
 
     public Playlist(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
@@ -53,7 +56,7 @@ public class Playlist {
         this.playlistTracks = playlistTracks;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -117,7 +120,8 @@ public class Playlist {
         }
         Playlist other = (Playlist) obj;
         return Objects.equals(artwork, other.artwork) && Objects.equals(description, other.description)
-                && id == other.id && Objects.equals(name, other.name) && Objects.equals(playlistTracks, other.playlistTracks);
+                && id == other.id && Objects.equals(name, other.name)
+                && Objects.equals(playlistTracks, other.playlistTracks);
     }
 
 }

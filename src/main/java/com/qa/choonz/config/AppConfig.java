@@ -12,7 +12,7 @@ public class AppConfig {
 
     @Bean
     @Scope("prototype")
-    public ModelMapper mapper() {
+    public ModelMapper modelMapper() {
         return new ModelMapper();
     }
 

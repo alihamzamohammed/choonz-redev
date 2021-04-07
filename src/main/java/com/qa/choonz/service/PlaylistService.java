@@ -1,42 +1,48 @@
 package com.qa.choonz.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 import com.qa.choonz.exception.PlaylistNotFoundException;
 import com.qa.choonz.mapper.PlaylistMapper;
 import com.qa.choonz.persistence.domain.Playlist;
+import com.qa.choonz.persistence.domain.PlaylistTracks;
 import com.qa.choonz.persistence.repository.PlaylistRepository;
+import com.qa.choonz.persistence.repository.PlaylistTracksRepository;
 import com.qa.choonz.rest.dto.PlaylistDTO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PlaylistService {
 
     private PlaylistRepository repo;
+    private PlaylistTracksRepository playlistTracksRepo;
     private PlaylistMapper mapper;
 
     @Autowired
-    public PlaylistService(PlaylistRepository repo, PlaylistMapper mapper) {
+    public PlaylistService(PlaylistRepository repo, PlaylistMapper mapper,
+            PlaylistTracksRepository playlistTracksRepo) {
         super();
         this.repo = repo;
         this.mapper = mapper;
+        this.playlistTracksRepo = playlistTracksRepo;
     }
 
     public PlaylistDTO create(Playlist playlist) {
         Playlist created = this.repo.save(playlist);
+        created.getPlaylistTracks().forEach(
+                playlistTrack -> this.playlistTracksRepo.save(new PlaylistTracks(created, playlistTrack.getTrack())));
         return this.mapper.mapToDTO(created);
     }
 
     public List<PlaylistDTO> read() {
-      
-    	List<Playlist> playlistDTO = this.repo.findAll();
-    	
-    	return this.mapper.mapToDTO(playlistDTO);
-  
+
+        List<Playlist> playlistDTO = this.repo.findAll();
+
+        return this.mapper.mapToDTO(playlistDTO);
+
     }
 
     public PlaylistDTO read(int id) {
@@ -49,13 +55,21 @@ public class PlaylistService {
         toUpdate.setName(playlist.getName());
         toUpdate.setDescription(playlist.getDescription());
         toUpdate.setArtwork(playlist.getArtwork());
-        toUpdate.setTracks(playlist.getTracks());
+        toUpdate.setPlaylistTracks(playlist.getPlaylistTracks());
+        toUpdate.getPlaylistTracks().forEach(playlistTrack -> this.playlistTracksRepo.save(playlistTrack));
         Playlist updated = this.repo.save(playlist);
         return this.mapper.mapToDTO(updated);
     }
 
     public boolean delete(int id) {
-        this.repo.deleteById(id);
+        Optional<Playlist> optional = this.repo.findById(id);
+        if (optional.isPresent()) {
+            optional.get().getPlaylistTracks()
+                    .forEach(playlistTrack -> this.playlistTracksRepo.deleteById(playlistTrack.getId()));
+            this.repo.deleteById(id);
+        } else {
+            throw new PlaylistNotFoundException();
+        }
         return !this.repo.existsById(id);
     }
 
