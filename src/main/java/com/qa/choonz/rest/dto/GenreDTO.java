@@ -10,19 +10,19 @@ public class GenreDTO {
     private long id;
     private String name;
     private String description;
-    private List<Album> albums;
+    // private List<Album> albums;
 
     public GenreDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public GenreDTO(long id, String name, String description, List<Album> albums) {
+    public GenreDTO(long id, String name, String description) {// }, List<Album> albums) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
-        this.albums = albums;
+        // this.albums = albums;
     }
 
     public long getId() {
@@ -49,25 +49,25 @@ public class GenreDTO {
         this.description = description;
     }
 
-    public List<Album> getAlbums() {
-        return albums;
-    }
+    // public List<Album> getAlbums() {
+    // return albums;
+    // }
 
-    public void setAlbums(List<Album> albums) {
-        this.albums = albums;
-    }
+    // public void setAlbums(List<Album> albums) {
+    // this.albums = albums;
+    // }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("GenreDTO [id=").append(id).append(", name=").append(name).append(", description=")
-                .append(description).append(", albums=").append(albums).append("]");
+                .append(description).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(albums, description, id, name);
+        return Objects.hash(description, id, name);
     }
 
     @Override
@@ -79,8 +79,7 @@ public class GenreDTO {
             return false;
         }
         GenreDTO other = (GenreDTO) obj;
-        return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && id == other.id
-                && Objects.equals(name, other.name);
+        return Objects.equals(description, other.description) && id == other.id && Objects.equals(name, other.name);
     }
 
 }

@@ -3,8 +3,6 @@ package com.qa.choonz.rest.dto;
 import java.util.List;
 import java.util.Objects;
 
-import com.qa.choonz.persistence.domain.Artist;
-import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Track;
 
 public class AlbumDTO {
@@ -12,8 +10,8 @@ public class AlbumDTO {
     private int id;
     private String name;
     private List<Track> tracks;
-    private Artist artist;
-    private Genre genre;
+    private ArtistDTO artist;
+    private GenreDTO genre;
     private String cover;
 
     public AlbumDTO() {
@@ -21,7 +19,7 @@ public class AlbumDTO {
         // TODO Auto-generated constructor stub
     }
 
-    public AlbumDTO(int id, String name, List<Track> tracks, Artist artist, Genre genre, String cover) {
+    public AlbumDTO(int id, String name, List<Track> tracks, GenreDTO genre, String cover, ArtistDTO artist) {
         super();
         this.id = id;
         this.name = name;
@@ -55,19 +53,19 @@ public class AlbumDTO {
         this.tracks = tracks;
     }
 
-    public Artist getArtist() {
+    public ArtistDTO getArtist() {
         return artist;
     }
 
-    public void setArtist(Artist artist) {
+    public void setArtist(ArtistDTO artist) {
         this.artist = artist;
     }
 
-    public Genre getGenre() {
+    public GenreDTO getGenre() {
         return genre;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(GenreDTO genre) {
         this.genre = genre;
     }
 
@@ -83,14 +81,14 @@ public class AlbumDTO {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("AlbumDTO [id=").append(id).append(", name=").append(name).append(", tracks=").append(tracks)
-                .append(", artist=").append(artist).append(", genre=").append(genre).append(", cover=").append(cover)
+                .append(", genre=").append(", artist=").append(artist).append(genre).append(", cover=").append(cover)
                 .append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, cover, genre, id, name, tracks);
+        return Objects.hash(cover, artist, genre, id, name, tracks);
     }
 
     @Override
