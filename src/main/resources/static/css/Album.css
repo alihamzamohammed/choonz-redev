@@ -1,0 +1,4 @@
+.SongItem{
+    background-color: var(--itemBgColor);
+    height:130px;
+  }
