@@ -76,7 +76,7 @@
                 <!--Albums List-->
                 <div class="col-12">
                     <h2 class="ms-5" style="float: left;">Playlists</h2>
-                    <button style="float: right;" class="btn btn-primary btn-lg me-3">Create New Playlist</button>
+                    <button style="float: right;" class="btn btn-primary btn-lg me-3" data-bs-toggle="modal" data-bs-target="#CreatePlaylistModal">Create New Playlist</button>
                 </div>
                 <div id="PlaylistList" class="row justify-content-center mt-5">
                     <!--Add Albums here that are loaded from backend-->
@@ -109,5 +109,40 @@
         </script>
     </wrapper>
 </body>
+<!--Modals-->
+<div class="modal" tabindex="-1" id="CreatePlaylistModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create a Playlist</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="CreatePlaylist()">
+                <!--Prevent default etc-->
+                <div class="modal-body">
 
+
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Name</label>
+                        <input type="text" class="form-control" id="PlaylistName">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Description</label>
+                        <input type="text" class="form-control" id="PlaylistDescription">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Artwork</label>
+                        <input type="file" class="form-control" id="PlaylistCoverArt">
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create Playlist</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </html>

@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-4">
                         <div class="row w-25 ms-auto me-3">
-                            <button class="col-12 btn btn-primary mb-2">Edit Btn</button>
+                            <button class="col-12 btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#EditPlaylistModal">Edit Btn</button>
                             <button class="col-12 btn btn-primary">Delete</button>
                             <div class="col-12">
                                 <small style="float: right !important;">Playlist ID:</small>
@@ -118,5 +118,40 @@
         </script>
     </wrapper>
 </body>
+<!--Modals-->
+<div class="modal" tabindex="-1" id="EditPlaylistModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit a Playlist</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="EditPlaylist()">
+                <!--Prevent default etc-->
+                <div class="modal-body">
 
+
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Name</label>
+                        <input type="text" class="form-control" id="PlaylistName">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Description</label>
+                        <input type="text" class="form-control" id="PlaylistName">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Artwork</label>
+                        <input type="file" class="form-control" id="PlaylistCoverArt">
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit Playlist</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </html>
