@@ -22,7 +22,7 @@ public class GenreService {
     public GenreService(GenreRepository genreRepo, GenreMapper map) {
         super();
         this.genreRepo = genreRepo;
-        this.genreMap = genreMap;
+        this.genreMap = map;
     }
 
     public GenreDTO create(Genre genre) {

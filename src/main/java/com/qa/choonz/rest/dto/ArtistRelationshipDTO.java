@@ -1,23 +1,20 @@
 package com.qa.choonz.rest.dto;
 
-import java.util.List;
 import java.util.Objects;
 
-public class ArtistDTO {
+public class ArtistRelationshipDTO {
 
     private int id;
     private String name;
-    private List<AlbumRelationshipDTO> albums;
 
-    public ArtistDTO() {
+    public ArtistRelationshipDTO() {
         super();
     }
 
-    public ArtistDTO(int id, String name, List<AlbumRelationshipDTO> albums) {
+    public ArtistRelationshipDTO(int id, String name) {
         super();
         this.id = id;
         this.name = name;
-        this.albums = albums;
     }
 
     public int getId() {
@@ -36,19 +33,10 @@ public class ArtistDTO {
         this.name = name;
     }
 
-    public List<AlbumRelationshipDTO> getAlbums() {
-        return albums;
-    }
-
-    public void setAlbums(List<AlbumRelationshipDTO> albums) {
-        this.albums = albums;
-    }
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("ArtistDTO [id=").append(id).append(", name=").append(name).append(", albums=").append(albums)
-                .append("]");
+        builder.append("ArtistRelationshipDTO [id=").append(id).append(", name=").append(name).append("]");
         return builder.toString();
     }
 
@@ -62,11 +50,11 @@ public class ArtistDTO {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof ArtistDTO)) {
+        if (!(obj instanceof ArtistRelationshipDTO)) {
             return false;
         }
-        ArtistDTO other = (ArtistDTO) obj;
-        return Objects.equals(albums, other.albums) && id == other.id && Objects.equals(name, other.name);
+        ArtistRelationshipDTO other = (ArtistRelationshipDTO) obj;
+        return id == other.id && Objects.equals(name, other.name);
     }
 
 }
