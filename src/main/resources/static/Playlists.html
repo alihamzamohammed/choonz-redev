@@ -8,6 +8,9 @@
     <!--Changed to BS5-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <!--Added font awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <title>Choonz Music</title>
 </head>
 
@@ -63,52 +66,36 @@
                 <div class="col-lg-6 col-md-6 col-12 mx-auto mt-5">
                     <div class="input-group mb-3 input-group-lg">
                         <input type="text" name="user" class="form-control" placeholder="Search for some Choonz"
-                            style="background-color: var(--elementBgColor);">
+                            style="background-color: var(--elementBgColor);border: 0px;">
                         <div class="input-group-append">
-                            <select class="form-control" name="SearchType"
-                                style="padding: .5rem 1rem;font-size: 1.25rem;border-radius: .3rem;appearance: auto; background-color: var(--elementBgColor);">
-                                <option value="+91">Albums</option>
-                                <option value="+351">Artists</option>
-                                <option value="+1">Genre</option>
-                                <option value="+1">Playlists</option>
-                                <option value="+1">Tracks</option>
-                                <option value="+1" selected>All</option>
-                            </select>
+                            <button style="border-top-right-radius: 12px;border-bottom-right-radius: 12px;background-color: var(--elementBgColor);border:0px;"><i class="fas fa-search fa-5x ms-3"></i></button>
                         </div>
                     </div>
                 </div>
                 <!-- /Search -->
                 <!--Albums List-->
-                <h2 class="ms-5">Albums</h2>
-                <div id="AlbumsList" class="row justify-content-center">
+                <div class="col-12">
+                    <h2 class="ms-5" style="float: left;">Playlists</h2>
+                    <button style="float: right;" class="btn btn-primary btn-lg me-3" data-bs-toggle="modal" data-bs-target="#CreatePlaylistModal">Create New Playlist</button>
+                </div>
+                <div id="AlbumsList" class="row justify-content-center mt-5">
                     <!--Add Albums here that are loaded from backend-->
-                    
-                </div>
-                <div class="text-center">
-                    <button class="mx-auto btn btn-lg btn-primary w-25">Load More Albums</button>
-                </div>
-                <!--End of Albums-->
-
-                <!--Playlist List-->
-
-                <h2 class="ms-5">Playlists</h2>
-                <div id="PlaylistList" class="row justify-content-center">
-                    <!--Add playlists here that are loaded from backend-->
-                    <div class="ListItem col-2 ms-5 mb-5 text-center" style="border-radius: 12px;">
-                        <img src="./img/Choonz.png" class="img-fluid mt-3" alt="Playlist Cover"
-                            style="border-radius: 12px;">
+                    <div id="AlbumsList" class="row justify-content-center mt-5">
+                    <!--Add Albums here that are loaded from backend-->
+                    <div class="ListItem col-2 ms-5 mb-5 text-center mt-5" style="border-radius: 12px;">
                         <div class="text-center">
-                            <h4>Playlist name</h4>
-                            <h4>Description</h4>
-                            <h4>Number of tracks</h4>
+                            <h4>Track name</h4>
+                            <h4>Artist Name</h4>
+                            <h4>Album name</h4>
+                            <h4>Genre(s)</h4>
                         </div>
                     </div>
+                </div>
                 </div>
                 <div class="text-center">
                     <button class="mx-auto btn btn-lg btn-primary w-25">Load More Playlists</button>
                 </div>
-
-                <!--End of playlists-->
+                <!--End of Albums-->
             </div>
         </main>
         <footer class="mt-5" style="background-color: var(--elementBgColor)">
@@ -125,4 +112,40 @@
         </script>
     </wrapper>
 </body>
+<!--Modals-->
+<div class="modal" tabindex="-1" id="CreatePlaylistModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create a Playlist</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="CreatePlaylist()">
+                <!--Prevent default etc-->
+                <div class="modal-body">
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Name</label>
+                        <input type="text" class="form-control" id="PlaylistName">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Description</label>
+                        <input type="text" class="form-control" id="PlaylistDescription">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Playlist Artwork</label>
+                        <input type="file" class="form-control" id="PlaylistCoverArt">
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create Playlist</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </html>
