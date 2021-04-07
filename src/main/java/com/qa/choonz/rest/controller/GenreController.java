@@ -41,17 +41,17 @@ public class GenreController {
     }
 
     @GetMapping("/read/{id}")
-    public ResponseEntity<GenreDTO> readById(@PathVariable long id) {
+    public ResponseEntity<GenreDTO> readById(@PathVariable int id) {
         return new ResponseEntity<>(this.service.readById(id), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<GenreDTO> update(@RequestBody Genre genre, @PathVariable long id) {
+    public ResponseEntity<GenreDTO> update(@RequestBody Genre genre, @PathVariable int id) {
         return new ResponseEntity<>(this.service.update(genre, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<GenreDTO> delete(@PathVariable long id) {
+    public ResponseEntity<GenreDTO> delete(@PathVariable int id) {
         return this.service.delete(id) ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
