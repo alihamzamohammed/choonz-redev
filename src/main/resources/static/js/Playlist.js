@@ -128,8 +128,10 @@ let playlistDeleteRequest = async (playlist) => {
   (function() {
 
     // var playlist = parseInt(document.querySelector("#PlaylistList").value);
+  
+    const params = new URLSearchParams(window.location.search)
+    let playlist = params.get("PlaylistId")
 
-    
 
     fetch(`http://localhost:8082/playlist/${playlist}`, {
     method: "GET"
