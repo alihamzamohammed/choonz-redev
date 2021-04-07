@@ -1,6 +1,5 @@
 package com.qa.choonz.persistence.domain;
 
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,7 +38,7 @@ public class Track {
     private Artist artist;
 
     // in seconds
-    private int duration;
+    private Integer duration;
 
     private String lyrics;
 
@@ -48,7 +46,7 @@ public class Track {
         super();
     }
 
-    public Track(int id, @NotNull @Size(max = 100) String name, Album album, int duration, String lyrics) {
+    public Track(int id, @NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics) {
         super();
         this.id = id;
         this.name = name;
@@ -89,11 +87,11 @@ public class Track {
         this.album = album;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
