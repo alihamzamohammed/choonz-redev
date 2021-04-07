@@ -3,7 +3,6 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,7 +44,6 @@ public class Playlist {
 
     public Playlist() {
         super();
-
     }
 
     public Playlist(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
@@ -58,7 +56,7 @@ public class Playlist {
         this.playlistTracks = playlistTracks;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
