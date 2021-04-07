@@ -47,6 +47,38 @@ public class Genre {
         this.albums = albums;
     }
 
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Album> getAlbums() {
+        return this.albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
