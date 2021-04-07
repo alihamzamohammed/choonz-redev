@@ -10,7 +10,7 @@ public class TrackDTO {
 	private int id;
 	private String name;
 	private AlbumRelationshipDTO album;
-	private int duration;
+	private Integer duration;
 	private String lyrics;
 	private ArtistRelationshipDTO artist;
 
@@ -18,7 +18,7 @@ public class TrackDTO {
 		super();
 	}
 
-	public TrackDTO(int id, String name, AlbumRelationshipDTO album, int duration, String lyrics,
+	public TrackDTO(int id, String name, AlbumRelationshipDTO album, Integer duration, String lyrics,
 			ArtistRelationshipDTO artist) {
 		super();
 		this.id = id;
@@ -54,11 +54,11 @@ public class TrackDTO {
 		this.album = album;
 	}
 
-	public int getDuration() {
+	public Integer getDuration() {
 		return duration;
 	}
 
-	public void setDuration(int duration) {
+	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
 
