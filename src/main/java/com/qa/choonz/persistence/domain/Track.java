@@ -2,6 +2,7 @@ package com.qa.choonz.persistence.domain;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,8 +33,8 @@ public class Track {
     @ManyToOne
     private Album album;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "fk_artist_id")
     private Artist artist;
 
