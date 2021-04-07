@@ -27,60 +27,60 @@ public class GenreService {
 
     public GenreDTO create(Genre genre) {
         Genre newGenre = genreRepo.save(genre);
-        
+
         return genreMap.mapToDTO(newGenre);
-        
+
     }
 
     public List<GenreDTO> readAll() {
-      List <Genre> genres = genreRepo.findAll(); 
-      List<GenreDTO> genreDTOs = new ArrayList<GenreDTO>();
-      
-      genres.forEach(g -> genreDTOs.add(genreMap.mapToDTO(g)));
-      return genreDTOs;
-      
+        List<Genre> genres = genreRepo.findAll();
+        List<GenreDTO> genreDTOs = new ArrayList<GenreDTO>();
+
+        genres.forEach(g -> genreDTOs.add(genreMap.mapToDTO(g)));
+        return genreDTOs;
+
     }
 
-    public GenreDTO readById(long id) {
-       Optional <Genre> genre = genreRepo.findById(id);
-       
-       if (genre.isPresent()) {
-			return genreMap.mapToDTO(genre.get());
-		} else {
-			throw new GenreNotFoundException();
-		}
+    public GenreDTO readById(int id) {
+        Optional<Genre> genre = genreRepo.findById(id);
+
+        if (genre.isPresent()) {
+            return genreMap.mapToDTO(genre.get());
+        } else {
+            throw new GenreNotFoundException();
+        }
     }
 
-    public GenreDTO update(Genre genre, long id) {
+    public GenreDTO update(Genre genre, int id) {
         Optional<Genre> genreInDbOpt = genreRepo.findById(id);
         Genre genreInDb;
-        
+
         if (genreInDbOpt.isPresent()) {
-			genreInDb = genreInDbOpt.get();
-		} else {
-			throw new GenreNotFoundException();
-		}
-        
+            genreInDb = genreInDbOpt.get();
+        } else {
+            throw new GenreNotFoundException();
+        }
+
         genreInDb.setName(genre.getName());
         genreInDb.setDescription(genre.getDescription());
         genreInDb.setAlbums(genre.getAlbums());
-        
+
         Genre updatedGenre = genreRepo.save(genreInDb);
-        
+
         return genreMap.mapToDTO(updatedGenre);
     }
 
-    public boolean delete(long id) {
-    	
-    	if (!genreRepo.existsById(id)) {
-			throw new GenreNotFoundException();
-		}
-		genreRepo.deleteById(id);
+    public boolean delete(int id) {
 
-		boolean exists = genreRepo.existsById(id);
+        if (!genreRepo.existsById(id)) {
+            throw new GenreNotFoundException();
+        }
+        genreRepo.deleteById(id);
 
-		return !exists;
-		
+        boolean exists = genreRepo.existsById(id);
+
+        return !exists;
+
     }
 
 }

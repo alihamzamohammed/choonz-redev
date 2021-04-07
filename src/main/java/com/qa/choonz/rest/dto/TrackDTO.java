@@ -10,21 +10,20 @@ import com.qa.choonz.persistence.domain.PlaylistTracks;
 
 public class TrackDTO {
 
-    private long id;
-    private String name;
-    private Album album;
-    private List<PlaylistTracks> playlistTracks;
-    private int duration;
-    private String lyrics;
+	private int id;
+	private String name;
+	private Album album;
+	private List<PlaylistTracks> playlistTracks;
+	private int duration;
+	private String lyrics;
 
-    public TrackDTO() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public TrackDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    
-    
-	public TrackDTO(long id, String name, Album album,  List<PlaylistTracks> playlistTracks, int duration, String lyrics) {
+	public TrackDTO(int id, String name, Album album, List<PlaylistTracks> playlistTracks, int duration,
+			String lyrics) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -34,13 +33,11 @@ public class TrackDTO {
 		this.lyrics = lyrics;
 	}
 
-
-
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -84,7 +81,6 @@ public class TrackDTO {
 		this.lyrics = lyrics;
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(album, duration, id, lyrics, name, playlistTracks);
@@ -111,8 +107,4 @@ public class TrackDTO {
 		return builder.toString();
 	}
 
-
-
-	
 }
-
