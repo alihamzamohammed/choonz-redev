@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class Album {
 
-	// Cascade on Delete.
+    // Cascade on Delete.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -47,7 +47,7 @@ public class Album {
     }
 
     public Album(int id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, Genre genre,
-    		@NotNull @Size(max = 50) String cover) {
+            @NotNull @Size(max = 50) String cover) {
         super();
         this.id = id;
         this.name = name;
@@ -57,7 +57,7 @@ public class Album {
         this.cover = cover;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
