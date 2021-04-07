@@ -1,16 +1,14 @@
 package com.qa.choonz.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.TrackNotFoundException;
 import com.qa.choonz.mapper.TracksMapper;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.TrackDTO;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class TrackService {
@@ -31,52 +29,29 @@ public class TrackService {
 
     public List<TrackDTO> readAll() {
         List<Track> tracks = repo.findAll();
-        List<TrackDTO> trackDTOs = new ArrayList<TrackDTO>();
-
-        tracks.forEach(t -> trackDTOs.add(mapper.mapToDTO(t)));
-        return trackDTOs;
+        return mapper.listMapToDTO(tracks);
     }
 
     public TrackDTO readById(int id) {
-        Optional<Track> track = repo.findById(id);
-
-        if (track.isPresent()) {
-            return mapper.mapToDTO(track.get());
-        } else {
-            throw new TrackNotFoundException();
-        }
+        Track track = repo.findById(id).orElseThrow(TrackNotFoundException::new);
+        return mapper.mapToDTO(track);
     }
 
     public TrackDTO update(Track track, int id) {
-        Optional<Track> trackInDbOpt = repo.findById(id);
-        Track trackInDb;
+        Track trackInDb = repo.findById(id).orElseThrow(TrackNotFoundException::new);
 
-        if (trackInDbOpt.isPresent()) {
-            trackInDb = trackInDbOpt.get();
-        } else {
-            throw new TrackNotFoundException();
-        }
-
-        trackInDb.setName(track.getName());
-        trackInDb.setAlbum(track.getAlbum());
-        trackInDb.setDuration(track.getDuration());
-        trackInDb.setLyrics(track.getLyrics());
+        trackInDb.setName(track.getName() != null ? track.getName() : trackInDb.getName());
+        trackInDb.setAlbum(track.getAlbum() != null ? track.getAlbum() : trackInDb.getAlbum());
+        trackInDb.setDuration(track.getDuration() != null ? track.getDuration() : trackInDb.getDuration());
+        trackInDb.setLyrics(track.getLyrics() != null ? track.getLyrics() : trackInDb.getLyrics());
 
         Track updatedTrack = repo.save(trackInDb);
         return mapper.mapToDTO(updatedTrack);
     }
 
     public boolean delete(int id) {
-        if (!repo.existsById(id)) {
-            throw new TrackNotFoundException();
-        }
-
         repo.deleteById(id);
-
-        boolean exists = repo.existsById(id);
-
-        return !exists;
-
+        return !repo.existsById(id);
     }
 
 }
