@@ -77,7 +77,7 @@
                 <!--Albums List-->
                 <div class="col-12">
                     <h2 class="ms-5" style="float: left;">Artists</h2>
-                    <button style="float: right;" class="btn btn-primary btn-lg me-3">Add new artist</button>
+                    <button style="float: right;" class="btn btn-primary btn-lg me-3" data-bs-target="#CreateArtistModal" data-bs-toggle="modal">Add new artist</button>
                 </div>
                 <div id="AlbumsList" class="row justify-content-center mt-5">
                     <!--Add Albums here that are loaded from backend-->
@@ -109,5 +109,29 @@
         </script>
     </wrapper>
 </body>
+<!--Modals-->
+<div class="modal" tabindex="-1" id="CreateArtistModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create an Artist</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="CreateArtist()">
+                <!--Prevent default etc-->
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Artist Name</label>
+                        <input type="text" class="form-control" id="ArtistName">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create Artist</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 </html>
