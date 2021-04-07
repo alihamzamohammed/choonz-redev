@@ -18,7 +18,7 @@ public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @NotNull
     @Size(max = 100)
@@ -38,7 +38,7 @@ public class Genre {
         // TODO Auto-generated constructor stub
     }
 
-    public Genre(long id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
+    public Genre(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
             List<Album> albums) {
         super();
         this.id = id;
@@ -46,38 +46,38 @@ public class Genre {
         this.description = description;
         this.albums = albums;
     }
-    
-     public long getId() {
-		return id;
-	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public List<Album> getAlbums() {
-		return albums;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setAlbums(List<Album> albums) {
-		this.albums = albums;
-	}
+    public List<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(List<Album> albums) {
+        this.albums = albums;
+    }
 
     @Override
     public String toString() {
