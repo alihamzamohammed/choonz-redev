@@ -1,10 +1,11 @@
 package com.qa.choonz.persistence.domain;
 
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Track {
@@ -28,8 +32,9 @@ public class Track {
     @ManyToOne
     private Album album;
 
-    @OneToMany(mappedBy = "Track", cascade = CascadeType.ALL)
-    private PlaylistTracks playlistTracks;
+    @OneToMany(mappedBy = "track", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<PlaylistTracks> playlistTracks;
 
     // in seconds
     private int duration;
@@ -41,8 +46,8 @@ public class Track {
         // TODO Auto-generated constructor stub
     }
 
-    public Track(long id, @NotNull @Size(max = 100) String name, Album album, PlaylistTracks playlistTracks, int duration,
-            String lyrics) {
+    public Track(long id, @NotNull @Size(max = 100) String name, Album album, List<PlaylistTracks> playlistTracks,
+            int duration, String lyrics) {
         super();
         this.id = id;
         this.name = name;
@@ -76,11 +81,11 @@ public class Track {
         this.album = album;
     }
 
-    public PlaylistTracks getPlaylistTracks() {
+    public List<PlaylistTracks> getPlaylistTracks() {
         return playlistTracks;
     }
 
-    public void setPlaylist(PlaylistTracks playlistTracks) {
+    public void setPlaylist(List<PlaylistTracks> playlistTracks) {
         this.playlistTracks = playlistTracks;
     }
 
