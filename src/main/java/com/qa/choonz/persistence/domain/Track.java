@@ -33,8 +33,8 @@ public class Track {
     @ManyToOne
     private Album album;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne() // cascade = CascadeType.REMOVE)
+    // @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "fk_artist_id")
     private Artist artist;
 
