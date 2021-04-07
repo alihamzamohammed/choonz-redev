@@ -1,26 +1,25 @@
 package com.qa.choonz.rest.dto;
 
-import java.util.List;
 import java.util.Objects;
 
-public class GenreDTO {
+public class GenreRelationshipDTO {
 
     private int id;
     private String name;
     private String description;
-    private List<AlbumGenresRelationshipDTO> albums;
+    // private List<Album> albums;
 
-    public GenreDTO() {
+    public GenreRelationshipDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public GenreDTO(int id, String name, String description, List<AlbumGenresRelationshipDTO> albums) {
+    public GenreRelationshipDTO(int id, String name, String description) {// }, List<Album> albums) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
-        this.albums = albums;
+        // this.albums = albums;
     }
 
     public int getId() {
@@ -47,25 +46,25 @@ public class GenreDTO {
         this.description = description;
     }
 
-    public List<AlbumGenresRelationshipDTO> getAlbums() {
-        return albums;
-    }
+    // public List<Album> getAlbums() {
+    // return albums;
+    // }
 
-    public void setAlbums(List<AlbumGenresRelationshipDTO> albums) {
-        this.albums = albums;
-    }
+    // public void setAlbums(List<Album> albums) {
+    // this.albums = albums;
+    // }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("GenreDTO [id=").append(id).append(", name=").append(name).append(", description=")
-                .append(description).append(", albums=").append(albums).append("]");
+        builder.append("GenreRelationshipDTO [id=").append(id).append(", name=").append(name).append(", description=")
+                .append(description).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, id, name, albums);
+        return Objects.hash(description, id, name);
     }
 
     @Override
@@ -73,12 +72,11 @@ public class GenreDTO {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof GenreDTO)) {
+        if (!(obj instanceof GenreRelationshipDTO)) {
             return false;
         }
-        GenreDTO other = (GenreDTO) obj;
-        return Objects.equals(description, other.description) && id == other.id && Objects.equals(name, other.name)
-                && Objects.equals(albums, other.albums);
+        GenreRelationshipDTO other = (GenreRelationshipDTO) obj;
+        return Objects.equals(description, other.description) && id == other.id && Objects.equals(name, other.name);
     }
 
 }
