@@ -6,13 +6,19 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Album {
@@ -27,14 +33,16 @@ public class Album {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "album", cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Track> tracks;
 
     @ManyToOne
     private Artist artist;
 
-    @ManyToOne
-    private Genre genre;
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH }, fetch = FetchType.EAGER)
+    @JoinTable
+    private List<Genre> genre;
 
     @Size(max = 50)
     @NotNull
@@ -46,7 +54,7 @@ public class Album {
         // TODO Auto-generated constructor stub
     }
 
-    public Album(int id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, Genre genre,
+    public Album(int id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, List<Genre> genre,
             @NotNull @Size(max = 50) String cover) {
         super();
         this.id = id;
@@ -89,11 +97,11 @@ public class Album {
         this.artist = artist;
     }
 
-    public Genre getGenre() {
+    public List<Genre> getGenre() {
         return genre;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(List<Genre> genre) {
         this.genre = genre;
     }
 

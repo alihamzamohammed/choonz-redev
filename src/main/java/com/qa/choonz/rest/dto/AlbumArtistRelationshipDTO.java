@@ -8,7 +8,7 @@ public class AlbumArtistRelationshipDTO {
     private int id;
     private String name;
     private List<TrackRelationshipDTO> tracks;
-    private GenreRelationshipDTO genre;
+    private List<GenreRelationshipDTO> genre;
     private String cover;
 
     public AlbumArtistRelationshipDTO() {
@@ -17,7 +17,7 @@ public class AlbumArtistRelationshipDTO {
     }
 
     public AlbumArtistRelationshipDTO(int id, String name, List<TrackRelationshipDTO> tracks,
-            GenreRelationshipDTO genre, String cover) {
+            List<GenreRelationshipDTO> genre, String cover) {
         super();
         this.id = id;
         this.name = name;
@@ -50,11 +50,11 @@ public class AlbumArtistRelationshipDTO {
         this.tracks = tracks;
     }
 
-    public GenreRelationshipDTO getGenre() {
+    public List<GenreRelationshipDTO> getGenre() {
         return genre;
     }
 
-    public void setGenre(GenreRelationshipDTO genre) {
+    public void setGenre(List<GenreRelationshipDTO> genre) {
         this.genre = genre;
     }
 

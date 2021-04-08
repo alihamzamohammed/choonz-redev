@@ -9,7 +9,7 @@ public class AlbumDTO {
     private String name;
     private List<TrackRelationshipDTO> tracks;
     private ArtistRelationshipDTO artist;
-    private GenreRelationshipDTO genre;
+    private List<GenreRelationshipDTO> genre;
     private String cover;
 
     public AlbumDTO() {
@@ -17,8 +17,8 @@ public class AlbumDTO {
         // TODO Auto-generated constructor stub
     }
 
-    public AlbumDTO(int id, String name, List<TrackRelationshipDTO> tracks, GenreRelationshipDTO genre, String cover,
-            ArtistRelationshipDTO artist) {
+    public AlbumDTO(int id, String name, List<TrackRelationshipDTO> tracks, List<GenreRelationshipDTO> genre,
+            String cover, ArtistRelationshipDTO artist) {
         super();
         this.id = id;
         this.name = name;
@@ -60,11 +60,11 @@ public class AlbumDTO {
         this.artist = artist;
     }
 
-    public GenreRelationshipDTO getGenre() {
+    public List<GenreRelationshipDTO> getGenre() {
         return genre;
     }
 
-    public void setGenre(GenreRelationshipDTO genre) {
+    public void setGenre(List<GenreRelationshipDTO> genre) {
         this.genre = genre;
     }
 
