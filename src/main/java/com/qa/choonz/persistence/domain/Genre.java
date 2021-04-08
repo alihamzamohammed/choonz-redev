@@ -6,9 +6,12 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -30,7 +33,7 @@ public class Genre {
     @Column(unique = true)
     private String description;
 
-    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "genre", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Album> albums;
 
     public Genre() {
@@ -48,7 +51,7 @@ public class Genre {
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
@@ -56,7 +59,7 @@ public class Genre {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -64,7 +67,7 @@ public class Genre {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
@@ -72,7 +75,7 @@ public class Genre {
     }
 
     public List<Album> getAlbums() {
-        return this.albums;
+        return albums;
     }
 
     public void setAlbums(List<Album> albums) {
