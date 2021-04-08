@@ -1,26 +1,26 @@
 "use strict";
 
 const createGenre = document.querySelector("#CreateGenreButton");
-createList.addEventListener("click", (event) => {
+createGenre.addEventListener("click", (event) => {
   event.preventDefault();
   CreateGenre();
 });
 
 const EditGenre = document.querySelector("#EditGenreButton");
-createList.addEventListener("click", (event) => {
+editGenre.addEventListener("click", (event) => {
   event.preventDefault();
   EditGenre();
 });
 
 const deleteGenre = document.querySelector("#DeleteGenreButton");
-createList.addEventListener("click", (event) => {
+deleteGenre.addEventListener("click", (event) => {
   event.preventDefault();
   DeleteGenre();
 });
 
-//Creating Create Fucntionality for Playlists
+//Creating Create Fucntionality for Genre
 const CreateGenre = () => {
-  let genre= document.querySelector("#PlaylistList").value;
+  let genre= document.querySelector("#GenreList").value;
   console.log(genre);
   console.log(genreName);
   console.log(genreDescription);
@@ -56,7 +56,7 @@ let EditGenre = () => {
     .value;
   console.log("Genre Description: " + genreDescription);
 
-  const updatedPlaylist = {
+  const updatedGenre = {
     GenereName: genreName,
     GenreDescription: genreDescription
   };
@@ -66,7 +66,7 @@ let EditGenre = () => {
     headers: {
       "Content-type": "application/json",
     },
-    body: JSON.stringify(updatedPlaylist),
+    body: JSON.stringify(updatedGenre),
   })
     .then((res) => res.json())
     .then((data) => console.log(`Success ${data}`))
@@ -75,7 +75,7 @@ let EditGenre = () => {
 // Creating Delete Functionality
 
 let DeleteGenre = async (genre) => {
-  //  var playlist = parseInt(document.querySelector("#PlaylistList").value);
+  //  var genre = parseInt(document.querySelector("#GenreList").value);
   
   const params = new URLSearchParams(window.location.search);
   let genre = params.get("GenreId");
@@ -84,7 +84,7 @@ let DeleteGenre = async (genre) => {
     method: "DELETE",
   });
   if (response.status != 204) {
-    alert("The Delete Denied, the Playlist must be valid");
+    alert("The Delete Denied, the Genre must be valid");
     console.error(`Error: Status code ${reponse.status}\n${response.json}`);
     return response.status;
   }
@@ -92,7 +92,7 @@ let DeleteGenre = async (genre) => {
   console.log("Genre:" + genre + "deleted");
 };
 
-//Get All Playlists
+//Get All Genres
 (function () {
   fetch(`http://localhost:8082/genres/read`, {
     method: "GET",
@@ -110,10 +110,10 @@ let DeleteGenre = async (genre) => {
         GenreName = genre.name;
         GenreDescription = genre.description;
 
-        PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
-        PlaylistElement.style = "border-radius: 12px;";
+        GenreElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
+        GenreElement.style = "border-radius: 12px;";
 
-        PlaylistElement.innerHTML = `
+        GenreElement.innerHTML = `
        
             <div class="text-center">
                 <h4>${GenreName}</h4>
@@ -152,15 +152,15 @@ let DeleteGenre = async (genre) => {
       }
     })
     .then((genre) => {
-      PlaylistElement = document.createElement("div");
+      GenreElement = document.createElement("div");
       GenreName = genre.name;
       GenreDescription = genre.description;
      
 
-      PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
-      PlaylistElement.style = "border-radius: 12px;";
+      GenreElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
+      GenreElement.style = "border-radius: 12px;";
 
-      PlaylistElement.innerHTML = `
+      GenreElement.innerHTML = `
        
             <div class="text-center">
                 <h4>${GenreName}</h4>
