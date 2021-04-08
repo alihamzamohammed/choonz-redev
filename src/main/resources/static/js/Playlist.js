@@ -1,33 +1,38 @@
 "use strict";
 
-const createList = document.querySelector("#submit-plbutton");
+const createList = document.querySelector("#");
 createList.addEventListener("click", (event) => {
   event.preventDefault();
-  pokeListPostRequest();
+  CreatePlaylist();
 });
 
-const createList = document.querySelector("#submit-plbutton");
+const EdiList = document.querySelector("#submit-plbutton");
 createList.addEventListener("click", (event) => {
   event.preventDefault();
-  pokeListPostRequest();
+  EditPlaylist();
 });
 
-const createList = document.querySelector("#submit-plbutton");
+const deletePlaylist = document.querySelector("#submit-plbutton");
 createList.addEventListener("click", (event) => {
   event.preventDefault();
-  pokeListPostRequest();
+  DeletePlaylist();
 });
 
 //Creating Create Fucntionality for Playlists
-const pokeListPostRequest = () => {
-  let pokeList = document.querySelector("#pokeList").value;
-  console.log(pokeList);
+const CreatePlaylist = () => {
+  let playlist = document.querySelector("#PlaylistList").value;
+  console.log(playlistName);
+  console.log(playlistDescription);
+  console.log(PlaylistCoverArt);
 
   const obj = {
-    pokeList: pokeList,
+
+      PlaylistName : playlistName,
+      PlaylistDescription : playlistDescription,
+      PlaylistCoverArt : PlaylistCoverArt
   };
 
-  fetch("http://localhost:8080/pokelist", {
+  fetch("http://localhost:8082/playlist", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -40,23 +45,31 @@ const pokeListPostRequest = () => {
 };
 
 // Creating Update Functionality for PokeList
-let playlistPutRequest = () => {
-  let pokeListID = parseInt(document.querySelector("#pokeListId").value);
-  console.log("PokeListId " + pokeListID);
+let EditPlaylist = () => {
+  const params = new URLSearchParams(window.location.search)
+  let playlist = params.get("PlaylistId")
 
-  let pokeList = document.querySelector("#pokeList").value;
-  console.log("PokeList: " + pokeList);
+  let playlistName = document.querySelector("#PlaylistName").value;
+  console.log("Playlist Name: " + playlistName);
 
-  const updatedPokeList = {
-    pokeList: pokeList,
+  let playlistDescription = document.querySelector("#PlaylistDescription").value;
+  console.log("Playlist Description: " + playlistDescription);
+
+  let playlistCoverArt = document.querySelector("#PlaylistCoverArt").value;
+  console.log("Playlist Cover Art: " + playlistCoverArt);
+
+  const updatedPlaylist = {
+    PlaylistName : playlistName,
+    PlaylistDescription : playlistDescription,
+    PlaylistCoverArt : PlaylistCoverArt
   };
 
-  fetch(`http://localhost:8082/playlist/${pokeListId}`, {
+  fetch(`http://localhost:8082/playlist/${playlist}`, {
     method: "PUT",
     headers: {
       "Content-type": "application/json",
     },
-    body: JSON.stringify(updatedPokeList),
+    body: JSON.stringify(updatedPlaylist),
   })
     .then((res) => res.json())
     .then((data) => console.log(`Success ${data}`))
@@ -64,7 +77,7 @@ let playlistPutRequest = () => {
 };
 // Creating Delete Functionality
 
-let playlistDeleteRequest = async (playlist) => {
+let DeletePlaylist = async (playlist) => {
   var playlist = parseInt(document.querySelector("#PlaylistList").value);
   const response = await fetch(`http://localhost:8082/playlist/${playlist}`, {
     method: "DELETE",
@@ -74,7 +87,7 @@ let playlistDeleteRequest = async (playlist) => {
     console.error(`Error: Status code ${reponse.status}\n${response.json}`);
     return response.status;
   }
-  alert("Task deleted");
+  alert("Playlist deleted");
   console.log("PlayList:" + playlist + "deleted");
 };
 
@@ -96,16 +109,18 @@ let playlistDeleteRequest = async (playlist) => {
         ArtistName = playlist.artist.name;
         AlbumName = playlist.album.name;
         Genre = playlist.genre.name;
+        
+        PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5"
+        PlaylistElement.style = "border-radius: 12px;"
+        
         PlaylistElement.innerHTML = `
        
-        <div class="ListItem col-2 ms-5 mb-5 text-center mt-5" style="border-radius: 12px;">
             <div class="text-center">
                 <h4>${TrackName}</h4>
                 <h4>${ArtistName} Name</h4>
                 <h4>${AlbumName}</h4>
                 <h4>${Genre}</h4>
             </div>
-          </div>
         
         `
 
@@ -117,10 +132,6 @@ let playlistDeleteRequest = async (playlist) => {
     })
       
   })();
-
- 
- 
- 
  
   //Get Playlist by Id
 
@@ -147,17 +158,20 @@ let playlistDeleteRequest = async (playlist) => {
         ArtistName = playlist.artist.name;
         AlbumName = playlist.album.name;
         Genre = playlist.genre.name;
+       
+        PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5"
+        PlaylistElement.style = "border-radius: 12px;"
+        
+       
         PlaylistElement.innerHTML = `
        
-        <div class="ListItem col-2 ms-5 mb-5 text-center mt-5" style="border-radius: 12px;">
             <div class="text-center">
                 <h4>${TrackName}</h4>
                 <h4>${ArtistName} Name</h4>
                 <h4>${AlbumName}</h4>
                 <h4>${Genre}</h4>
             </div>
-          </div>
-        
+  
         `
 
         document.querySelector("#PlaylistList").append(PlaylistElement)
