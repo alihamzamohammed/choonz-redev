@@ -44,6 +44,7 @@ const CreateArtist = () => {
       .catch((err) => console.err(err));
   };
 
+  
     //edit artists
     let EditArtist = () => {
       const params = new URLSearchParams(window.location.search);
