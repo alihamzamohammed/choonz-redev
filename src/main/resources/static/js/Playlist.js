@@ -27,9 +27,9 @@ const CreatePlaylist = () => {
   console.log(PlaylistCoverArt);
 
   const obj = {
-    PlaylistName: playlistName,
-    PlaylistDescription: playlistDescription,
-    PlaylistCoverArt: PlaylistCoverArt,
+    name: playlistName,
+    description: playlistDescription,
+    artwork: PlaylistCoverArt
   };
 
   fetch("http://localhost:8082/playlist", {
