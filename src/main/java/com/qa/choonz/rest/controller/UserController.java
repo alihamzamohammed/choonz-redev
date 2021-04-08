@@ -3,8 +3,6 @@ package com.qa.choonz.rest.controller;
 import java.util.Map;
 
 import com.qa.choonz.persistence.domain.User;
-import com.qa.choonz.rest.dto.UserDTO;
-import com.qa.choonz.service.SecurityService;
 import com.qa.choonz.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +15,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private SecurityService securityService;
-
-    @GetMapping(value = "/perform_signup") // , consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @GetMapping(value = "/perform_signup")
     public String registration(@RequestParam Map<String, String> formData) {
         User user = new User();
         user.setUsername(formData.get("username"));
         user.setPassword(formData.get("password"));
         user.setPasswordConfirm(formData.get("passwordConfirm"));
-        UserDTO created = userService.save(user);
+        userService.save(user);
 
-        // securityService.autoLogin(created.getUsername(), created.getPassword());
-
-        return "redirect:login.html";
+        return "redirect:login.html?signup=true";
     }
 }
