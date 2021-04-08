@@ -34,7 +34,7 @@ const CreateAlbum = () => {
 
 
 //Read all Albunms
-(function () {
+/*(function () {
   fetch(`http://localhost:8082/albums/read`, {
     method: "GET",
   })
@@ -64,21 +64,16 @@ const CreateAlbum = () => {
           err
       );
     });
-})();
+})();*/
 
 // Get All Artists for the Album Creation and Edit Drop Down Menu
 
 (function () {
-  let dropdown = document.getElementById("#Artists");
-  dropdown.length = 0;
-
-  let defaultOption = document.createElement("Option");
-
-  fetch(`http://localhost:8082/artists/read`, {
+  //Artists
+  fetch("http://localhost:8082/artists/read", {
     method: "GET",
   })
     .then((response) => {
-      console.log(resonse.status);
       if (response.status === 200) {
         return response.json();
       } else {
@@ -87,12 +82,43 @@ const CreateAlbum = () => {
         );
       }
     })
-    .then((artist) => {
-        console.log(JSON.stringify(artist))
+    .then((data) => {
       data.forEach((artist) => {
-        ArtistElement = document.createElement("option");
-        ArtistName = artist.name;
-        ArtistId = artist.id;
+        var ArtistElement = document.createElement("option");
+        var ArtistName = artist.name;
+        var ArtistId = artist.id;
+
+        ArtistElement.value = ArtistId
+        ArtistElement.text = ArtistName
+
+        document.querySelector("#Artists").append(ArtistElement)
       });
     });
-});
+
+    //Genres
+  fetch("http://localhost:8082/genres/read", {
+    method: "GET",
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw (
+          "Error retreving Artist information. STATUS CODE: " + response.status
+        );
+      }
+    })
+    .then((data) => {
+        
+      data.forEach((genre) => {
+        var GenreElement = document.createElement("option");
+        var GenreName = genre.name;
+        var GenreId = genre.id;
+
+        GenreElement.value = GenreId
+        GenreElement.text = GenreName
+
+        document.querySelector("#Genres").append(GenreElement)
+      });
+    });
+})();
