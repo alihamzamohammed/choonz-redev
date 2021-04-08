@@ -1,11 +1,13 @@
 package com.qa.choonz.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,15 +21,19 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         "/js/**",
     };
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("admin")).roles("USER");
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .antMatchers(publicResources).permitAll()
+                .antMatchers("/h2*").permitAll()
                 .antMatchers("/login*").permitAll()
                 .antMatchers("/index*").permitAll()
                 .antMatchers("/albums*").permitAll()
@@ -73,12 +79,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/perform_logout")
                 .logoutSuccessUrl("/login.html?logout=true")
                 .deleteCookies("JSESSIONID");
-                /*.and().httpBasic()
-                .authenticationEntryPoint(authenticationEntryPoint);*/
-                /* .logoutSuccessHandler(logoutSuccessHandler()) */
-
-        //         http.addFilterAfter(new CustomFilter(),
-        //   BasicAuthenticationFilter.class);
     }
 
     @Bean
