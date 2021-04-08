@@ -1,10 +1,7 @@
 package com.qa.choonz.service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.GenreNotFoundException;
@@ -34,36 +31,20 @@ public class GenreService {
 
     public List<GenreDTO> readAll() {
         List<Genre> genres = genreRepo.findAll();
-        List<GenreDTO> genreDTOs = new ArrayList<GenreDTO>();
-
-        genres.forEach(g -> genreDTOs.add(genreMap.mapToDTO(g)));
-        return genreDTOs;
+        return genreMap.listMapToDTO(genres);
 
     }
 
     public GenreDTO readById(int id) {
-        Optional<Genre> genre = genreRepo.findById(id);
-
-        if (genre.isPresent()) {
-            return genreMap.mapToDTO(genre.get());
-        } else {
-            throw new GenreNotFoundException();
-        }
+        Genre genre = genreRepo.findById(id).orElseThrow(GenreNotFoundException::new);
+        return genreMap.mapToDTO(genre);
     }
 
     public GenreDTO update(Genre genre, int id) {
-        Optional<Genre> genreInDbOpt = genreRepo.findById(id);
-        Genre genreInDb;
-
-        if (genreInDbOpt.isPresent()) {
-            genreInDb = genreInDbOpt.get();
-        } else {
-            throw new GenreNotFoundException();
-        }
-
-        genreInDb.setName(genre.getName());
-        genreInDb.setDescription(genre.getDescription());
-        genreInDb.setAlbums(genre.getAlbums());
+        Genre genreInDb = genreRepo.findById(id).orElseThrow(GenreNotFoundException::new);
+        genreInDb.setName(genre.getName() != null ? genre.getName() : genreInDb.getName());
+        genreInDb.setDescription(genre.getDescription() != null ? genre.getDescription() : genreInDb.getDescription());
+        genreInDb.setAlbums(genre.getAlbums() != null ? genre.getAlbums() : genreInDb.getAlbums());
 
         Genre updatedGenre = genreRepo.save(genreInDb);
 
@@ -71,16 +52,8 @@ public class GenreService {
     }
 
     public boolean delete(int id) {
-
-        if (!genreRepo.existsById(id)) {
-            throw new GenreNotFoundException();
-        }
         genreRepo.deleteById(id);
-
-        boolean exists = genreRepo.existsById(id);
-
-        return !exists;
-
+        return !genreRepo.existsById(id);
     }
 
 }

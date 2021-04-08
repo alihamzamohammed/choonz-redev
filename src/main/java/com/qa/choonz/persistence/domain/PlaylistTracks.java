@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class PlaylistTracks {
 
@@ -26,6 +29,7 @@ public class PlaylistTracks {
 	@NotNull
 	@ManyToOne(targetEntity = Track.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_track_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Track track;
 
 	public PlaylistTracks() {
