@@ -23,6 +23,6 @@ public class UserController {
         user.setPasswordConfirm(formData.get("passwordConfirm"));
         userService.save(user);
 
-        return "redirect:login.html?signup=true";
+        return "redirect:index.html";
     }
 }
