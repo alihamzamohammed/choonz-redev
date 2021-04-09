@@ -76,7 +76,7 @@
                 <!--Albums List-->
                 <div class="col-12">
                     <h2 class="ms-5" style="float: left;">Albums</h2>
-                    <button style="float: right;" class="btn btn-primary btn-lg me-3" data-bs-toggle="modal"
+                    <button style="float: right;" class="btn btn-primary btn-lg me-3" data-bs-toggle="modal" id="CreateAlbum"
                         data-bs-target="#CreateAlbumModal">Create New Album</button>
                 </div>
                 <div id="AlbumsList" class="row justify-content-center mt-5">
@@ -135,18 +135,14 @@
                         <label for="exampleInputEmail1" class="form-label">Album Cover Art</label>
                         <input type="file" class="form-control" id="AlbumCoverArt">
                     </div>
-                    <select class="form-control" name="Artists" id="Artists"
+
+                    <select class="form-control mb-3" name="Artists" id="Artists"
                         style="background-color: var(--elementBgColor);">
-                        <!--<option value="+91">Albums</option> Example option needs to be made make sure first is set to select 
-                                    so that -->
 
                     </select>
 
                     <select class="form-control" name="Genres" id="Genres"
                         style="background-color: var(--elementBgColor);">
-                        <!--<option value="+91">Albums</option> Example option needs to be made make sure first is set to select 
-                            so that -->
-
                     </select>
 
                 </div>
@@ -158,5 +154,5 @@
         </div>
     </div>
 </div>
-
+<script src="./js/albums.js" defer></script>
 </html>
