@@ -1,6 +1,7 @@
 package com.qa.choonz.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.qa.choonz.mapper.AlbumMapper;
 import com.qa.choonz.mapper.ArtistMapper;
@@ -55,22 +56,27 @@ public class SearchService {
     private TracksMapper tracksMapper;
 
     public List<AlbumDTO> searchAlbums(String name) {
-        return albumMapper.mapToDTO(albumRepo.findByName(name));
+        return albumMapper.mapToDTO(albumRepo.findAll().stream().filter(album -> album.getName().contains(name))
+                .collect(Collectors.toList()));
     }
 
     public List<ArtistDTO> searchArtists(String name) {
-        return artistMapper.listMapToDTO(artistRepo.findByName(name));
+        return artistMapper.listMapToDTO(artistRepo.findAll().stream().filter(artist -> artist.getName().contains(name))
+                .collect(Collectors.toList()));
     }
 
     public List<GenreDTO> searchGenres(String name) {
-        return genreMapper.listMapToDTO(genreRepo.findByName(name));
+        return genreMapper.listMapToDTO(genreRepo.findAll().stream().filter(genre -> genre.getName().contains(name))
+                .collect(Collectors.toList()));
     }
 
     public List<PlaylistDTO> searchPlaylists(String name) {
-        return playlistMapper.mapToDTO(playlistRepo.findByName(name));
+        return playlistMapper.mapToDTO(playlistRepo.findAll().stream()
+                .filter(playlist -> playlist.getName().contains(name)).collect(Collectors.toList()));
     }
 
     public List<TrackDTO> searchTracks(String name) {
-        return tracksMapper.listMapToDTO(trackRepo.findByName(name));
+        return tracksMapper.listMapToDTO(trackRepo.findAll().stream().filter(track -> track.getName().contains(name))
+                .collect(Collectors.toList()));
     }
 }

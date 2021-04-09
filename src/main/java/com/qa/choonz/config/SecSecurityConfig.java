@@ -28,7 +28,9 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable().headers().disable().authorizeRequests().antMatchers(publicResources).permitAll()
-                .antMatchers("/username", "/username*").permitAll().antMatchers("/h2*", "/h2**").permitAll()
+                .antMatchers("/search", "/search*", "/search/artists*", "search/albums*", "/search/genres*",
+                        "/search/tracks*", "search/playlists*", "/search**")
+                .permitAll().antMatchers("/username", "/username*").permitAll().antMatchers("/h2*", "/h2**").permitAll()
                 .antMatchers("/login*").permitAll().antMatchers("/signup*").permitAll().antMatchers("/check*")
                 .permitAll().antMatchers("/index*").permitAll().antMatchers("/albums*").permitAll()
                 .antMatchers("/artists*").permitAll().antMatchers("/genres*").permitAll().antMatchers("/playlists*")
