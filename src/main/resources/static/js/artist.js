@@ -1,10 +1,6 @@
 "use strict";
 
-const createArtist = document.querySelector("#CreateArtistButton");
-createArtist.addEventListener("click", (event) => {
-  event.preventDefault();
-  CreateArtist();
-});
+
 
 const editArtist = document.querySelector("#EditArtistButton");
 editArtist.addEventListener("click", (event) => {
@@ -18,29 +14,6 @@ deleteArtist.addEventListener("click", (event) => {
   DeleteArtist();
 });
 
-//Creating Create Functionality for Artists
-const CreateArtist = () => {
-  let artist = document.querySelector("#ArtistList").value;
-  console.log(artist);
-  console.log(artistName);
-  console.log(genre);
-
-  const obj = {
-    name: artistName,
-    genre: genre,
-  };
-
-  fetch("http://localhost:8082/artist", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(obj),
-  })
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.err(err));
-};
 
 //edit artists
 const EditArtist = () => {
@@ -70,11 +43,11 @@ const EditArtist = () => {
     .catch((error) => console.log(`Failure ${error}`));
 };
 
-const DeleteArtist = async (artist) => {
+const DeleteArtist = async (artists) => {
   //  var playlist = parseInt(document.querySelector("#PlaylistList").value);
 
   const params = new URLSearchParams(window.location.search);
-  let artist = params.get("ArtistId");
+  const artist = params.get("ArtistId");
 
   const response = await fetch(`http://localhost:8082/artists/${artist}`, {
     method: "DELETE",
@@ -88,46 +61,7 @@ const DeleteArtist = async (artist) => {
   console.log("Artist:" + artist + "artist");
 };
 
-// read all artists
-(function () {
-  fetch(`http://localhost:8082/artists/read`, {
-    method: "GET",
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        throw "Response code was not 200 it was " + response.status;
-      }
-    })
-    .then((data) => {
-      data.forEach((playlist) => {
-        ArtistElement = document.createElement("div");
-        artistName = artist.name;
-        artistGenre = artist.genre;
 
-        ArtistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
-        ArtistElement.style = "border-radius: 12px;";
-
-        ArtistElement.innerHTML = `
-           
-                <div class="text-center">
-                    <h4>${artistName}</h4>
-                    <h4>${artistGenre} Name</h4>
-                </div>
-            
-            `;
-
-        document.querySelector("#ArtistList").append(ArtistElement);
-      });
-    })
-    .catch((err) => {
-      alert(
-        "There was a problem getting the albums from the system. Please try again later." +
-          err
-      );
-    });
-})();
 
 // read by id
 (function () {
@@ -144,10 +78,10 @@ const DeleteArtist = async (artist) => {
         throw "Response code was not 200 it was " + response.status;
       }
     })
-    .then((artist) => {
-      ArtistElement = document.createElement("div");
-      artistName = artist.name;
-      artistGenre = artist.genre;
+    .then((data) => {
+      var ArtistElement = document.createElement("div");
+      var artistName = artist.name;
+      var artistGenre = artist.genre;
 
       ArtistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
       ArtistElement.style = "border-radius: 12px;";
