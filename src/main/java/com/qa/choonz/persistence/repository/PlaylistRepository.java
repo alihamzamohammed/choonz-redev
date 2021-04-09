@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.qa.choonz.persistence.domain.Playlist;
 
 @Repository
-public interface PlaylistRepository extends JpaRepository<Playlist, Long> {
+public interface PlaylistRepository extends JpaRepository<Playlist, Integer> {
 
 }

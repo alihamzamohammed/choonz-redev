@@ -3,17 +3,13 @@ package com.qa.choonz.rest.dto;
 import java.util.List;
 import java.util.Objects;
 
-import com.qa.choonz.persistence.domain.Artist;
-import com.qa.choonz.persistence.domain.Genre;
-import com.qa.choonz.persistence.domain.Track;
-
 public class AlbumDTO {
 
-    private long id;
+    private int id;
     private String name;
-    private List<Track> tracks;
-    private Artist artist;
-    private Genre genre;
+    private List<TrackRelationshipDTO> tracks;
+    private ArtistRelationshipDTO artist;
+    private List<GenreRelationshipDTO> genre;
     private String cover;
 
     public AlbumDTO() {
@@ -21,7 +17,8 @@ public class AlbumDTO {
         // TODO Auto-generated constructor stub
     }
 
-    public AlbumDTO(long id, String name, List<Track> tracks, Artist artist, Genre genre, String cover) {
+    public AlbumDTO(int id, String name, List<TrackRelationshipDTO> tracks, List<GenreRelationshipDTO> genre,
+            String cover, ArtistRelationshipDTO artist) {
         super();
         this.id = id;
         this.name = name;
@@ -31,11 +28,11 @@ public class AlbumDTO {
         this.cover = cover;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -47,27 +44,27 @@ public class AlbumDTO {
         this.name = name;
     }
 
-    public List<Track> getTracks() {
+    public List<TrackRelationshipDTO> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<Track> tracks) {
+    public void setTracks(List<TrackRelationshipDTO> tracks) {
         this.tracks = tracks;
     }
 
-    public Artist getArtist() {
+    public ArtistRelationshipDTO getArtist() {
         return artist;
     }
 
-    public void setArtist(Artist artist) {
+    public void setArtist(ArtistRelationshipDTO artist) {
         this.artist = artist;
     }
 
-    public Genre getGenre() {
+    public List<GenreRelationshipDTO> getGenre() {
         return genre;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(List<GenreRelationshipDTO> genre) {
         this.genre = genre;
     }
 
@@ -83,14 +80,14 @@ public class AlbumDTO {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("AlbumDTO [id=").append(id).append(", name=").append(name).append(", tracks=").append(tracks)
-                .append(", artist=").append(artist).append(", genre=").append(genre).append(", cover=").append(cover)
+                .append(", genre=").append(", artist=").append(artist).append(genre).append(", cover=").append(cover)
                 .append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, cover, genre, id, name, tracks);
+        return Objects.hash(cover, artist, genre, id, name, tracks);
     }
 
     @Override

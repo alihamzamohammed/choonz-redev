@@ -13,12 +13,15 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class Artist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @NotNull
     @Size(max = 100)
@@ -26,25 +29,31 @@ public class Artist {
     private String name;
 
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
 
     public Artist() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public Artist(long id, @NotNull @Size(max = 100) String name, List<Album> albums) {
+    public Artist(int id, @NotNull @Size(max = 100) String name, List<Album> albums) {
         super();
         this.id = id;
         this.name = name;
         this.albums = albums;
     }
+    
+    public Artist(int id, @NotNull @Size(max =100) String name) {
+    	super();
+    	this.id = id;
+        this.name = name;
+    }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
