@@ -46,11 +46,9 @@
                     </ul>
                     <span class="navbar-text">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Login</a>
+                            <li class="nav-item" id="userindication1">
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Sign Up</a>
+                            <li class="nav-item" id="userindication2">
                             </li>
                         </ul>
                     </span>
@@ -72,7 +70,8 @@
                     </div>
                     <div class="col-5">
                         <div class="row w-25 ms-auto me-3">
-                            <button class="col-12 btn btn-primary mb-2" data-bs-target="#EditAlbumModal" data-bs-toggle="modal">Edit Btn</button>
+                            <button class="col-12 btn btn-primary mb-2" data-bs-target="#EditAlbumModal"
+                                data-bs-toggle="modal">Edit Btn</button>
                             <button class="col-12  btn btn-primary">Delete</button>
                             <div class="col-12">
                                 <small style="float: right !important;">Album ID:</small>
@@ -86,9 +85,9 @@
                 <div id="SongsList" class="row justify-content-center">
                     <!--Add Albums here that are loaded from backend-->
                     <div class="SongItem col-1 ms-5 mb-5 text-center" style="border-radius: 12px;">
-                            <h4>Name</h4>
-                            <h4>Duration</h4>
-                            <button class="btn btn-lg btn-primary">Load song</button>
+                        <h4>Name</h4>
+                        <h4>Duration</h4>
+                        <button class="btn btn-lg btn-primary">Load song</button>
                     </div>
                 </div>
             </div>
@@ -96,7 +95,7 @@
         <footer class="mt-5" style="background-color: var(--elementBgColor)">
             <!--Footer-->
             <div class="text-center p-2">
-                <h5>Copyright &#169; CAPI</h4>
+                <h5>Copyright &#169; CAPI</h5>
             </div>
             <!--End of Footer-->
         </footer>
@@ -104,7 +103,9 @@
         <!--Changed to BS5-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
-        </script>
+            </script>
+        <script src="./js/usermanagement.js"></script>
+
     </wrapper>
 </body>
 <!--Modals-->
@@ -156,4 +157,5 @@
         </div>
     </div>
 </div>
+<script src="./js/album.js"></script>
 </html>
