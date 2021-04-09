@@ -23,6 +23,25 @@ public class UserController {
         user.setPasswordConfirm(formData.get("passwordConfirm"));
         userService.save(user);
 
+        return "redirect:login.html?signup=true";
+    }
+
+    @GetMapping(value = "/perform_change_password")
+    public String changePassword(@RequestParam Map<String, String> formData) {
+        User user = new User();
+        user.setUsername(formData.get("username"));
+        user.setPassword(formData.get("password"));
+        user.setPasswordConfirm(formData.get("passwordConfirm"));
+        userService.update(user);
+
         return "redirect:index.html";
+    }
+
+    @GetMapping(value = "/perform_delete_user")
+    public String deleteUser(@RequestParam Map<String, String> formData) {
+        User user = new User();
+        user.setUsername(formData.get("username"));
+        userService.delete(user);
+        return "redirect:perform_logout";
     }
 }

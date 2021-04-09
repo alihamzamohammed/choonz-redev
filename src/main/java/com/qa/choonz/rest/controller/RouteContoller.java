@@ -75,4 +75,9 @@ public class RouteContoller {
         return "track.html";
     }
 
+    @GetMapping(value = "/user")
+    public String user() {
+        return "user.html";
+    }
+
 }
