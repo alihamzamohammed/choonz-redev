@@ -1,18 +1,18 @@
 "use strict";
 
-const createList = document.querySelector("#");
+const createList = document.querySelector("#CreatePlaylistButton");
 createList.addEventListener("click", (event) => {
   event.preventDefault();
   CreatePlaylist();
 });
 
-const EdiList = document.querySelector("#submit-plbutton");
+const EdiList = document.querySelector("#EditPlaylistButton");
 createList.addEventListener("click", (event) => {
   event.preventDefault();
   EditPlaylist();
 });
 
-const deletePlaylist = document.querySelector("#submit-plbutton");
+const deletePlaylist = document.querySelector("#DeletePlaylistButton");
 createList.addEventListener("click", (event) => {
   event.preventDefault();
   DeletePlaylist();
@@ -21,15 +21,15 @@ createList.addEventListener("click", (event) => {
 //Creating Create Fucntionality for Playlists
 const CreatePlaylist = () => {
   let playlist = document.querySelector("#PlaylistList").value;
+  console.log(playlist);
   console.log(playlistName);
   console.log(playlistDescription);
   console.log(PlaylistCoverArt);
 
   const obj = {
-
-      PlaylistName : playlistName,
-      PlaylistDescription : playlistDescription,
-      PlaylistCoverArt : PlaylistCoverArt
+    name: playlistName,
+    description: playlistDescription,
+    artwork: PlaylistCoverArt
   };
 
   fetch("http://localhost:8082/playlist", {
@@ -46,22 +46,23 @@ const CreatePlaylist = () => {
 
 // Creating Update Functionality for PokeList
 let EditPlaylist = () => {
-  const params = new URLSearchParams(window.location.search)
-  let playlist = params.get("PlaylistId")
+  const params = new URLSearchParams(window.location.search);
+  let playlist = params.get("PlaylistId");
 
   let playlistName = document.querySelector("#PlaylistName").value;
   console.log("Playlist Name: " + playlistName);
 
-  let playlistDescription = document.querySelector("#PlaylistDescription").value;
+  let playlistDescription = document.querySelector("#PlaylistDescription")
+    .value;
   console.log("Playlist Description: " + playlistDescription);
 
   let playlistCoverArt = document.querySelector("#PlaylistCoverArt").value;
   console.log("Playlist Cover Art: " + playlistCoverArt);
 
   const updatedPlaylist = {
-    PlaylistName : playlistName,
-    PlaylistDescription : playlistDescription,
-    PlaylistCoverArt : PlaylistCoverArt
+    PlaylistName: playlistName,
+    PlaylistDescription: playlistDescription,
+    PlaylistCoverArt: PlaylistCoverArt,
   };
 
   fetch(`http://localhost:8082/playlist/${playlist}`, {
@@ -78,7 +79,11 @@ let EditPlaylist = () => {
 // Creating Delete Functionality
 
 let DeletePlaylist = async (playlist) => {
-  var playlist = parseInt(document.querySelector("#PlaylistList").value);
+  //  var playlist = parseInt(document.querySelector("#PlaylistList").value);
+  
+  const params = new URLSearchParams(window.location.search);
+  let playlist = params.get("PlaylistId");
+  
   const response = await fetch(`http://localhost:8082/playlist/${playlist}`, {
     method: "DELETE",
   });
@@ -92,27 +97,28 @@ let DeletePlaylist = async (playlist) => {
 };
 
 //Get All Playlists
-(function() {
-
+(function () {
   fetch(`http://localhost:8082/playlist/read`, {
-    method: "GET"
-}).then((response) => {
-    if(response.status === 200){
-      return response.json()
-    }else{
-      throw "Response code was not 200 it was " + response.status
-    }
-   }).then((data) => {
-      data.forEach(playlist => {
-        PlaylistElement = document.createElement('div')
+    method: "GET",
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw "Response code was not 200 it was " + response.status;
+      }
+    })
+    .then((data) => {
+      data.forEach((playlist) => {
+        PlaylistElement = document.createElement("div");
         TrackName = playlist.track.name;
         ArtistName = playlist.artist.name;
         AlbumName = playlist.album.name;
         Genre = playlist.genre.name;
-        
-        PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5"
-        PlaylistElement.style = "border-radius: 12px;"
-        
+
+        PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
+        PlaylistElement.style = "border-radius: 12px;";
+
         PlaylistElement.innerHTML = `
        
             <div class="text-center">
@@ -122,48 +128,48 @@ let DeletePlaylist = async (playlist) => {
                 <h4>${Genre}</h4>
             </div>
         
-        `
+        `;
 
-        document.querySelector("#PlaylistList").append(PlaylistElement)
-
+        document.querySelector("#PlaylistList").append(PlaylistElement);
       });
-    }).catch((err) => {
-      alert('There was a problem getting the albums from the system. Please try again later.' + err) 
     })
-      
-  })();
- 
-  //Get Playlist by Id
+    .catch((err) => {
+      alert(
+        "There was a problem getting the albums from the system. Please try again later." +
+          err
+      );
+    });
+})();
 
-  
-  (function() {
+//Get Playlist by Id
 
-    // var playlist = parseInt(document.querySelector("#PlaylistList").value);
-  
-    const params = new URLSearchParams(window.location.search)
-    let playlist = params.get("PlaylistId")
+(function () {
+  // var playlist = parseInt(document.querySelector("#PlaylistList").value);
 
+  const params = new URLSearchParams(window.location.search);
+  let playlist = params.get("PlaylistId");
 
-    fetch(`http://localhost:8082/playlist/${playlist}`, {
-    method: "GET"
-}).then((response) => {
-    if(response.status === 200){
-      return response.json()
-    }else{
-      throw "Response code was not 200 it was " + response.status
-    }
-   }).then((playlist) => {
-        PlaylistElement = document.createElement('div')
-        TrackName = playlist.track.name;
-        ArtistName = playlist.artist.name;
-        AlbumName = playlist.album.name;
-        Genre = playlist.genre.name;
-       
-        PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5"
-        PlaylistElement.style = "border-radius: 12px;"
-        
-       
-        PlaylistElement.innerHTML = `
+  fetch(`http://localhost:8082/playlist/${playlist}`, {
+    method: "GET",
+  })
+    .then((response) => {
+      if (response.status === 200) {
+        return response.json();
+      } else {
+        throw "Response code was not 200 it was " + response.status;
+      }
+    })
+    .then((playlist) => {
+      PlaylistElement = document.createElement("div");
+      TrackName = playlist.track.name;
+      ArtistName = playlist.artist.name;
+      AlbumName = playlist.album.name;
+      Genre = playlist.genre.name;
+
+      PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
+      PlaylistElement.style = "border-radius: 12px;";
+
+      PlaylistElement.innerHTML = `
        
             <div class="text-center">
                 <h4>${TrackName}</h4>
@@ -172,13 +178,14 @@ let DeletePlaylist = async (playlist) => {
                 <h4>${Genre}</h4>
             </div>
   
-        `
+        `;
 
-        document.querySelector("#PlaylistList").append(PlaylistElement)
-
-    
-    }).catch((err) => {
-      alert('There was a problem getting the albums from the system. Please try again later.' + err) 
+      document.querySelector("#PlaylistList").append(PlaylistElement);
     })
-      
-  })();
+    .catch((err) => {
+      alert(
+        "There was a problem getting the albums from the system. Please try again later." +
+          err
+      );
+    });
+})();
