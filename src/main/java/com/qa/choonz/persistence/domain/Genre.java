@@ -33,7 +33,7 @@ public class Genre {
     @Column(unique = true)
     private String description;
 
-    @ManyToMany(mappedBy = "genre", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "genre", fetch = FetchType.EAGER)
     private List<Album> albums;
 
     public Genre() {
@@ -49,9 +49,9 @@ public class Genre {
         this.description = description;
         this.albums = albums;
     }
-    
+
     public Genre(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description) {
-    	super();
+        super();
         this.id = id;
         this.name = name;
         this.description = description;

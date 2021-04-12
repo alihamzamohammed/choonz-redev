@@ -33,14 +33,16 @@ public class Album {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "album", cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+    @OneToMany(mappedBy = "album") // , cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Track> tracks;
 
     @ManyToOne
     private Artist artist;
 
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH }, fetch = FetchType.EAGER)
+    @ManyToMany(/*
+                 * cascade = { CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH },
+                 */ fetch = FetchType.EAGER)
     @JoinTable
     private List<Genre> genre;
 
