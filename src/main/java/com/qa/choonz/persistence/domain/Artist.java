@@ -28,7 +28,7 @@ public class Artist {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "artist") // , cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
 
@@ -42,10 +42,10 @@ public class Artist {
         this.name = name;
         this.albums = albums;
     }
-    
-    public Artist(int id, @NotNull @Size(max =100) String name) {
-    	super();
-    	this.id = id;
+
+    public Artist(int id, @NotNull @Size(max = 100) String name) {
+        super();
+        this.id = id;
         this.name = name;
     }
 
