@@ -1,9 +1,6 @@
 package com.qa.choonz.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.GenreNotFoundException;
 import com.qa.choonz.mapper.GenreMapper;
@@ -11,18 +8,18 @@ import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.repository.GenreRepository;
 import com.qa.choonz.rest.dto.GenreDTO;
 
+import org.springframework.stereotype.Service;
+
 @Service
 public class GenreService {
 
     private GenreRepository genreRepo;
     private GenreMapper genreMap;
-    private AlbumService albumService;
 
-    public GenreService(GenreRepository genreRepo, GenreMapper map, AlbumService albumService) {
+    public GenreService(GenreRepository genreRepo, GenreMapper map) {
         super();
         this.genreRepo = genreRepo;
         this.genreMap = map;
-        this.albumService = albumService;
     }
 
     public GenreDTO create(Genre genre) {
@@ -56,12 +53,6 @@ public class GenreService {
 
     public boolean delete(int id) {
         Genre genre = genreRepo.findById(id).orElseThrow(GenreNotFoundException::new);
-        // genre.getAlbums().forEach(album -> {
-        // album.setGenre(album.getGenre().stream().filter(g ->
-        // !g.getName().equals(genre.getName()))
-        // .collect(Collectors.toList()));
-        // albumService.update(album, album.getId());
-        // });
         genreRepo.deleteById(genre.getId());
         return !genreRepo.existsById(genre.getId());
     }

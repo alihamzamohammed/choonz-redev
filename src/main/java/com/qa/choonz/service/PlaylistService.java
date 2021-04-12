@@ -16,14 +16,12 @@ public class PlaylistService {
 
     private PlaylistRepository repo;
     private PlaylistMapper mapper;
-    private TrackService trackService;
 
     @Autowired
-    public PlaylistService(PlaylistRepository repo, PlaylistMapper mapper, TrackService trackService) {
+    public PlaylistService(PlaylistRepository repo, PlaylistMapper mapper) {
         super();
         this.repo = repo;
         this.mapper = mapper;
-        this.trackService = trackService;
     }
 
     public PlaylistDTO create(Playlist playlist) {
