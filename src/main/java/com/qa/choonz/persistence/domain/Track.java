@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -116,6 +117,14 @@ public class Track {
 
     public void setLyrics(String lyrics) {
         this.lyrics = lyrics;
+    }
+
+    public List<Artist> getContributingArtists() {
+        return this.contributingArtists;
+    }
+
+    public void setContributingArtists(List<Artist> contributingArtists) {
+        this.contributingArtists = contributingArtists;
     }
 
     @Override
