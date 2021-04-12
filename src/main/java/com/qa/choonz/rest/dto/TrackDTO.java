@@ -11,14 +11,13 @@ public class TrackDTO {
 	private Integer duration;
 	private String lyrics;
 	private ArtistRelationshipDTO artist;
-	private List<ArtistRelationshipDTO> contributingArtists;
 
 	public TrackDTO() {
 		super();
 	}
 
 	public TrackDTO(int id, String name, AlbumRelationshipDTO album, Integer duration, String lyrics,
-			ArtistRelationshipDTO artist, List<ArtistRelationshipDTO> contributingArtists) {
+			ArtistRelationshipDTO artist) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -26,8 +25,6 @@ public class TrackDTO {
 		this.duration = duration;
 		this.lyrics = lyrics;
 		this.artist = artist;
-		this.contributingArtists = contributingArtists;
-
 	}
 
 	public int getId() {
@@ -78,17 +75,9 @@ public class TrackDTO {
 		this.artist = artist;
 	}
 
-	public List<ArtistRelationshipDTO> getContributingArtists() {
-		return this.contributingArtists;
-	}
-
-	public void setContributingArtists(List<ArtistRelationshipDTO> contributingArtists) {
-		this.contributingArtists = contributingArtists;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(album, duration, id, lyrics, name, artist, contributingArtists);
+		return Objects.hash(album, duration, id, lyrics, name, artist);
 	}
 
 	@Override
@@ -100,8 +89,7 @@ public class TrackDTO {
 		TrackDTO other = (TrackDTO) obj;
 		return Objects.equals(album, other.album) && duration == other.duration && id == other.id
 				&& Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
-				&& Objects.equals(artist, other.artist)
-				&& Objects.equals(contributingArtists, other.contributingArtists);
+				&& Objects.equals(artist, other.artist);
 	}
 
 	@Override
@@ -109,7 +97,7 @@ public class TrackDTO {
 		StringBuilder builder = new StringBuilder();
 		builder.append("TrackDTO [id=").append(id).append(", name=").append(name).append(", album=").append(album)
 				.append(", duration=").append(duration).append(", lyrics=").append(", artist=").append(artist)
-				.append(lyrics).append(", contributingArtists=").append(contributingArtists).append("]");
+				.append(lyrics).append("]");
 		return builder.toString();
 	}
 

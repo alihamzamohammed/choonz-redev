@@ -40,18 +40,6 @@ public class Track {
 
     private String lyrics;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable
-    private List<Artist> contributingArtists;
-
-    public List<Artist> getContributingArtists() {
-        return this.contributingArtists;
-    }
-
-    public void setContributingArtists(List<Artist> contributingArtists) {
-        this.contributingArtists = contributingArtists;
-    }
-
     public Track() {
         super();
     }
@@ -126,13 +114,13 @@ public class Track {
         StringBuilder builder = new StringBuilder();
         builder.append("Track [id=").append(id).append(", name=").append(name).append(", album=").append(album)
                 .append(", duration=").append(duration).append(", lyrics=").append(lyrics).append(", artist=")
-                .append(artist).append(", contributingArtists=").append(contributingArtists).append("]");
+                .append(artist).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, album, duration, id, lyrics, name, contributingArtists);
+        return Objects.hash(artist, album, duration, id, lyrics, name);
     }
 
     @Override
@@ -146,8 +134,7 @@ public class Track {
         Track other = (Track) obj;
         return Objects.equals(album, other.album) && duration == other.duration && id == other.id
                 && Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
-                && Objects.equals(artist, other.artist)
-                && Objects.equals(contributingArtists, other.contributingArtists);
+                && Objects.equals(artist, other.artist);
     }
 
 }
