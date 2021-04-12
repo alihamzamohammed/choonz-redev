@@ -20,16 +20,20 @@ const EditAlbumFunc = () => {
     let albumName = document.querySelector("#AlbumName").value;
     console.log("Album Name: " + albumName);
   
+    let coverArt = document.querySelector("#AlbumCoverArt").value
+    console.log("Cover art: " + coverArt)
+
     let artistName = document.querySelector("#AlbumDuration").value;
     console.log("Artist Name: " + artistName);
   
     let genre = document.querySelector("#Genre").value;
-    console.log("Track Lyrics: " + trackLyrics);
+    console.log("Genre: " + genre);
   
     const updatedAlbum = {
-      name: trackName,
-      duration: trackDuration,
-      lyrics: trackLyrics,
+     name: albumName,
+     cover: coverArt,
+     artist: artistName,
+     genre: genre
     };
   
     fetch(`http://localhost:8082/albums/${album}`, {
