@@ -39,7 +39,7 @@ public class Album {
     @ManyToOne
     private Artist artist;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable
     private List<Genre> genre;
 

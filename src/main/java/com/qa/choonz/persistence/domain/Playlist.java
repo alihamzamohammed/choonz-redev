@@ -39,7 +39,7 @@ public class Playlist {
     @Column(unique = true)
     private String artwork;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Track> tracks;

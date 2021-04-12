@@ -1,15 +1,19 @@
 package com.qa.choonz.persistence.domain;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,14 +32,25 @@ public class Track {
     @ManyToOne
     private Album album;
 
-    @OneToOne()
-    @JoinColumn(name = "fk_artist_id")
+    @OneToOne
     private Artist artist;
 
     // in seconds
     private Integer duration;
 
     private String lyrics;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable
+    private List<Artist> contributingArtists;
+
+    public List<Artist> getContributingArtists() {
+        return this.contributingArtists;
+    }
+
+    public void setContributingArtists(List<Artist> contributingArtists) {
+        this.contributingArtists = contributingArtists;
+    }
 
     public Track() {
         super();
@@ -111,13 +126,13 @@ public class Track {
         StringBuilder builder = new StringBuilder();
         builder.append("Track [id=").append(id).append(", name=").append(name).append(", album=").append(album)
                 .append(", duration=").append(duration).append(", lyrics=").append(lyrics).append(", artist=")
-                .append(artist).append("]");
+                .append(artist).append(", contributingArtists=").append(contributingArtists).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, album, duration, id, lyrics, name);
+        return Objects.hash(artist, album, duration, id, lyrics, name, contributingArtists);
     }
 
     @Override
@@ -131,7 +146,8 @@ public class Track {
         Track other = (Track) obj;
         return Objects.equals(album, other.album) && duration == other.duration && id == other.id
                 && Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
-                && Objects.equals(artist, other.artist);
+                && Objects.equals(artist, other.artist)
+                && Objects.equals(contributingArtists, other.contributingArtists);
     }
 
 }

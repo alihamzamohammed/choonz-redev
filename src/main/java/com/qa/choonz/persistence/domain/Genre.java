@@ -29,7 +29,7 @@ public class Genre {
     @Size(max = 250)
     private String description;
 
-    @ManyToMany(mappedBy = "genre", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "genre", fetch = FetchType.LAZY)
     private List<Album> albums;
 
     public Genre() {
