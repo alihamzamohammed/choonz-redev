@@ -106,6 +106,14 @@ public class Track {
         this.lyrics = lyrics;
     }
 
+    public List<Artist> getContributingArtists() {
+        return this.contributingArtists;
+    }
+
+    public void setContributingArtists(List<Artist> contributingArtists) {
+        this.contributingArtists = contributingArtists;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

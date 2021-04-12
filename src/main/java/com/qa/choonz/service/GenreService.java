@@ -15,11 +15,13 @@ public class GenreService {
 
     private GenreRepository genreRepo;
     private GenreMapper genreMap;
+    private AlbumService albumService;
 
-    public GenreService(GenreRepository genreRepo, GenreMapper map) {
+    public GenreService(GenreRepository genreRepo, GenreMapper map, AlbumService albumService) {
         super();
         this.genreRepo = genreRepo;
         this.genreMap = map;
+        this.albumService = albumService;
     }
 
     public GenreDTO create(Genre genre) {
@@ -52,8 +54,10 @@ public class GenreService {
     }
 
     public boolean delete(int id) {
-        genreRepo.deleteById(id);
-        return !genreRepo.existsById(id);
+        Genre genre = genreRepo.findById(id).orElseThrow(GenreNotFoundException::new);
+        genre.getAlbums().forEach(album -> albumService.delete(album.getId()));
+        genreRepo.deleteById(genre.getId());
+        return !genreRepo.existsById(genre.getId());
     }
 
 }

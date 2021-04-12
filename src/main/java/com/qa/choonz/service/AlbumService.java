@@ -16,12 +16,14 @@ public class AlbumService {
 
 	private AlbumRepository repo;
 	private AlbumMapper mapper;
+	private TrackService trackService;
 
 	@Autowired
-	public AlbumService(AlbumRepository repo, AlbumMapper mapper) {
+	public AlbumService(AlbumRepository repo, AlbumMapper mapper, TrackService trackService) {
 		super();
 		this.repo = repo;
 		this.mapper = mapper;
+		this.trackService = trackService;
 	}
 
 	public AlbumDTO create(Album album) {
@@ -53,8 +55,10 @@ public class AlbumService {
 	}
 
 	public boolean delete(int id) {
-		this.repo.deleteById(id);
-		return !this.repo.existsById(id);
+		Album album = this.repo.findById(id).orElseThrow(AlbumNotFoundException::new);
+		album.getTracks().forEach(track -> trackService.delete(track.getId()));
+		this.repo.deleteById(album.getId());
+		return !this.repo.existsById(album.getId());
 	}
 
 }

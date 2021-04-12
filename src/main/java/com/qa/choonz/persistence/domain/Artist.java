@@ -7,12 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Artist {
@@ -26,8 +24,10 @@ public class Artist {
     private String name;
 
     @OneToMany(mappedBy = "artist")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
+
+    @ManyToMany(mappedBy = "contributingArtists")
+    private List<Track> contributedTracks;
 
     public Artist() {
         super();
@@ -68,6 +68,14 @@ public class Artist {
 
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
+    }
+
+    public List<Track> getContributedTracks() {
+        return this.contributedTracks;
+    }
+
+    public void setContributedTracks(List<Track> contributedTracks) {
+        this.contributedTracks = contributedTracks;
     }
 
     @Override

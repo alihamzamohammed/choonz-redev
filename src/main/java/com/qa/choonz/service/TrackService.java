@@ -48,8 +48,9 @@ public class TrackService {
     }
 
     public boolean delete(int id) {
-        repo.deleteById(id);
-        return !repo.existsById(id);
+        Track track = repo.findById(id).orElseThrow(TrackNotFoundException::new);
+        repo.deleteById(track.getId());
+        return !repo.existsById(track.getId());
     }
 
 }
