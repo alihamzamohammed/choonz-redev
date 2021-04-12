@@ -33,8 +33,8 @@ const CreateAlbum = () => {
 };
 
 
-//Read all Albunms
-/*(function () {
+//Read all Albums
+(function () {
   fetch(`http://localhost:8082/albums/read`, {
     method: "GET",
   })
@@ -47,9 +47,9 @@ const CreateAlbum = () => {
     })
     .then((data) => {
       data.forEach((album) => {
-        AlbumElement = document.createElement("option");
-        AlbumName = album.name;
-        AlbumId = album.id;
+        var AlbumElement = document.createElement("option");
+        var AlbumName = album.name;
+        var AlbumId = album.id;
 
         AlbumElement.value = AlbumId;
         AlbumElement.text = AlbumName;
@@ -64,7 +64,7 @@ const CreateAlbum = () => {
           err
       );
     });
-})();*/
+})();
 
 // Get All Artists for the Album Creation and Edit Drop Down Menu
 

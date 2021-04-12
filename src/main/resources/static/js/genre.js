@@ -1,12 +1,8 @@
 "use strict";
 
-const createGenre = document.querySelector("#CreateGenreButton");
-createGenre.addEventListener("click", (event) => {
-  event.preventDefault();
-  CreateGenre();
-});
 
-const EditGenre = document.querySelector("#EditGenreButton");
+
+const editGenre = document.querySelector("#EditGenreButton");
 editGenre.addEventListener("click", (event) => {
   event.preventDefault();
   EditGenre();
@@ -18,31 +14,9 @@ deleteGenre.addEventListener("click", (event) => {
   DeleteGenre();
 });
 
-//Creating Create Fucntionality for Genre
-const CreateGenre = () => {
-  let genre= document.querySelector("#GenreList").value;
-  console.log(genre);
-  console.log(genreName);
-  console.log(genreDescription);
 
 
-  const obj = {
-    name: genreName,
-    description: genreDescription,
-   
-  };
-
-  fetch("http://localhost:8082/genres", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(obj),
-  })
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.err(err));
-};
+  
 
 // Creating Update Functionality for PokeList
 let EditGenre = () => {
@@ -106,9 +80,9 @@ let DeleteGenre = async (genre) => {
     })
     .then((data) => {
       data.forEach((genre) => {
-        GenreElement = document.createElement("div");
-        GenreName = genre.name;
-        GenreDescription = genre.description;
+        var GenreElement = document.createElement("div");
+        var GenreName = genre.name;
+        var GenreDescription = genre.description;
 
         GenreElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
         GenreElement.style = "border-radius: 12px;";
@@ -151,10 +125,10 @@ let DeleteGenre = async (genre) => {
         throw "Response code was not 200 it was " + response.status;
       }
     })
-    .then((genre) => {
-      GenreElement = document.createElement("div");
-      GenreName = genre.name;
-      GenreDescription = genre.description;
+    .then((data) => {
+      var GenreElement = document.createElement("div");
+      var GenreName = genre.name;
+      var GenreDescription = genre.description;
      
 
       GenreElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
