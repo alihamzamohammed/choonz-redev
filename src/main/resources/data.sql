@@ -11,4 +11,4 @@ values(1, 1, 'lalalalala', 'hello world', 1, 1);
 insert into playlist
 values (1, 'a', 'b', 'c');
 insert into playlist_tracks
-values (1, 1, 1);
+values (1, 1);

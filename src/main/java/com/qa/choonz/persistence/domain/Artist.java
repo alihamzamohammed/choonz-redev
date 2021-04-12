@@ -3,7 +3,6 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +27,7 @@ public class Artist {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "artist") // , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "artist")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
 
