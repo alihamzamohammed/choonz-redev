@@ -43,6 +43,8 @@ public class TrackService {
         trackInDb.setAlbum(track.getAlbum() != null ? track.getAlbum() : trackInDb.getAlbum());
         trackInDb.setDuration(track.getDuration() != null ? track.getDuration() : trackInDb.getDuration());
         trackInDb.setLyrics(track.getLyrics() != null ? track.getLyrics() : trackInDb.getLyrics());
+        trackInDb.setContributingArtists(track.getContributingArtists() != null ? track.getContributingArtists()
+                : trackInDb.getContributingArtists());
         Track updatedTrack = repo.save(trackInDb);
         return mapper.mapToDTO(updatedTrack);
     }

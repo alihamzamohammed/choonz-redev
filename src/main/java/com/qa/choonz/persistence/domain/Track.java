@@ -43,17 +43,23 @@ public class Track {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Playlist> playlists;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable
+    private List<Artist> contributingArtists;
+
     public Track() {
         super();
     }
 
-    public Track(int id, @NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics) {
+    public Track(int id, @NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List<Artist> contributingArtists) {
         super();
         this.id = id;
         this.name = name;
         this.album = album;
         this.duration = duration;
         this.lyrics = lyrics;
+        this.contributingArtists = contributingArtists;
     }
 
     public Track(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
@@ -117,13 +123,13 @@ public class Track {
         StringBuilder builder = new StringBuilder();
         builder.append("Track [id=").append(id).append(", name=").append(name).append(", album=").append(album)
                 .append(", duration=").append(duration).append(", lyrics=").append(lyrics).append(", artist=")
-                .append(artist).append("]");
+                .append(artist).append(", contributingArtists=").append(contributingArtists).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, album, duration, id, lyrics, name);
+        return Objects.hash(artist, album, duration, id, lyrics, name, contributingArtists);
     }
 
     @Override
@@ -137,7 +143,8 @@ public class Track {
         Track other = (Track) obj;
         return Objects.equals(album, other.album) && duration == other.duration && id == other.id
                 && Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
-                && Objects.equals(artist, other.artist);
+                && Objects.equals(artist, other.artist)
+                && Objects.equals(contributingArtists, other.contributingArtists);
     }
 
 }
