@@ -15,7 +15,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    String[] publicResources = { "/css/**", "/img/**", "/js/**", };
+    String[] protectedWebpages = { "/user", "/album", "/artist", "/genre", "/playlist", "/track" };
+    String[] protectedCreateEndpoints = { "/album/create", "/artist/create", "/genre/create", "/playlist/create",
+            "/track/create" };
+    String[] protectedUpdateEndpoints = { "/album/update", "/artist/update", "/genre/update", "/playlist/update",
+            "/track/update" };
+    String[] protectedDeleteEndpoints = { "/album/delete", "/artist/delete", "/genre/delete", "/playlist/delete",
+            "/track/delete" };
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -27,30 +33,18 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.csrf().disable().headers().disable().authorizeRequests().antMatchers(publicResources).permitAll()
-                .antMatchers("/username", "/username*").permitAll().antMatchers("/h2*", "/h2**").permitAll()
-                .antMatchers("/login*").permitAll().antMatchers("/signup*").permitAll().antMatchers("/check*")
-                .permitAll().antMatchers("/index*").permitAll().antMatchers("/albums*").permitAll()
-                .antMatchers("/artists*").permitAll().antMatchers("/genres*").permitAll().antMatchers("/playlists*")
-                .permitAll().antMatchers("/tracks*").permitAll().antMatchers("/index/read*").permitAll()
-                .antMatchers("/albums/read*").permitAll().antMatchers("/artists/read*").permitAll()
-                .antMatchers("/genres/read*").permitAll().antMatchers("/playlists/read*").permitAll()
-                .antMatchers("/tracks/read*").permitAll().antMatchers("/user*").hasAuthority("USER")
-                .antMatchers("/album*").hasAuthority("USER").antMatchers("/artist*").hasAuthority("USER")
-                .antMatchers("/genre*").hasAuthority("USER").antMatchers("/playlist*").hasAuthority("USER")
-                .antMatchers("/track*").hasAuthority("USER").antMatchers("/album/create*").hasAuthority("USER")
-                .antMatchers("/artist/create*").hasAuthority("USER").antMatchers("/genre/create*").hasAuthority("USER")
-                .antMatchers("/playlist/create*").hasAuthority("USER").antMatchers("/track/create*")
-                .hasAuthority("USER").antMatchers("/album/update*").hasAuthority("USER").antMatchers("/artist/update*")
-                .hasAuthority("USER").antMatchers("/genre/update*").hasAuthority("USER")
-                .antMatchers("/playlist/update*").hasAuthority("USER").antMatchers("/track/update*")
-                .hasAuthority("USER").antMatchers("/album/delete*").hasAuthority("USER").antMatchers("/artist/delete*")
-                .hasAuthority("USER").antMatchers("/genre/delete*").hasAuthority("USER")
-                .antMatchers("/playlist/delete*").hasAuthority("USER").antMatchers("/track/delete*")
-                .hasAuthority("USER").antMatchers("/*").permitAll().antMatchers("*").permitAll().anyRequest()
-                .authenticated().and().formLogin().loginPage("/login.html").loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/index.html").failureUrl("/login.html?error=true").and().logout()
-                .logoutUrl("/perform_logout").logoutSuccessUrl("/login.html?logout=true").deleteCookies("JSESSIONID");
+        http.csrf().disable().headers().disable().anonymous().and().authorizeRequests()
+                // Secured pages
+                .mvcMatchers(protectedWebpages).hasAuthority("USER").mvcMatchers(protectedCreateEndpoints)
+                .hasAuthority("USER").mvcMatchers(protectedUpdateEndpoints).hasAuthority("USER")
+                .mvcMatchers(protectedDeleteEndpoints).hasAuthority("USER")
+                // Allow all pages that aren't secured
+                .antMatchers("/*", "/**", "*", "**").permitAll()
+
+                .anyRequest().authenticated().and().formLogin().loginPage("/login.html")
+                .loginProcessingUrl("/perform_login").defaultSuccessUrl("/index.html", true)
+                .failureUrl("/login.html?error=true").and().logout().logoutUrl("/perform_logout")
+                .logoutSuccessUrl("/login.html?logout=true").deleteCookies("JSESSIONID");
     }
 
     @Bean
