@@ -2,6 +2,8 @@ package service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,10 +70,18 @@ public class AlbumServiceUnitTest {
 		when(mapper.mapToDTO(Mockito.any(Album.class))).thenReturn(validAlbumDTO);
 		
 		assertThat(service.create(validAlbum)).isEqualTo(validAlbumDTO);
+		
+		verify(repo,times(1)).save(validAlbum);
+		verify(mapper, times(1)).mapToDTO(validAlbum);
 	}
 	
 	@Test
 	public void readTest() {
+		when(repo.findAll()).thenReturn(albums);
+		when(mapper.mapToDTO(validAlbum)).thenReturn(validAlbumDTO);
+		
+		assertThat(albumDTOs).isEqualTo(service.read());
+		
 		
 	}
 	
