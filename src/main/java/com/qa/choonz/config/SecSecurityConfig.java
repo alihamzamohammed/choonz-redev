@@ -33,7 +33,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-
         http.csrf().disable().headers().disable().anonymous().and().authorizeRequests()
                 // Secured pages
                 .mvcMatchers(protectedWebpages).hasAuthority("USER").mvcMatchers(protectedCreateEndpoints)
