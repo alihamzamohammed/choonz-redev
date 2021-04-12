@@ -1,14 +1,11 @@
 package com.qa.choonz.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.qa.choonz.exception.PlaylistNotFoundException;
 import com.qa.choonz.mapper.PlaylistMapper;
 import com.qa.choonz.persistence.domain.Playlist;
-import com.qa.choonz.persistence.domain.PlaylistTracks;
 import com.qa.choonz.persistence.repository.PlaylistRepository;
-import com.qa.choonz.persistence.repository.PlaylistTracksRepository;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +15,17 @@ import org.springframework.stereotype.Service;
 public class PlaylistService {
 
     private PlaylistRepository repo;
-    private PlaylistTracksRepository playlistTracksRepo;
     private PlaylistMapper mapper;
 
     @Autowired
-    public PlaylistService(PlaylistRepository repo, PlaylistMapper mapper,
-            PlaylistTracksRepository playlistTracksRepo) {
+    public PlaylistService(PlaylistRepository repo, PlaylistMapper mapper) {
         super();
         this.repo = repo;
         this.mapper = mapper;
-        this.playlistTracksRepo = playlistTracksRepo;
     }
 
     public PlaylistDTO create(Playlist playlist) {
         Playlist created = this.repo.save(playlist);
-        created.getPlaylistTracks().forEach(
-                playlistTrack -> this.playlistTracksRepo.save(new PlaylistTracks(created, playlistTrack.getTrack())));
         return this.mapper.mapToDTO(created);
     }
 
@@ -54,18 +46,14 @@ public class PlaylistService {
         toUpdate.setDescription(
                 playlist.getDescription() != null ? playlist.getDescription() : toUpdate.getDescription());
         toUpdate.setArtwork(playlist.getArtwork() != null ? playlist.getArtwork() : toUpdate.getArtwork());
-        toUpdate.setPlaylistTracks(
-                playlist.getPlaylistTracks() != null ? playlist.getPlaylistTracks() : toUpdate.getPlaylistTracks());
-        toUpdate.getPlaylistTracks().forEach(playlistTrack -> this.playlistTracksRepo.save(playlistTrack));
+        toUpdate.setTracks(playlist.getTracks() != null ? playlist.getTracks() : toUpdate.getTracks());
         Playlist updated = this.repo.save(toUpdate);
         return this.mapper.mapToDTO(updated);
     }
 
     public boolean delete(int id) {
         Playlist playlist = this.repo.findById(id).orElseThrow(PlaylistNotFoundException::new);
-        playlist.getPlaylistTracks()
-                .forEach(playlistTrack -> this.playlistTracksRepo.deleteById(playlistTrack.getId()));
-        this.repo.deleteById(id);
+        this.repo.deleteById(playlist.getId());
         return !this.repo.existsById(id);
     }
 

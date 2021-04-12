@@ -2,10 +2,8 @@ package com.qa.choonz.persistence.domain;
 
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,9 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Track {
@@ -33,8 +28,7 @@ public class Track {
     @ManyToOne
     private Album album;
 
-    @OneToOne() // cascade = CascadeType.REMOVE)
-    // @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne()
     @JoinColumn(name = "fk_artist_id")
     private Artist artist;
 
@@ -55,9 +49,9 @@ public class Track {
         this.duration = duration;
         this.lyrics = lyrics;
     }
-    
+
     public Track(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
-    	super();
+        super();
         this.id = id;
         this.name = name;
         this.duration = duration;

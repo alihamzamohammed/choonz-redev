@@ -3,7 +3,6 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,16 +32,14 @@ public class Album {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "album") // , cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+    @OneToMany(mappedBy = "album")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Track> tracks;
 
     @ManyToOne
     private Artist artist;
 
-    @ManyToMany(/*
-                 * cascade = { CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH },
-                 */ fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     private List<Genre> genre;
 
@@ -53,7 +50,6 @@ public class Album {
 
     public Album() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public Album(int id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, List<Genre> genre,

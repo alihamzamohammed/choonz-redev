@@ -1,9 +1,6 @@
 package com.qa.choonz.rest.dto;
 
-import java.util.List;
 import java.util.Objects;
-
-import com.qa.choonz.persistence.domain.PlaylistTracks;
 
 public class TrackDTO {
 
