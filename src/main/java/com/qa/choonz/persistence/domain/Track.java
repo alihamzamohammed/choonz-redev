@@ -1,17 +1,21 @@
 package com.qa.choonz.persistence.domain;
 
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Track {
@@ -22,20 +26,22 @@ public class Track {
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String name;
 
     @ManyToOne
     private Album album;
 
-    @OneToOne()
-    @JoinColumn(name = "fk_artist_id")
+    @OneToOne
     private Artist artist;
 
     // in seconds
     private Integer duration;
 
     private String lyrics;
+
+    @ManyToMany(mappedBy = "tracks")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Playlist> playlists;
 
     public Track() {
         super();

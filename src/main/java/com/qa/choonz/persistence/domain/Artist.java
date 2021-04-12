@@ -3,11 +3,13 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,12 +26,15 @@ public class Artist {
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String name;
 
     @OneToMany(mappedBy = "artist")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "ARTIST_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "TRACK_ID", referencedColumnName = "ID"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Track> contributedTracks;
 
     public Artist() {
         super();
@@ -70,6 +75,14 @@ public class Artist {
 
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
+    }
+
+    public List<Track> getContributedTracks() {
+        return this.contributedTracks;
+    }
+
+    public void setContributedTracks(List<Track> contributedTracks) {
+        this.contributedTracks = contributedTracks;
     }
 
     @Override

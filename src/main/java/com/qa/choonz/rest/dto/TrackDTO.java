@@ -1,5 +1,6 @@
 package com.qa.choonz.rest.dto;
 
+import java.util.List;
 import java.util.Objects;
 
 public class TrackDTO {
@@ -24,7 +25,6 @@ public class TrackDTO {
 		this.duration = duration;
 		this.lyrics = lyrics;
 		this.artist = artist;
-
 	}
 
 	public int getId() {

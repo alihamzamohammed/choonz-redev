@@ -54,7 +54,7 @@ public class PlaylistService {
     public boolean delete(int id) {
         Playlist playlist = this.repo.findById(id).orElseThrow(PlaylistNotFoundException::new);
         this.repo.deleteById(playlist.getId());
-        return !this.repo.existsById(id);
+        return !this.repo.existsById(playlist.getId());
     }
 
 }

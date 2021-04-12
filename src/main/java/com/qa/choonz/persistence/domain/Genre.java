@@ -3,7 +3,6 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Genre {
@@ -22,14 +24,14 @@ public class Genre {
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String name;
 
     @NotNull
     @Size(max = 250)
     private String description;
 
-    @ManyToMany(mappedBy = "genre", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "genre", fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
 
     public Genre() {

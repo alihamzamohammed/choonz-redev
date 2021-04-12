@@ -3,7 +3,6 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,7 +28,6 @@ public class Album {
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String name;
 
     @OneToMany(mappedBy = "album")
@@ -39,13 +37,12 @@ public class Album {
     @ManyToOne
     private Artist artist;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable
     private List<Genre> genre;
 
     @Size(max = 50)
     @NotNull
-    @Column(unique = true)
     private String cover;
 
     public Album() {
