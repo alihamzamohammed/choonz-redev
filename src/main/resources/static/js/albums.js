@@ -1,31 +1,30 @@
 "use strict";
 
+/*
 const createAlbum = document.querySelector("#CreateAlbum");
 createAlbum.addEventListener("click", (event) => {
   event.preventDefault();
   CreateAlbum();
 });
+*/
+
 
 
 //Create a Track
 const CreateAlbum = () => {
-  let album = document.querySelector("#Track").value;
-  console.log(album);
-  console.log(abumName);
-  console.log(albumCoverArt);
 
-  const obj = {
-    name: albumName,
-    duration: albumCoverArt,
-    //Need to insetr
-  };
+  let AlbumName = document.querySelector("#AlbumName")
+  let Cover = document.querySelector("#AlbumCoverArt")
+  let ArtistID
 
-  fetch("http://localhost:8082/albums", {
+  fetch("http://localhost:8082/albums/create", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
     },
-    body: JSON.stringify(obj),
+    body: JSON.stringify({
+
+    }),
   })
     .then((res) => res.json())
     .then((data) => console.log(data))
