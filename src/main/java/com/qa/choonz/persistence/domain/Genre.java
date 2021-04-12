@@ -12,6 +12,9 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class Genre {
 
@@ -28,6 +31,7 @@ public class Genre {
     private String description;
 
     @ManyToMany(mappedBy = "genre", fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
 
     public Genre() {

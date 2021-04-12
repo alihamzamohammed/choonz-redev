@@ -1,6 +1,7 @@
 package com.qa.choonz.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -55,7 +56,12 @@ public class GenreService {
 
     public boolean delete(int id) {
         Genre genre = genreRepo.findById(id).orElseThrow(GenreNotFoundException::new);
-        genre.getAlbums().forEach(album -> albumService.delete(album.getId()));
+        // genre.getAlbums().forEach(album -> {
+        // album.setGenre(album.getGenre().stream().filter(g ->
+        // !g.getName().equals(genre.getName()))
+        // .collect(Collectors.toList()));
+        // albumService.update(album, album.getId());
+        // });
         genreRepo.deleteById(genre.getId());
         return !genreRepo.existsById(genre.getId());
     }

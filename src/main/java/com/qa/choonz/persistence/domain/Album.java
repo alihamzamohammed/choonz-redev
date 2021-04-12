@@ -31,6 +31,7 @@ public class Album {
     private String name;
 
     @OneToMany(mappedBy = "album")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Track> tracks;
 
     @ManyToOne

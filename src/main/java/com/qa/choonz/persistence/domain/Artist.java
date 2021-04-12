@@ -7,10 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Artist {
@@ -26,7 +31,9 @@ public class Artist {
     @OneToMany(mappedBy = "artist")
     private List<Album> albums;
 
-    @ManyToMany(mappedBy = "contributingArtists")
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "ARTIST_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "TRACK_ID", referencedColumnName = "ID"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Track> contributedTracks;
 
     public Artist() {

@@ -15,6 +15,9 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 public class Track {
 
@@ -36,6 +39,10 @@ public class Track {
     private Integer duration;
 
     private String lyrics;
+
+    @ManyToMany(mappedBy = "tracks")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Playlist> playlists;
 
     public Track() {
         super();

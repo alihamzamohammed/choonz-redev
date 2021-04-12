@@ -56,7 +56,7 @@ public class AlbumService {
 
 	public boolean delete(int id) {
 		Album album = this.repo.findById(id).orElseThrow(AlbumNotFoundException::new);
-		album.getTracks().forEach(track -> trackService.delete(track.getId()));
+		// album.getTracks().forEach(track -> trackService.delete(track.getId()));
 		this.repo.deleteById(album.getId());
 		return !this.repo.existsById(album.getId());
 	}

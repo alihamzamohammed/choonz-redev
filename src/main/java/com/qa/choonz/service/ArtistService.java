@@ -56,11 +56,12 @@ public class ArtistService {
         Artist artist = this.repo.findById(id).orElseThrow(ArtistNotFoundException::new);
         artist.getAlbums().forEach(album -> albumService.delete(album.getId()));
 
-        artist.getContributedTracks().forEach(track -> {
-            track.setContributingArtists(track.getContributingArtists().stream()
-                    .filter(a -> a.getName().equals(artist.getName())).collect(Collectors.toList()));
-            trackService.update(track, track.getId());
-        });
+        // artist.getContributedTracks().forEach(track -> {
+        // track.setContributingArtists(track.getContributingArtists().stream()
+        // .filter(a ->
+        // !a.getName().equals(artist.getName())).collect(Collectors.toList()));
+        // trackService.update(track, track.getId());
+        // });
         this.repo.deleteById(id);
         return !this.repo.existsById(id);
     }
