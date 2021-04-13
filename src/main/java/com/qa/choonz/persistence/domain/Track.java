@@ -1,15 +1,15 @@
 package com.qa.choonz.persistence.domain;
 
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
@@ -27,15 +27,12 @@ public class Track {
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String name;
 
     @ManyToOne
     private Album album;
 
-    @OneToOne() // cascade = CascadeType.REMOVE)
-    // @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "fk_artist_id")
+    @OneToOne
     private Artist artist;
 
     // in seconds
@@ -43,21 +40,31 @@ public class Track {
 
     private String lyrics;
 
+    @ManyToMany(mappedBy = "tracks")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Playlist> playlists;
+
+    @ManyToMany(mappedBy = "contributedTracks", fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Artist> contributingArtists;
+
     public Track() {
         super();
     }
 
-    public Track(int id, @NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics) {
+    public Track(int id, @NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List<Artist> contributingArtists) {
         super();
         this.id = id;
         this.name = name;
         this.album = album;
         this.duration = duration;
         this.lyrics = lyrics;
+        this.contributingArtists = contributingArtists;
     }
-    
+
     public Track(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
-    	super();
+        super();
         this.id = id;
         this.name = name;
         this.duration = duration;
@@ -112,18 +119,26 @@ public class Track {
         this.lyrics = lyrics;
     }
 
+    public List<Artist> getContributingArtists() {
+        return this.contributingArtists;
+    }
+
+    public void setContributingArtists(List<Artist> contributingArtists) {
+        this.contributingArtists = contributingArtists;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Track [id=").append(id).append(", name=").append(name).append(", album=").append(album)
                 .append(", duration=").append(duration).append(", lyrics=").append(lyrics).append(", artist=")
-                .append(artist).append("]");
+                .append(artist).append(", contributingArtists=").append(contributingArtists).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, album, duration, id, lyrics, name);
+        return Objects.hash(artist, album, duration, id, lyrics, name, contributingArtists);
     }
 
     @Override
@@ -137,7 +152,8 @@ public class Track {
         Track other = (Track) obj;
         return Objects.equals(album, other.album) && duration == other.duration && id == other.id
                 && Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
-                && Objects.equals(artist, other.artist);
+                && Objects.equals(artist, other.artist)
+                && Objects.equals(contributingArtists, other.contributingArtists);
     }
 
 }
