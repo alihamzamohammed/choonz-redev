@@ -21,7 +21,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 public class Album {
 
-    // Cascade on Delete.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -35,10 +34,12 @@ public class Album {
     private List<Track> tracks;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Artist artist;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Genre> genre;
 
     @Size(max = 50)

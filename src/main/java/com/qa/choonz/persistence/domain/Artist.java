@@ -29,6 +29,7 @@ public class Artist {
     private String name;
 
     @OneToMany(mappedBy = "artist")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
 
     @ManyToMany
