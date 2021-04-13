@@ -2,13 +2,13 @@ package com.qa.choonz.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.qa.choonz.exception.GenreNotFoundException;
 import com.qa.choonz.mapper.GenreMapper;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.repository.GenreRepository;
 import com.qa.choonz.rest.dto.GenreDTO;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class GenreService {
@@ -52,8 +52,9 @@ public class GenreService {
     }
 
     public boolean delete(int id) {
-        genreRepo.deleteById(id);
-        return !genreRepo.existsById(id);
+        Genre genre = genreRepo.findById(id).orElseThrow(GenreNotFoundException::new);
+        genreRepo.deleteById(genre.getId());
+        return !genreRepo.existsById(genre.getId());
     }
 
 }
