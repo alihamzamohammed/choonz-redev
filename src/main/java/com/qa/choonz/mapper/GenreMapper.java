@@ -1,5 +1,8 @@
 package com.qa.choonz.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.rest.dto.GenreDTO;
 
@@ -22,6 +25,14 @@ public class GenreMapper {
 
 	public Genre mapToGenre(GenreDTO trackDTO) {
 		return this.modelMapper.map(trackDTO, Genre.class);
+	}
+
+	public List<GenreDTO> listMapToDTO(List<Genre> genres) {
+		return genres.stream().map(this::mapToDTO).collect(Collectors.toList());
+	}
+
+	public List<Genre> listMapToGenre(List<GenreDTO> genreDTOs) {
+		return genreDTOs.stream().map(this::mapToGenre).collect(Collectors.toList());
 	}
 
 }
