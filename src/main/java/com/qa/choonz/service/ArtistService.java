@@ -2,14 +2,14 @@ package com.qa.choonz.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.qa.choonz.exception.ArtistNotFoundException;
 import com.qa.choonz.mapper.ArtistMapper;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.repository.ArtistRepository;
 import com.qa.choonz.rest.dto.ArtistDTO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ArtistService {
@@ -47,7 +47,8 @@ public class ArtistService {
     }
 
     public boolean delete(int id) {
-        this.repo.deleteById(id);
-        return !this.repo.existsById(id);
+        Artist artist = this.repo.findById(id).orElseThrow(ArtistNotFoundException::new);
+        this.repo.deleteById(artist.getId());
+        return !this.repo.existsById(artist.getId());
     }
 }
