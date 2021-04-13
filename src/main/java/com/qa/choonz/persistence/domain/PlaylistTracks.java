@@ -83,7 +83,7 @@ public class PlaylistTracks {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, playlist, track);
+		return Objects.hash(playlist, track);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class PlaylistTracks {
 		if (!(obj instanceof PlaylistTracks))
 			return false;
 		PlaylistTracks other = (PlaylistTracks) obj;
-		return id == other.id && Objects.equals(playlist, other.playlist) && Objects.equals(track, other.track);
+		return Objects.equals(playlist, other.playlist) && Objects.equals(track, other.track);
 	}
 
 }

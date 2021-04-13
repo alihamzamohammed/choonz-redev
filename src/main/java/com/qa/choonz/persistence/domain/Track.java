@@ -123,7 +123,7 @@ public class Track {
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, album, duration, id, lyrics, name);
+        return Objects.hash(artist, album, duration, lyrics, name);
     }
 
     @Override
@@ -135,8 +135,7 @@ public class Track {
             return false;
         }
         Track other = (Track) obj;
-        return Objects.equals(album, other.album) && duration == other.duration && id == other.id
-                && Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
+        return Objects.equals(album, other.album) && Objects.equals(duration, other.duration )&&  Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
                 && Objects.equals(artist, other.artist);
     }
 
