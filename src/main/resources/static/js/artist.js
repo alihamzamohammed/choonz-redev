@@ -2,23 +2,10 @@
 
 
 
-const editArtist = document.querySelector("#EditArtistButton");
-editArtist.addEventListener("click", (event) => {
-  event.preventDefault();
-  EditArtist();
-});
-
-const deleteArtist = document.querySelector("#DeleteArtistButton");
-deleteArtist.addEventListener("click", (event) => {
-  event.preventDefault();
-  DeleteArtist();
-});
-
-
 //edit artists
 const EditArtist = () => {
   const params = new URLSearchParams(window.location.search);
-  let artist = params.get("ArtistId");
+  let artist = params.get("ArtistID");
 
   let artistName = document.querySelector("#ArtistName").value;
   console.log("Artist Name: " + artistName);
@@ -47,7 +34,7 @@ const DeleteArtist = async (artists) => {
   //  var playlist = parseInt(document.querySelector("#PlaylistList").value);
 
   const params = new URLSearchParams(window.location.search);
-  const artist = params.get("ArtistId");
+  const artist = params.get("ArtistID");
 
   const response = await fetch(`http://localhost:8082/artists/${artist}`, {
     method: "DELETE",
@@ -66,36 +53,46 @@ const DeleteArtist = async (artists) => {
 // read by id
 (function () {
   const params = new URLSearchParams(window.location.search);
-  let artist = params.get("ArtistId");
+  let artist = params.get("ArtistID");
 
-  fetch(`http://localhost:8082/artists/${artist}`, {
+  fetch(`http://localhost:8082/artists/read/${artist}`, {
     method: "GET",
   })
     .then((response) => {
       if (response.status === 200) {
+        console.log("200 achieved")
         return response.json();
       } else {
         throw "Response code was not 200 it was " + response.status;
       }
     })
     .then((data) => {
-      var ArtistElement = document.createElement("div");
-      var artistName = artist.name;
-      var artistGenre = artist.genre;
+      console.log(JSON.stringify(data))
+      let ArtistName = data.name;
 
-      ArtistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
-      ArtistElement.style = "border-radius: 12px;";
+      document.querySelector("#ArtistName").text = ArtistName;
+      data.albums.forEach(album => {
+        console.log(JSON.stringify(album))
+        let albumDiv = document.createElement('div')
+        
+        let AlbumName = data.name;
+        let ArtistName = data.
 
-      ArtistElement.innerHTML = `
-           
-                <div class="text-center">
-                    <h4>${artistName}</h4>
-                    <h4>${artistGenre} Name</h4>
-                </div>
-            
-            `;
+        //need to continue here but wait for ft artist to be added
+        albumDiv.className = "ListItem col-2 ms-5 mb-5 text-center"
+        albumDiv.style = "border-radius: 12px;"
 
-      document.querySelector("#ArtistList").append(ArtistElement);
+        albumDiv.innerHTML = `
+        <img src="./img/Choonz.png" class="img-fluid mt-3" alt="Album Cover"
+        style="border-radius: 12px;">
+        <div class="text-center">
+            <h4>${AlbumName}</h4>
+            <h4>${ArtistName}</h4>
+            <h4>${Genres}</h4>
+        </div>
+        `
+      });
+
     })
     .catch((err) => {
       alert(

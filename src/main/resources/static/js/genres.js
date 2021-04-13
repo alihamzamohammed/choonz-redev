@@ -1,11 +1,5 @@
 'use strict'
 
-const createGenre = document.querySelector("#CreateGenreButton");
-createGenre.addEventListener("click", (event) => {
-  event.preventDefault();
-  CreateGenre();
-});
-
 //Creating Create Fucntionality for Genre
 const CreateGenre = () => {
     let genre= document.querySelector("#GenreList").value;
@@ -50,19 +44,19 @@ const CreateGenre = () => {
           var GenreName = genre.name;
           var GenreDescription = genre.description;
   
-          GenreElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
+          GenreElement.className = "ListItem col-2 ms-5 mb-5 text-center";
           GenreElement.style = "border-radius: 12px;";
   
           GenreElement.innerHTML = `
          
               <div class="text-center">
                   <h4>${GenreName}</h4>
-                  <h4>${GenreDescription} Name</h4>
+                  <h4>${GenreDescription}</h4>
               </div>
           
           `;
   
-          document.querySelector("GenreList").append(GenreElement);
+          document.querySelector("#GenreList").append(GenreElement);
         });
       })
       .catch((err) => {
