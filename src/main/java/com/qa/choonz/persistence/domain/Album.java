@@ -48,6 +48,17 @@ public class Album {
     public Album() {
         super();
     }
+    
+    public Album(@NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, List<Genre> genre,
+            @NotNull @Size(max = 50) String cover) {
+        
+    	super();
+        this.name = name;
+        this.tracks = tracks;
+        this.artist = artist;
+        this.genre = genre;
+        this.cover = cover;
+    }
 
     public Album(int id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, List<Genre> genre,
             @NotNull @Size(max = 50) String cover) {
@@ -119,7 +130,7 @@ public class Album {
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, cover, genre, id, name, tracks);
+        return Objects.hash(artist, cover, genre, name, tracks);
     }
 
     @Override
@@ -132,7 +143,7 @@ public class Album {
         }
         Album other = (Album) obj;
         return Objects.equals(artist, other.artist) && Objects.equals(cover, other.cover)
-                && Objects.equals(genre, other.genre) && id == other.id && Objects.equals(name, other.name)
+                && Objects.equals(genre, other.genre) && Objects.equals(name, other.name)
                 && Objects.equals(tracks, other.tracks);
     }
 
