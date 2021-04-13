@@ -40,16 +40,17 @@ public class Artist {
         super();
     }
 
-    public Artist(int id, @NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
+    
+    public Artist(@NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
         super();
-        this.id = id;
         this.name = name;
         this.albums = albums;
         this.contributedTracks = contributedTracks;
     }
     
-    public Artist(@NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
+    public Artist(int id, @NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
         super();
+        this.id = id;
         this.name = name;
         this.albums = albums;
         this.contributedTracks = contributedTracks;
@@ -101,29 +102,29 @@ public class Artist {
         this.contributedTracks = contributedTracks;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Artist [id=").append(id).append(", name=").append(name).append(", albums=").append(albums)
-                .append("]");
-        return builder.toString();
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Artist [id=").append(id).append(", name=").append(name).append(", albums=").append(albums)
+				.append(", contributedTracks=").append(contributedTracks).append("]");
+		return builder.toString();
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(albums, name);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(albums, contributedTracks, name);
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Artist)) {
-            return false;
-        }
-        Artist other = (Artist) obj;
-        return Objects.equals(albums, other.albums) && Objects.equals(name, other.name);
-    }
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Artist))
+			return false;
+		Artist other = (Artist) obj;
+		return Objects.equals(albums, other.albums) && Objects.equals(contributedTracks, other.contributedTracks)
+				&& Objects.equals(name, other.name);
+	}
 }
+
+ 
