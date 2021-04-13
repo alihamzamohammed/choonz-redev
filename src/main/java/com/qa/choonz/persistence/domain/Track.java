@@ -44,8 +44,8 @@ public class Track {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Playlist> playlists;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable
+    @ManyToMany(mappedBy = "contributedTracks", fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Artist> contributingArtists;
 
     public Track() {
