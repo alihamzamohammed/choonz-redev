@@ -30,7 +30,7 @@ public class UserService {
     }
 
     public UserDTO update(User user) {
-        User toUpdate = findByUsername(user.getUsername())
+        User toUpdate = findByUsername(user.getUsername());
         toUpdate.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         toUpdate.setPasswordConfirm(user.getPasswordConfirm());
         toUpdate.setRoles("USER");
