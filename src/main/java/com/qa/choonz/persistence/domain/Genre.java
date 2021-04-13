@@ -100,6 +100,7 @@ public class Genre {
         StringBuilder builder = new StringBuilder();
         builder.append("Genre [id=").append(id).append(", name=").append(name).append(", description=")
                 .append(description).append(", albums=").append(albums).append("]");
+       
         return builder.toString();
     }
 
