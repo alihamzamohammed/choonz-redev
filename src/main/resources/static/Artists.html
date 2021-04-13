@@ -80,15 +80,8 @@
                     <button style="float: right;" class="btn btn-primary btn-lg me-3"
                         data-bs-target="#CreateArtistModal" data-bs-toggle="modal">Add new artist</button>
                 </div>
-                <div id="AlbumsList" class="row justify-content-center mt-5">
+                <div id="ArtistList" class="row justify-content-center mt-5">
                     <!--Add Albums here that are loaded from backend-->
-                    <div class="ListItem col-2 ms-5 mb-5 text-center mt-5" style="border-radius: 12px;">
-                        <div class="text-center">
-                            <h4>Artist Name</h4>
-                            <h4>Album Count</h4>
-                            <h4>Most Popular Genre</h4>
-                        </div>
-                    </div>
                 </div>
                 <div class="text-center">
                     <button class="mx-auto btn btn-lg btn-primary w-25">Load More Albums</button>
@@ -130,11 +123,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Create Artist</button>
+                    <input type="submit" class="btn btn-primary" value="Create Artist"/>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<script src="/src/main/resources/static/js/artists.js"></script>
+<script src="./js/artists.js"></script>
 </html>
