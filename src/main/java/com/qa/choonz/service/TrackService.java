@@ -39,19 +39,20 @@ public class TrackService {
 
     public TrackDTO update(Track track, int id) {
         Track trackInDb = repo.findById(id).orElseThrow(TrackNotFoundException::new);
-
         trackInDb.setName(track.getName() != null ? track.getName() : trackInDb.getName());
         trackInDb.setAlbum(track.getAlbum() != null ? track.getAlbum() : trackInDb.getAlbum());
         trackInDb.setDuration(track.getDuration() != null ? track.getDuration() : trackInDb.getDuration());
         trackInDb.setLyrics(track.getLyrics() != null ? track.getLyrics() : trackInDb.getLyrics());
-
+        trackInDb.setContributingArtists(track.getContributingArtists() != null ? track.getContributingArtists()
+                : trackInDb.getContributingArtists());
         Track updatedTrack = repo.save(trackInDb);
         return mapper.mapToDTO(updatedTrack);
     }
 
     public boolean delete(int id) {
-        repo.deleteById(id);
-        return !repo.existsById(id);
+        Track track = repo.findById(id).orElseThrow(TrackNotFoundException::new);
+        repo.deleteById(track.getId());
+        return !repo.existsById(track.getId());
     }
 
 }
