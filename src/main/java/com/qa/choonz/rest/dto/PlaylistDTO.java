@@ -84,7 +84,7 @@ public class PlaylistDTO {
     /**
      * @return the tracks
      */
-    public List<TrackRelationshipDTO> getPlaylistTracks() {
+    public List<TrackRelationshipDTO> getTracks() {
         return this.tracks;
     }
 
