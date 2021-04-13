@@ -3,13 +3,13 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,35 +25,33 @@ public class Playlist {
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String name;
 
     @NotNull
     @Size(max = 500)
-    @Column(unique = true)
     private String description;
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String artwork;
 
-    @OneToMany(mappedBy = "playlist", fetch = FetchType.EAGER, orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<PlaylistTracks> playlistTracks;
+    private List<Track> tracks;
 
     public Playlist() {
         super();
     }
 
     public Playlist(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
-            @NotNull @Size(max = 100) String artwork, List<PlaylistTracks> playlistTracks) {
+            @NotNull @Size(max = 100) String artwork, List<Track> tracks) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
         this.artwork = artwork;
-        this.playlistTracks = playlistTracks;
+        this.tracks = tracks;
     }
 
     public int getId() {
@@ -88,26 +86,26 @@ public class Playlist {
         this.artwork = artwork;
     }
 
-    public List<PlaylistTracks> getPlaylistTracks() {
-        return playlistTracks;
+    public List<Track> getTracks() {
+        return tracks;
     }
 
-    public void setPlaylistTracks(List<PlaylistTracks> playlistTracks) {
-        this.playlistTracks = playlistTracks;
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Playlist [id=").append(id).append(", name=").append(name).append(", description=")
-                .append(description).append(", artwork=").append(artwork).append(", tracks=").append(playlistTracks)
+                .append(description).append(", artwork=").append(artwork).append(", tracks=").append(tracks)
                 .append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artwork, description, id, name, playlistTracks);
+        return Objects.hash(artwork, description, id, name, tracks);
     }
 
     @Override
@@ -120,8 +118,7 @@ public class Playlist {
         }
         Playlist other = (Playlist) obj;
         return Objects.equals(artwork, other.artwork) && Objects.equals(description, other.description)
-                && id == other.id && Objects.equals(name, other.name)
-                && Objects.equals(playlistTracks, other.playlistTracks);
+                && id == other.id && Objects.equals(name, other.name) && Objects.equals(tracks, other.tracks);
     }
 
 }
