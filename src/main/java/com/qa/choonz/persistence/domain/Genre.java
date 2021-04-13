@@ -40,6 +40,15 @@ public class Genre {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    public Genre(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
+            List<Album> albums) {
+       
+    	super();
+        this.name = name;
+        this.description = description;
+        this.albums = albums;
+    }
 
     public Genre(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
             List<Album> albums) {
@@ -99,7 +108,7 @@ public class Genre {
 
     @Override
     public int hashCode() {
-        return Objects.hash(albums, description, id, name);
+        return Objects.hash(albums, description, name);
     }
 
     @Override
@@ -111,8 +120,8 @@ public class Genre {
             return false;
         }
         Genre other = (Genre) obj;
-        return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && id == other.id
-                && Objects.equals(name, other.name);
+        return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && 
+                Objects.equals(name, other.name);
     }
 
 }
