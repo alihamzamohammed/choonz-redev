@@ -2,14 +2,14 @@ package com.qa.choonz.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.qa.choonz.exception.AlbumNotFoundException;
 import com.qa.choonz.mapper.AlbumMapper;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.rest.dto.AlbumDTO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AlbumService {
@@ -53,8 +53,9 @@ public class AlbumService {
 	}
 
 	public boolean delete(int id) {
-		this.repo.deleteById(id);
-		return !this.repo.existsById(id);
+		Album album = this.repo.findById(id).orElseThrow(AlbumNotFoundException::new);
+		this.repo.deleteById(album.getId());
+		return !this.repo.existsById(album.getId());
 	}
 
 }
