@@ -10,6 +10,13 @@ body{
   min-height: 100vh;
 }
 
+a{
+  text-decoration: none;
+  color: black;
+}
+
+
+
 wrapper{
   min-height: 100vh;/* Force footer to bottopm of page */
 }
