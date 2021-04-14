@@ -40,16 +40,17 @@ public class Artist {
         super();
     }
 
-    public Artist(int id, @NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
+    
+    public Artist(@NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
         super();
-        this.id = id;
         this.name = name;
         this.albums = albums;
         this.contributedTracks = contributedTracks;
     }
     
-    public Artist(@NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
+    public Artist(int id, @NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
         super();
+        this.id = id;
         this.name = name;
         this.albums = albums;
         this.contributedTracks = contributedTracks;
