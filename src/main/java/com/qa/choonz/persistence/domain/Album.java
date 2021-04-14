@@ -3,6 +3,7 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -46,8 +47,8 @@ public class Album {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Genre> genre;
 
-    @Size(max = 50)
     @NotNull
+    @Column(columnDefinition = "varchar(max)")
     private String cover;
 
     public Album() {
