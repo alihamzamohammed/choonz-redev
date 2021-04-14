@@ -20,9 +20,9 @@ values(
 insert into playlist
 values (
         1,
-        'My playlist',
+        'playlist.png',
         'my favourite songs',
-        'playlist.png'
+        'My Playlist'
     );
 insert into playlist_tracks
 values (1, 1);
