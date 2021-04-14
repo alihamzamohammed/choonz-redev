@@ -17,6 +17,16 @@ public class AlbumDTO {
         // TODO Auto-generated constructor stub
     }
 
+    public AlbumDTO(String name, List<TrackRelationshipDTO> tracks, List<GenreRelationshipDTO> genre, String cover,
+            ArtistRelationshipDTO artist) {
+        super();
+        this.name = name;
+        this.tracks = tracks;
+        this.artist = artist;
+        this.genre = genre;
+        this.cover = cover;
+    }
+
     public AlbumDTO(int id, String name, List<TrackRelationshipDTO> tracks, List<GenreRelationshipDTO> genre,
             String cover, ArtistRelationshipDTO artist) {
         super();
@@ -80,18 +90,18 @@ public class AlbumDTO {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("AlbumDTO [id=").append(id).append(", name=").append(name).append(", tracks=").append(tracks)
-                .append(", genre=").append(", artist=").append(artist).append(genre).append(", cover=").append(cover)
+                .append(", artist=").append(artist).append(", genre=").append(genre).append(", cover=").append(cover)
                 .append("]");
         return builder.toString();
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(cover, artist, genre, id, name, tracks);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -100,8 +110,8 @@ public class AlbumDTO {
         }
         AlbumDTO other = (AlbumDTO) obj;
         return Objects.equals(artist, other.artist) && Objects.equals(cover, other.cover)
-                && Objects.equals(genre, other.genre) && id == other.id && Objects.equals(name, other.name)
-                && Objects.equals(tracks, other.tracks);
+                && Objects.equals(genre, other.genre) && Objects.equals(id, other.id)
+                && Objects.equals(name, other.name) && Objects.equals(tracks, other.tracks);
     }
 
 }

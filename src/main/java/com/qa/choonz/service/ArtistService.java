@@ -16,12 +16,14 @@ public class ArtistService {
 
     private ArtistRepository repo;
     private ArtistMapper mapper;
+    private AlbumService albumService;
 
     @Autowired
-    public ArtistService(ArtistRepository repo, ArtistMapper mapper) {
+    public ArtistService(ArtistRepository repo, ArtistMapper mapper, AlbumService albumService) {
         super();
         this.repo = repo;
         this.mapper = mapper;
+        this.albumService = albumService;
     }
 
     public ArtistDTO create(Artist artist) {
@@ -48,6 +50,7 @@ public class ArtistService {
 
     public boolean delete(int id) {
         Artist artist = this.repo.findById(id).orElseThrow(ArtistNotFoundException::new);
+        artist.getAlbums().forEach(album -> albumService.delete(album.getId()));
         this.repo.deleteById(artist.getId());
         return !this.repo.existsById(artist.getId());
     }
