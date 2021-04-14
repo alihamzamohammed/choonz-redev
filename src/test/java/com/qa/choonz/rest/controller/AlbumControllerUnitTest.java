@@ -25,6 +25,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @SpringBootTest
 class AlbumControllerUnitTest {
@@ -56,6 +58,7 @@ class AlbumControllerUnitTest {
 				validArtistDTO);
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void createAlbumTest() {
 		when(service.create(validAlbum)).thenReturn(validAlbumDTO);
@@ -67,6 +70,7 @@ class AlbumControllerUnitTest {
 		verify(service, times(1)).create(validAlbum);
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readAllAlbumsTest() {
 		when(service.read()).thenReturn(albumDTOs);
@@ -78,6 +82,7 @@ class AlbumControllerUnitTest {
 		verify(service, times(1)).read();
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readAlbumByIdTest() {
 		when(service.read(validAlbumDTO.getId())).thenReturn(validAlbumDTO);
@@ -89,6 +94,7 @@ class AlbumControllerUnitTest {
 		verify(service, times(1)).read(validAlbumDTO.getId());
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void deleteAlbumTest() {
 		when(service.delete(validAlbum.getId())).thenReturn(true);
@@ -101,6 +107,7 @@ class AlbumControllerUnitTest {
 
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void updateAlbumTest() {
 
