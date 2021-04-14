@@ -1,7 +1,9 @@
 package com.qa.choonz.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,10 +13,10 @@ import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.repository.AlbumRepository;
+import com.qa.choonz.persistence.repository.ArtistRepository;
+import com.qa.choonz.persistence.repository.GenreRepository;
+import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.AlbumDTO;
-import com.qa.choonz.rest.dto.ArtistRelationshipDTO;
-import com.qa.choonz.rest.dto.GenreRelationshipDTO;
-import com.qa.choonz.rest.dto.TrackRelationshipDTO;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,13 +24,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class AlbumServiceIntegrationTest {
+class AlbumServiceIntegrationTest {
 
     @Autowired
     private AlbumService service;
 
     @Autowired
     private AlbumRepository repo;
+
+    @Autowired
+    private TrackRepository trackRepo;
+
+    @Autowired
+    private ArtistRepository artistRepo;
+
+    @Autowired
+    private GenreRepository genreRepo;
 
     @Autowired
     private AlbumMapper mapper;
@@ -45,14 +56,26 @@ public class AlbumServiceIntegrationTest {
 
     @BeforeEach
     void init() {
+        trackRepo.deleteAll();
+        genreRepo.deleteAll();
         repo.deleteAll();
+        artistRepo.deleteAll();
+
+        albums = new ArrayList<>();
+        albumDTOs = new ArrayList<>();
 
         listOfTracks = Arrays.asList(new Track(1, "Till I Collapse", 298, "A lot of lyrics here"));
         validArtist = new Artist(1, "Eminem");
         listOfGenres = Arrays.asList(new Genre(1, "Hip Hop", "A genre based around rap music."));
-        validAlbum = new Album(1, "The Eminem Show", listOfTracks, validArtist, listOfGenres, "eminemshow.jpg");
+
+        listOfTracks = Arrays.asList(trackRepo.save(listOfTracks.get(0)));
+        validArtist = artistRepo.save(validArtist);
+        listOfGenres = Arrays.asList(genreRepo.save(listOfGenres.get(0)));
+
+        validAlbum = new Album(1, "The Eminem Show", List.of(), validArtist, listOfGenres, "eminemshow.jpg");
 
         validAlbum = repo.save(validAlbum);
+
         validAlbumDTO = mapper.mapToDTO(validAlbum);
         albums.add(validAlbum);
         albumDTOs.add(validAlbumDTO);

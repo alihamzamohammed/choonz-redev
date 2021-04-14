@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -35,15 +36,16 @@ public class Playlist {
     @Size(max = 100)
     private String artwork;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Track> tracks;
 
     public Playlist() {
         super();
     }
-    
+
     public Playlist(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
             @NotNull @Size(max = 100) String artwork, List<Track> tracks) {
         super();
