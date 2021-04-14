@@ -18,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @SpringBootTest
 class PlaylistControllerUnitTest {
@@ -41,6 +43,7 @@ class PlaylistControllerUnitTest {
 		validPlaylistDTO = new PlaylistDTO(1, "Rap", "All the best in hip hop", "Artwork Picture", List.of());
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void createPlaylistTest() {
 		when(service.create(validPlaylist)).thenReturn(validPlaylistDTO);
@@ -52,6 +55,7 @@ class PlaylistControllerUnitTest {
 		verify(service, times(1)).create(validPlaylist);
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readAllPlaylistTest() {
 		when(service.read()).thenReturn(playlistDTOs);
@@ -63,6 +67,7 @@ class PlaylistControllerUnitTest {
 		verify(service, times(1)).read();
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readPlaylistByIdTest() {
 		when(service.read(validPlaylistDTO.getId())).thenReturn(validPlaylistDTO);
@@ -74,6 +79,7 @@ class PlaylistControllerUnitTest {
 		verify(service, times(1)).read(validPlaylistDTO.getId());
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void deletePlaylistTest() {
 		when(service.delete(validPlaylist.getId())).thenReturn(true);
@@ -86,6 +92,7 @@ class PlaylistControllerUnitTest {
 
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void updatePlaylistTest() {
 

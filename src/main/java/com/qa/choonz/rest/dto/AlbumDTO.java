@@ -90,7 +90,8 @@ public class AlbumDTO {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("AlbumDTO [id=").append(id).append(", name=").append(name).append(", tracks=").append(tracks)
-                .append(", artist=").append(artist).append(genre).append(", cover=").append(cover).append("]");
+                .append(", artist=").append(artist).append(", genre=").append(genre).append(", cover=").append(cover)
+                .append("]");
         return builder.toString();
     }
 

@@ -13,13 +13,19 @@ import com.qa.choonz.service.TrackService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class TrackControllerUnitTest {
 
 	@Autowired
@@ -40,6 +46,7 @@ class TrackControllerUnitTest {
 		validTrackDTO = new TrackDTO(1, "Till I Collapse", 298, "Lots of lyrics");
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void createTrackTest() {
 		when(service.create(validTrack)).thenReturn(validTrackDTO);
@@ -51,6 +58,7 @@ class TrackControllerUnitTest {
 		verify(service, times(1)).create(validTrack);
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readAllTracksTest() {
 		when(service.readAll()).thenReturn(trackDTOs);
@@ -62,6 +70,7 @@ class TrackControllerUnitTest {
 		verify(service, times(1)).readAll();
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readTrackByIdTest() {
 		when(service.readById(validTrackDTO.getId())).thenReturn(validTrackDTO);
@@ -73,6 +82,7 @@ class TrackControllerUnitTest {
 		verify(service, times(1)).readById(validTrackDTO.getId());
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void deleteTrackTest() {
 		when(service.delete(validTrack.getId())).thenReturn(true);
@@ -85,6 +95,7 @@ class TrackControllerUnitTest {
 
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void updateTrackTest() {
 

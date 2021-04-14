@@ -18,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @SpringBootTest
 class GenreControllerUnitTest {
@@ -39,6 +41,7 @@ class GenreControllerUnitTest {
 		validGenreDTO = new GenreDTO(1, "Hip Hop", "A genre based around rap music.", List.of());
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void createGenreTest() {
 		when(service.create(validGenre)).thenReturn(validGenreDTO);
@@ -50,6 +53,7 @@ class GenreControllerUnitTest {
 		verify(service, times(1)).create(validGenre);
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readAllGenreTest() {
 		when(service.readAll()).thenReturn(genreDTOs);
@@ -61,6 +65,7 @@ class GenreControllerUnitTest {
 		verify(service, times(1)).readAll();
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readGenreByIdTest() {
 		when(service.readById(validGenreDTO.getId())).thenReturn(validGenreDTO);
@@ -72,6 +77,7 @@ class GenreControllerUnitTest {
 		verify(service, times(1)).readById(validGenreDTO.getId());
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void deleteGenreTest() {
 		when(service.delete(validGenre.getId())).thenReturn(true);
@@ -84,6 +90,7 @@ class GenreControllerUnitTest {
 
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void updateGenreTest() {
 
