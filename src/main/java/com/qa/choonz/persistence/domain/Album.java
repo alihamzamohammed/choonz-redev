@@ -35,6 +35,7 @@ public class Album {
     private List<Track> tracks;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Artist artist;
 
     @ManyToMany(fetch = FetchType.LAZY)
