@@ -1,4 +1,4 @@
-package persistance.domain;
+package com.qa.choonz.persistance.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,7 +15,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 public class ArtistUnitTest {
 	@Test
 	public void equalsVerify() {
-		EqualsVerifier.forClass(Album.class)
+		EqualsVerifier.forClass(Artist.class)
 				.withPrefabValues(Album.class, new Album("Name", List.of(), new Artist(), List.of(), "Team 1 rules"),
 						new Album())
 				.withPrefabValues(Playlist.class, new Playlist("Name", "Description", "Artwork", List.of()),

@@ -1,4 +1,4 @@
-package persistance.domain;
+package com.qa.choonz.persistance.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
