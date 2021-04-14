@@ -1,4 +1,4 @@
-package controller;
+package com.qa.choonz.controller;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

@@ -96,7 +96,7 @@ public class AlbumDTO {
     }
 
     @Override
-    public final  int hashCode() {
+    public final int hashCode() {
         return Objects.hash(cover, artist, genre, id, name, tracks);
     }
 
