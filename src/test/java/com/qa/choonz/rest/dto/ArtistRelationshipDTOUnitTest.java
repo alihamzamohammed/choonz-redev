@@ -6,13 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-public class ArtistRelationshipDTOUnitTest {
+class ArtistRelationshipDTOUnitTest {
 	@Test
-	public void equalsVerify() {
-		 EqualsVerifier.simple().forClass(ArtistRelationshipDTO.class)
-		 .withPrefabValues(AlbumDTO.class, new AlbumDTO("Name", List.of(), List.of(), "Cover", new ArtistRelationshipDTO()), new AlbumDTO())
-		 .withPrefabValues(PlaylistDTO.class, new PlaylistDTO("Name","Description", "Artwork", List.of()), new PlaylistDTO()).verify();
+	void equalsVerify() {
+		EqualsVerifier.simple().forClass(ArtistRelationshipDTO.class).withPrefabValues(AlbumDTO.class,
+				new AlbumDTO("Name", List.of(), List.of(), "Cover", new ArtistRelationshipDTO()), new AlbumDTO())
+				.withPrefabValues(PlaylistDTO.class, new PlaylistDTO("Name", "Description", "Artwork", List.of()),
+						new PlaylistDTO())
+				.verify();
 	}
-
 
 }
