@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,15 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     String[] protectedWebpages = { "/user", "/album", "/artist", "/genre", "/playlist", "/track" };
-    String[] protectedCreateEndpoints = { "/album/create", "/artist/create", "/genre/create", "/playlist/create",
-            "/track/create" };
-    String[] protectedUpdateEndpoints = { "/album/update", "/artist/update", "/genre/update", "/playlist/update",
-            "/track/update" };
-    String[] protectedDeleteEndpoints = { "/album/delete", "/artist/delete", "/genre/delete", "/playlist/delete",
-            "/track/delete" };
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -35,9 +31,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable().headers().disable().anonymous().and().authorizeRequests()
                 // Secured pages
-                .mvcMatchers(protectedWebpages).hasAuthority("USER").mvcMatchers(protectedCreateEndpoints)
-                .hasAuthority("USER").mvcMatchers(protectedUpdateEndpoints).hasAuthority("USER")
-                .mvcMatchers(protectedDeleteEndpoints).hasAuthority("USER")
+                .mvcMatchers(protectedWebpages).hasAuthority("USER")
                 // Allow all pages that aren't secured
                 .antMatchers("/*", "/**", "*", "**").permitAll()
 
