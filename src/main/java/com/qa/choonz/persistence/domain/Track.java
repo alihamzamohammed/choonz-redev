@@ -45,6 +45,7 @@ public class Track {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Playlist> playlists;
 
+
     @ManyToMany(mappedBy = "contributedTracks")
     @LazyCollection(LazyCollectionOption.FALSE)
     @OnDelete(action = OnDeleteAction.CASCADE)
