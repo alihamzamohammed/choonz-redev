@@ -39,7 +39,7 @@ public class GenreControllerUnitTest {
 	private GenreDTO validGenreDTO;
 	
 
-	@BeforeEach
+	@BeforeEach 
 	public void init() {
 		validGenre = new Genre(1, "Hip Hop","A genre based around rap music.", List.of());
 		validGenreDTO = new GenreDTO(1, "Hip Hop","A genre based around rap music.", List.of());
