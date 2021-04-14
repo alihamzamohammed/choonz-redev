@@ -1,4 +1,4 @@
-package controller;
+package com.qa.choonz.rest.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
