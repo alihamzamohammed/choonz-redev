@@ -1,7 +1,6 @@
 package com.qa.choonz.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
