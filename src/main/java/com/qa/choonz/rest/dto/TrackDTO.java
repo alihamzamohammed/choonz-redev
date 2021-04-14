@@ -97,7 +97,7 @@ public class TrackDTO {
 		if (!(obj instanceof TrackDTO))
 			return false;
 		TrackDTO other = (TrackDTO) obj;
-		return Objects.equals(album, other.album) && duration == other.duration && id == other.id
+		return Objects.equals(album, other.album) && Objects.equals(duration, other.duration)
 				&& Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
 				&& Objects.equals(artist, other.artist)
 				&& Objects.equals(contributingArtists, other.contributingArtists);
@@ -107,8 +107,8 @@ public class TrackDTO {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("TrackDTO [id=").append(id).append(", name=").append(name).append(", album=").append(album)
-				.append(", duration=").append(duration).append(", lyrics=").append(", artist=").append(artist)
-				.append(lyrics).append(", contributingArtists=").append(contributingArtists).append("]");
+				.append(", duration=").append(duration).append(", lyrics=").append(lyrics).append(", artist=")
+				.append(artist).append(", contributingArtists=").append(contributingArtists).append("]");
 		return builder.toString();
 	}
 
