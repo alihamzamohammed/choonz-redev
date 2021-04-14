@@ -29,9 +29,9 @@ class AlbumDTOUnitTest {
 		AlbumDTO albumDTO = new AlbumDTO(1, "Name", List.of(), List.of(), "Cover", new ArtistRelationshipDTO());
 
 		builder.append("AlbumDTO [id=").append(albumDTO.getId()).append(", name=").append(albumDTO.getName())
-				.append(", tracks=").append(albumDTO.getTracks()).append(", genre=").append(", artist=")
-				.append(albumDTO.getArtist()).append(albumDTO.getGenre()).append(", cover=").append(albumDTO.getCover())
-				.append("]");
+				.append(", tracks=").append(albumDTO.getTracks()).append(", artist=").append(albumDTO.getArtist())
+				.append(", genre=").append(albumDTO.getGenre()).append(albumDTO.getGenre()).append(", cover=")
+				.append(albumDTO.getCover()).append("]");
 
 		assertThat(albumDTO.toString()).hasToString(builder.toString());
 
