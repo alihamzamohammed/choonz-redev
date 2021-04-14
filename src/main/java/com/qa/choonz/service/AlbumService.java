@@ -29,9 +29,10 @@ public class AlbumService {
 		return this.mapper.mapToDTO(created);
 	}
 
+	
 	public List<AlbumDTO> read() {
 
-		List<Album> albumDTO = this.repo.findAll();
+		List<Album> albumDTO = repo.findAll();
 
 		return this.mapper.mapToDTO(albumDTO);
 	}
