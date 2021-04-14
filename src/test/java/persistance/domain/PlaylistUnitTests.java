@@ -13,27 +13,27 @@ import com.qa.choonz.persistence.domain.Track;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-public class TrackUnitTest {
+public class PlaylistUnitTests {
 
 	@Test
 	public void equalsVerify() {
-	    EqualsVerifier.forClass(Track.class).withPrefabValues(Album.class, new Album("Name", List.of(), new Artist(), List.of(), "Team 1 rules" ), new Album())
+		
+		EqualsVerifier.forClass(Playlist.class).withPrefabValues(Album.class, new Album("Name", List.of(), new Artist(), List.of(), "Team 1 rules" ), new Album())
 	    .withPrefabValues(Playlist.class, new Playlist("Name", "Description", "Artwork", List.of()),
 				new Playlist())
 	    .withPrefabValues(Artist.class, new Artist("Name", List.of(), List.of()), new Artist()).verify();
-	
+		
 	}
-	
-	@Test 
+	@Test
 	public void toStringTest() {
 		StringBuilder builder = new StringBuilder();
-		Track track = new Track(1, "name", new Album(), 1, "lyrics", List.of());
+		Playlist playlist = new Playlist(1,"Name", "Description", "Artwork",List.of());
 		
-	    builder.append("Track [id=").append(track.getId()).append(", name=").append(track.getName()).append(", album=").append(track.getAlbum())
-        .append(", duration=").append(track.getDuration()).append(", lyrics=").append(track.getLyrics()).append(", artist=")
-        .append(track.getArtist()).append(", contributingArtists=").append(track.getContributingArtists()).append("]");
-
-	   assertThat(track.toString()).hasToString(builder.toString());
-
+	     builder.append("Playlist [id=").append(playlist.getId()).append(", name=").append(playlist.getName()).append(", description=")
+	             .append(playlist.getDescription()).append(", artwork=").append(playlist.getArtwork()).append(", tracks=").append(playlist.getTracks())
+	              .append("]");
+		
+	     assertThat(playlist.toString()).hasToString(builder.toString());
+		
 	}
 }
