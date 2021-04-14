@@ -86,18 +86,18 @@ public class TrackDTO {
 	}
 
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return Objects.hash(album, duration, id, lyrics, name, artist, contributingArtists);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public final boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (!(obj instanceof TrackDTO))
 			return false;
 		TrackDTO other = (TrackDTO) obj;
-		return Objects.equals(album, other.album) && duration == other.duration && id == other.id
+		return Objects.equals(album, other.album) && Objects.equals(duration, other.duration) && id == other.id
 				&& Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
 				&& Objects.equals(artist, other.artist)
 				&& Objects.equals(contributingArtists, other.contributingArtists);
