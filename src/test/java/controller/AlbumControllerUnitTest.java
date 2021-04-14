@@ -6,10 +6,11 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ import com.qa.choonz.rest.dto.GenreRelationshipDTO;
 import com.qa.choonz.rest.dto.TrackRelationshipDTO;
 import com.qa.choonz.service.AlbumService;
 
-@WebMvcTest(AlbumController.class)
+@SpringBootTest(classes = AlbumController.class)
 public class AlbumControllerUnitTest {
 	
 	@Autowired
@@ -61,11 +62,8 @@ public class AlbumControllerUnitTest {
 	public void createAlbumTest() {
 		when(service.create(validAlbum)).thenReturn(validAlbumDTO);
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", String.valueOf(validAlbumDTO.getId()));	
-		
 		ResponseEntity<AlbumDTO> response = 
-				new ResponseEntity<AlbumDTO>(validAlbumDTO, headers, HttpStatus.CREATED);
+				new ResponseEntity<AlbumDTO>(validAlbumDTO, HttpStatus.CREATED);
 		
 		assertThat(response).isEqualTo(controller.create(validAlbum));
 		
@@ -87,7 +85,7 @@ public class AlbumControllerUnitTest {
 	public void readAlbumByIdTest() {
 		when(service.read(validAlbumDTO.getId())).thenReturn(validAlbumDTO);
 		
-		ResponseEntity<List<AlbumDTO>> response = new ResponseEntity<List<AlbumDTO>>(albumDTOs, HttpStatus.OK);
+		ResponseEntity<AlbumDTO> response = new ResponseEntity<AlbumDTO>(validAlbumDTO, HttpStatus.OK);
 		
 		assertThat(response).isEqualTo(controller.read(validAlbumDTO.getId()));
 		
@@ -98,7 +96,7 @@ public class AlbumControllerUnitTest {
 	public void deleteAlbumTest() {
 		when(service.delete(validAlbum.getId())).thenReturn(true);
 		
-		ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
+		ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(HttpStatus.NO_CONTENT);
 		
 		assertThat(response).isEqualTo(controller.delete(validAlbum.getId()));
 		
@@ -111,9 +109,8 @@ public class AlbumControllerUnitTest {
 		
 		when(service.update(validAlbum, validAlbum.getId())).thenReturn(validAlbumDTO);
 		
-		HttpHeaders headers = new HttpHeaders();
 		
-		ResponseEntity<AlbumDTO> response = new ResponseEntity<AlbumDTO>(validAlbumDTO, headers, HttpStatus.OK);
+		ResponseEntity<AlbumDTO> response = new ResponseEntity<AlbumDTO>(validAlbumDTO, HttpStatus.ACCEPTED);
 		
 		assertThat(response).isEqualTo(controller.update(validAlbum, validAlbum.getId()));
 		
