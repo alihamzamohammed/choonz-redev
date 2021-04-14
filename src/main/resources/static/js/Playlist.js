@@ -6,7 +6,7 @@
 // Creating Update Functionality for PokeList
 let EditPlaylist = () => {
   const params = new URLSearchParams(window.location.search);
-  let playlist = params.get("PlaylistId");
+  let playlist = params.get("PlaylistID");
 
   let playlistName = document.querySelector("#PlaylistName").value;
   console.log("Playlist Name: " + playlistName);
@@ -23,7 +23,7 @@ let EditPlaylist = () => {
     PlaylistDescription: playlistDescription,
     PlaylistCoverArt: PlaylistCoverArt,
   };
-
+  //wrong endpoints
   fetch(`http://localhost:8082/playlists/${playlist}`, {
     method: "PUT",
     headers: {
@@ -41,9 +41,9 @@ let DeletePlaylist = async (playlist) => {
   //  var playlist = parseInt(document.querySelector("#PlaylistList").value);
   
   const params = new URLSearchParams(window.location.search);
-  let playlist = params.get("PlaylistId");
+  let PlaylistID = params.get("PlaylistID");
   
-  const response = await fetch(`http://localhost:8082/playlists/${playlist}`, {
+  const response = await fetch(`http://localhost:8082/playlists/${PlaylistID}`, {
     method: "DELETE",
   });
   if (response.status != 204) {
@@ -52,7 +52,7 @@ let DeletePlaylist = async (playlist) => {
     return response.status;
   }
   alert("Playlist deleted");
-  console.log("PlayList:" + playlist + "deleted");
+  console.log("PlayList:" + PlaylistID + "deleted");
 };
 
 
@@ -63,9 +63,8 @@ let DeletePlaylist = async (playlist) => {
   // var playlist = parseInt(document.querySelector("#PlaylistList").value);
 
   const params = new URLSearchParams(window.location.search);
-  let playlist = params.get("PlaylistId");
-
-  fetch(`http://localhost:8082/playlists/${playlist}`, {
+  let playlist = params.get("PlaylistID");
+  fetch(`http://localhost:8082/playlists/read/${playlist}`, {
     method: "GET",
   })
     .then((response) => {
@@ -76,25 +75,33 @@ let DeletePlaylist = async (playlist) => {
       }
     })
     .then((playlist) => {
-      PlaylistElement = document.createElement("div");
-      TrackName = playlist.track.name;
-      ArtistName = playlist.artist.name;
-      AlbumName = playlist.album.name;
-      Genre = playlist.genre.name;
+      
+      console.log(JSON.stringify(playlist))
 
-      PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
-      PlaylistElement.style = "border-radius: 12px;";
+      document.querySelector("#PlaylistName").innerHTML = playlist.name;
+      document.querySelector("#Description").innerHTML = playlist.description;
+      document.querySelector("#TrackCount").innerHTML = "Track Count: " + playlist.tracks.length;
 
-      PlaylistElement.innerHTML = `
+      
+      //continue here when they are added
+      playlist.tracks.forEach(track => {
+        var PlaylistElement = document.createElement("div");
+
+        PlaylistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
+        PlaylistElement.style = "border-radius: 12px;";
+
+        PlaylistElement.innerHTML = `
        
             <div class="text-center">
-                <h4>${TrackName}</h4>
+                <h4>${track.name}</h4>
                 <h4>${ArtistName} Name</h4>
                 <h4>${AlbumName}</h4>
                 <h4>${Genre}</h4>
             </div>
   
         `;
+      });
+      
 
       document.querySelector("#PlaylistList").append(PlaylistElement);
     })
