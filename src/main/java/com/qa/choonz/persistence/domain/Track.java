@@ -66,6 +66,35 @@ public class Track {
         this.contributingArtists = contributingArtists;
     }
 
+    public Track(@NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List<Artist> contributingArtists) {
+        super();
+        this.name = name;
+        this.album = album;
+        this.duration = duration;
+        this.lyrics = lyrics;
+        this.contributingArtists = contributingArtists;
+    }
+
+    public Track(@NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List<Artist> contributingArtists, Artist artist) {
+        super();
+        this.name = name;
+        this.album = album;
+        this.duration = duration;
+        this.lyrics = lyrics;
+        this.artist = artist;
+        this.contributingArtists = contributingArtists;
+    }
+
+    public Track(@NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics) {
+        super();
+        this.name = name;
+        this.album = album;
+        this.duration = duration;
+        this.lyrics = lyrics;
+    }
+
     public Track(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
         super();
         this.id = id;

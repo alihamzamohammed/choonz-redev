@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.qa.choonz.mapper.GenreMapper;
 import com.qa.choonz.persistence.domain.Genre;
-import com.qa.choonz.persistence.repository.AlbumRepository;
 import com.qa.choonz.persistence.repository.GenreRepository;
 import com.qa.choonz.rest.dto.GenreDTO;
 
