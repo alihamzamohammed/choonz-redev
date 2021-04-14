@@ -1,14 +1,10 @@
-package com.qa.choonz.persistance.domain;
+package com.qa.choonz.persistence.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import com.qa.choonz.persistence.domain.Album;
-import com.qa.choonz.persistence.domain.Artist;
-import com.qa.choonz.persistence.domain.Genre;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 

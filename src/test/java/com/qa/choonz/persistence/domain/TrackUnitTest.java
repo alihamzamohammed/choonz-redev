@@ -1,4 +1,4 @@
-package com.qa.choonz.persistance.domain;
+package com.qa.choonz.persistence.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,32 +6,32 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.qa.choonz.persistence.domain.Album;
-import com.qa.choonz.persistence.domain.Artist;
-import com.qa.choonz.persistence.domain.Playlist;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-class ArtistUnitTest {
+class TrackUnitTest {
+
 	@Test
 	void equalsVerify() {
-		EqualsVerifier.forClass(Artist.class)
+		EqualsVerifier.forClass(Track.class)
 				.withPrefabValues(Album.class, new Album("Name", List.of(), new Artist(), List.of(), "Team 1 rules"),
 						new Album())
 				.withPrefabValues(Playlist.class, new Playlist("Name", "Description", "Artwork", List.of()),
 						new Playlist())
 				.withPrefabValues(Artist.class, new Artist("Name", List.of(), List.of()), new Artist()).verify();
+
 	}
 
 	@Test
 	void toStringTest() {
 		StringBuilder builder = new StringBuilder();
-		Artist artist = new Artist(1, "Name", List.of(), List.of());
+		Track track = new Track(1, "name", new Album(), 1, "lyrics", List.of());
 
-		builder.append("Artist [id=").append(artist.getId()).append(", name=").append(artist.getName())
-				.append(", albums=").append(artist.getAlbums()).append(", contributedTracks=")
-				.append(artist.getContributedTracks()).append("]");
+		builder.append("Track [id=").append(track.getId()).append(", name=").append(track.getName()).append(", album=")
+				.append(track.getAlbum()).append(", duration=").append(track.getDuration()).append(", lyrics=")
+				.append(track.getLyrics()).append(", artist=").append(track.getArtist())
+				.append(", contributingArtists=").append(track.getContributingArtists()).append("]");
 
-		assertThat(artist.toString()).hasToString(builder.toString());
+		assertThat(track.toString()).hasToString(builder.toString());
+
 	}
 }
