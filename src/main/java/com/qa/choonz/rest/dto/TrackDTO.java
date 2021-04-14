@@ -3,6 +3,9 @@ package com.qa.choonz.rest.dto;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class TrackDTO {
 
 	private int id;
@@ -27,6 +30,14 @@ public class TrackDTO {
 		this.lyrics = lyrics;
 		this.artist = artist;
 		this.contributingArtists = contributingArtists;
+	}
+
+	public TrackDTO(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.duration = duration;
+		this.lyrics = lyrics;
 	}
 
 	public int getId() {
@@ -87,7 +98,7 @@ public class TrackDTO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(album, duration, id, lyrics, name, artist, contributingArtists);
+		return Objects.hash(album, duration, lyrics, name, artist, contributingArtists);
 	}
 
 	@Override
@@ -97,7 +108,7 @@ public class TrackDTO {
 		if (!(obj instanceof TrackDTO))
 			return false;
 		TrackDTO other = (TrackDTO) obj;
-		return Objects.equals(album, other.album) && duration == other.duration && id == other.id
+		return Objects.equals(album, other.album) && Objects.equals(duration, other.duration)
 				&& Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
 				&& Objects.equals(artist, other.artist)
 				&& Objects.equals(contributingArtists, other.contributingArtists);
@@ -107,8 +118,8 @@ public class TrackDTO {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("TrackDTO [id=").append(id).append(", name=").append(name).append(", album=").append(album)
-				.append(", duration=").append(duration).append(", lyrics=").append(", artist=").append(artist)
-				.append(lyrics).append(", contributingArtists=").append(contributingArtists).append("]");
+				.append(", duration=").append(duration).append(", lyrics=").append(lyrics).append(", artist=")
+				.append(artist).append(", contributingArtists=").append(contributingArtists).append("]");
 		return builder.toString();
 	}
 

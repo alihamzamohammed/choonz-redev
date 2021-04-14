@@ -1,4 +1,4 @@
-package persistance.domain;
+package com.qa.choonz.persistence.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,15 +6,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.qa.choonz.persistence.domain.Album;
-import com.qa.choonz.persistence.domain.Artist;
-import com.qa.choonz.persistence.domain.Playlist;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 
-public class ArtistUnitTest {
+class ArtistUnitTest {
 	@Test
-	public void equalsVerify() {
+	void equalsVerify() {
 		EqualsVerifier.forClass(Artist.class)
 				.withPrefabValues(Album.class, new Album("Name", List.of(), new Artist(), List.of(), "Team 1 rules"),
 						new Album())
@@ -24,7 +20,7 @@ public class ArtistUnitTest {
 	}
 
 	@Test
-	public void toStringTest() {
+	void toStringTest() {
 		StringBuilder builder = new StringBuilder();
 		Artist artist = new Artist(1, "Name", List.of(), List.of());
 

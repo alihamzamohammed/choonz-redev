@@ -32,6 +32,7 @@ public class Artist {
 
     @OneToMany(mappedBy = "artist")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Album> albums;
 
     @ManyToMany
@@ -62,6 +63,11 @@ public class Artist {
     public Artist(int id, @NotNull @Size(max = 100) String name) {
         super();
         this.id = id;
+        this.name = name;
+    }
+
+    public Artist(@NotNull @Size(max = 100) String name) {
+        super();
         this.name = name;
     }
 
