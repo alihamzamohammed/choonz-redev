@@ -31,99 +31,104 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @Sql(scripts = { "classpath:test-schema.sql",
-        "classpath:test-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+                "classpath:test-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 class GenreControllerIntegrationTest {
 
-    @Autowired
-    private MockMvc mvc;
+        @Autowired
+        private MockMvc mvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+        @Autowired
+        private ObjectMapper objectMapper;
 
-    private TrackRelationshipDTO track = new TrackRelationshipDTO(1, "Track 1", 1, "A regular test track with no name");
-    private ArtistRelationshipDTO artist = new ArtistRelationshipDTO(1, "artist number 1");
+        private TrackRelationshipDTO track = new TrackRelationshipDTO(1, "Track 1", 1,
+                        "A regular test track with no name");
+        private ArtistRelationshipDTO artist = new ArtistRelationshipDTO(1, "artist number 1");
 
-    private AlbumGenresRelationshipDTO album = new AlbumGenresRelationshipDTO(1, "artist number 1 first album",
-            List.of(track), "album.png", artist);
-    private GenreDTO validGenre = new GenreDTO(1, "pop", "very loud music", List.of(album));
+        private AlbumGenresRelationshipDTO album = new AlbumGenresRelationshipDTO(1, "artist number 1 first album",
+                        List.of(track), "album.png", artist);
+        private GenreDTO validGenre = new GenreDTO(1, "pop", "very loud music", List.of(album));
 
-    @WithAnonymousUser
-    @Test
-    void readGenresByIdTest() throws Exception {
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/genres/read/1");
-        mockRequest.accept(MediaType.APPLICATION_JSON);
+        @WithAnonymousUser
+        @Test
+        void readGenreByIdTest() throws Exception {
+                MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET,
+                                "/genres/read/1");
+                mockRequest.accept(MediaType.APPLICATION_JSON);
 
-        ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
+                ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
 
-        ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-                .json(objectMapper.writeValueAsString(validGenre));
+                ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+                                .json(objectMapper.writeValueAsString(validGenre));
 
-        mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
-    }
+                mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+        }
 
-    @WithAnonymousUser
-    @Test
-    void readAllGenressTest() throws Exception {
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/genres/read");
-        mockRequest.accept(MediaType.APPLICATION_JSON);
+        @WithAnonymousUser
+        @Test
+        void readAllGenresTest() throws Exception {
+                MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET,
+                                "/genres/read");
+                mockRequest.accept(MediaType.APPLICATION_JSON);
 
-        ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
+                ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
 
-        ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-                .json(objectMapper.writeValueAsString(List.of(validGenre)));
+                ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+                                .json(objectMapper.writeValueAsString(List.of(validGenre)));
 
-        mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+                mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 
-    }
+        }
 
-    @WithMockUser(authorities = { "USER" })
-    @Test
-    void createGenresTest() throws Exception {
-        Genre genreToSave = new Genre("New Genre", "New Description");
-        GenreDTO expectedGenre = new GenreDTO(2, "New Genre", "New Description", null);
+        @WithMockUser(authorities = { "USER" })
+        @Test
+        void createGenreTest() throws Exception {
+                Genre genreToSave = new Genre("New Genre", "New Description");
+                GenreDTO expectedGenre = new GenreDTO(2, "New Genre", "New Description", null);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST, "/genres/create");
+                MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST,
+                                "/genres/create");
 
-        mockRequest.contentType(MediaType.APPLICATION_JSON);
-        mockRequest.content(objectMapper.writeValueAsString(genreToSave));
-        mockRequest.accept(MediaType.APPLICATION_JSON);
+                mockRequest.contentType(MediaType.APPLICATION_JSON);
+                mockRequest.content(objectMapper.writeValueAsString(genreToSave));
+                mockRequest.accept(MediaType.APPLICATION_JSON);
 
-        ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
+                ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
 
-        ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-                .json(objectMapper.writeValueAsString(expectedGenre));
+                ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+                                .json(objectMapper.writeValueAsString(expectedGenre));
 
-        mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
-    }
+                mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+        }
 
-    @WithMockUser(authorities = { "USER" })
-    @Test
-    void updateGenresTest() throws Exception {
-        Genre genreToSave = new Genre("New Genre", "New Description");
-        GenreDTO expectedGenre = new GenreDTO(1, "New Genre", "New Description", List.of());
+        @WithMockUser(authorities = { "USER" })
+        @Test
+        void updateGenreTest() throws Exception {
+                Genre genreToSave = new Genre("New Genre", "New Description");
+                GenreDTO expectedGenre = new GenreDTO(1, "New Genre", "New Description", List.of(album));
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT, "/genres/update/1");
+                MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT,
+                                "/genres/update/1");
 
-        mockRequest.contentType(MediaType.APPLICATION_JSON);
-        mockRequest.content(objectMapper.writeValueAsString(genreToSave));
-        mockRequest.accept(MediaType.APPLICATION_JSON);
+                mockRequest.contentType(MediaType.APPLICATION_JSON);
+                mockRequest.content(objectMapper.writeValueAsString(genreToSave));
+                mockRequest.accept(MediaType.APPLICATION_JSON);
 
-        ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
+                ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
 
-        ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-                .json(objectMapper.writeValueAsString(expectedGenre));
+                ResultMatcher contentMatcher = MockMvcResultMatchers.content()
+                                .json(objectMapper.writeValueAsString(expectedGenre));
 
-        mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
-    }
+                mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
+        }
 
-    @WithMockUser(authorities = { "USER" })
-    @Test
-    void deleteGenresTest() throws Exception {
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
-                "/genres/delete/1");
+        @WithMockUser(authorities = { "USER" })
+        @Test
+        void deleteGenreTest() throws Exception {
+                MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
+                                "/genres/delete/1");
 
-        ResultMatcher statusMatcher = MockMvcResultMatchers.status().isNoContent();
+                ResultMatcher statusMatcher = MockMvcResultMatchers.status().isNoContent();
 
-        mvc.perform(mockRequest).andExpect(statusMatcher);
-    }
+                mvc.perform(mockRequest).andExpect(statusMatcher);
+        }
 }
