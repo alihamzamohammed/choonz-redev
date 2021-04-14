@@ -1,5 +1,5 @@
 insert into genre
-values (1, 'pop', 'very loud music');
+values (1, 'very loud music', 'pop');
 insert into artist
 values (1, 'artist number 1');
 insert into artist
@@ -12,8 +12,8 @@ insert into track
 values(
         1,
         1,
-        'Track 1',
         'A regular test track with no name',
+        'Track 1',
         1,
         1
     );
