@@ -16,7 +16,17 @@ public class AlbumDTO {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
+    public AlbumDTO(String name, List<TrackRelationshipDTO> tracks, List<GenreRelationshipDTO> genre,
+            String cover, ArtistRelationshipDTO artist) {
+        super();
+        this.name = name;
+        this.tracks = tracks;
+        this.artist = artist;
+        this.genre = genre;
+        this.cover = cover;
+    }
+    
     public AlbumDTO(int id, String name, List<TrackRelationshipDTO> tracks, List<GenreRelationshipDTO> genre,
             String cover, ArtistRelationshipDTO artist) {
         super();
@@ -86,12 +96,12 @@ public class AlbumDTO {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(cover, artist, genre, id, name, tracks);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -100,7 +110,7 @@ public class AlbumDTO {
         }
         AlbumDTO other = (AlbumDTO) obj;
         return Objects.equals(artist, other.artist) && Objects.equals(cover, other.cover)
-                && Objects.equals(genre, other.genre) && id == other.id && Objects.equals(name, other.name)
+                && Objects.equals(genre, other.genre) && Objects.equals(id, other.id) &&  Objects.equals(name, other.name)
                 && Objects.equals(tracks, other.tracks);
     }
 
