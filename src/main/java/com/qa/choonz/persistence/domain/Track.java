@@ -4,17 +4,17 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -30,6 +30,7 @@ public class Track {
     private String name;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Album album;
 
     @OneToOne
@@ -44,8 +45,9 @@ public class Track {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Playlist> playlists;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable
+    @ManyToMany(mappedBy = "contributedTracks")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Artist> contributingArtists;
 
     public Track() {
@@ -138,7 +140,7 @@ public class Track {
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, album, duration, id, lyrics, name, contributingArtists);
+        return Objects.hash(artist, album, duration, lyrics, name, contributingArtists, playlists);
     }
 
     @Override
@@ -150,10 +152,11 @@ public class Track {
             return false;
         }
         Track other = (Track) obj;
-        return Objects.equals(album, other.album) && duration == other.duration && id == other.id
+        return Objects.equals(album, other.album) && Objects.equals(duration, other.duration)
                 && Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
                 && Objects.equals(artist, other.artist)
-                && Objects.equals(contributingArtists, other.contributingArtists);
+                && Objects.equals(contributingArtists, other.contributingArtists)
+                && Objects.equals(playlists, other.playlists);
     }
 
 }
