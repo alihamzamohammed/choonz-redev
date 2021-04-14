@@ -1,7 +1,6 @@
-package rest.dto;
+package com.qa.choonz.rest.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -18,7 +17,8 @@ public class ArtistDTOUnitTest {
 	
 	@Test
 	public void equalsVerify() {
-		 EqualsVerifier.simple().forClass(AlbumDTO.class).withPrefabValues(AlbumDTO.class, new AlbumDTO("Name", List.of(), List.of(), "Cover", new ArtistRelationshipDTO()), new AlbumDTO())
+		 EqualsVerifier.simple().forClass(ArtistDTO.class)
+		 .withPrefabValues(AlbumDTO.class, new AlbumDTO("Name", List.of(), List.of(), "Cover", new ArtistRelationshipDTO()), new AlbumDTO())
 		 .withPrefabValues(PlaylistDTO.class, new PlaylistDTO("Name","Description", "Artwork", List.of()), new PlaylistDTO()).verify();
 	}
 

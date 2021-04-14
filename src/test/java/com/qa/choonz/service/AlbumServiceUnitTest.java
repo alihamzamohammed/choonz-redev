@@ -1,4 +1,4 @@
-package service;
+package com.qa.choonz.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;

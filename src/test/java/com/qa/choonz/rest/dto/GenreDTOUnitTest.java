@@ -1,14 +1,10 @@
-package rest.dto;
+package com.qa.choonz.rest.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import com.qa.choonz.rest.dto.AlbumDTO;
-import com.qa.choonz.rest.dto.ArtistRelationshipDTO;
-import com.qa.choonz.rest.dto.GenreDTO;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
