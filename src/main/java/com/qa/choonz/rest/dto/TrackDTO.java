@@ -3,6 +3,9 @@ package com.qa.choonz.rest.dto;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class TrackDTO {
 
 	private int id;
@@ -27,6 +30,14 @@ public class TrackDTO {
 		this.lyrics = lyrics;
 		this.artist = artist;
 		this.contributingArtists = contributingArtists;
+	}
+
+	public TrackDTO(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.duration = duration;
+		this.lyrics = lyrics;
 	}
 
 	public int getId() {
@@ -87,7 +98,7 @@ public class TrackDTO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(album, duration, id, lyrics, name, artist, contributingArtists);
+		return Objects.hash(album, duration, lyrics, name, artist, contributingArtists);
 	}
 
 	@Override
