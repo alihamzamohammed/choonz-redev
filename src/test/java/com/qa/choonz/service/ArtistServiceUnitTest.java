@@ -1,6 +1,7 @@
 package com.qa.choonz.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -12,25 +13,24 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.qa.choonz.exception.AlbumNotFoundException;
+import com.qa.choonz.exception.ArtistNotFoundException;
 import com.qa.choonz.mapper.ArtistMapper;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
-import com.qa.choonz.persistence.domain.Genre;
-import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.repository.ArtistRepository;
-import com.qa.choonz.rest.dto.AlbumDTO;
+import com.qa.choonz.rest.dto.AlbumArtistRelationshipDTO;
 import com.qa.choonz.rest.dto.ArtistDTO;
 import com.qa.choonz.rest.dto.ArtistRelationshipDTO;
 import com.qa.choonz.rest.dto.GenreRelationshipDTO;
 import com.qa.choonz.rest.dto.TrackRelationshipDTO;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 public class ArtistServiceUnitTest {
 	
 	@Autowired
@@ -54,17 +54,23 @@ public class ArtistServiceUnitTest {
 		artists = new ArrayList<Artist>();
 		artistDTOs = new ArrayList<ArtistDTO>();
 		
-		List<Track> listOfTracks = Arrays.asList(new Track(1, "Till I Collapse", 298, "A lot of lyrics here"));
 		validArtist = new Artist(1, "Eminem");
-		List<Genre> listOfGenres = Arrays.asList(new Genre(1, "Hip Hop", "A genre based around rap music."));
-		Album validAlbum = new Album(1,"The Eminem Show", listOfTracks,validArtist, listOfGenres, "eminemshow.jpg");
 		artists.add(validArtist);
 		
-		List<TrackRelationshipDTO> listOfTrackDTOs = Arrays.asList(new TrackRelationshipDTO(1, "Till I Collapse", 298, "A lot of lyrics here"));
-		validArtistDTO = new ArtistDTO(1, "Eminem", List.of(), listOfTrackDTOs);
-		List<GenreRelationshipDTO> listOfGenreDTOs = Arrays.asList(new GenreRelationshipDTO(1, "Hip Hop", "A genre based around rap music."));
-		AlbumDTO validAlbumDTO = new AlbumDTO("Name", List.of(), List.of(), "Cover", new ArtistRelationshipDTO());
+		ArtistRelationshipDTO validArtistRelationshipDTO = new ArtistRelationshipDTO(1, "Eminem");
+		List<GenreRelationshipDTO> listOfGenreDTOs = Arrays
+				.asList(new GenreRelationshipDTO(1, "Hip Hop", "A genre based around rap music."));
+		
+		List<TrackRelationshipDTO> listOfTrackDTOs = Arrays
+				.asList(new TrackRelationshipDTO(1, "Till I Collapse", 298, "A lot of lyrics here"));
+
+		AlbumArtistRelationshipDTO albumArtistRelationshipDTO = new AlbumArtistRelationshipDTO(
+				1, "Eminem", List.of() ,List.of(), "Cover");
+		
+		validArtistDTO = new ArtistDTO(1, "Eminem", List.of(albumArtistRelationshipDTO) ,listOfTrackDTOs) ;
+		
 		artistDTOs.add(validArtistDTO);
+		
 	}
 	
 	@Test
@@ -81,13 +87,37 @@ public class ArtistServiceUnitTest {
 	@Test
 	public void readTest() {
 	        when(repo.findAll()).thenReturn(artists);
-	        when(mapper.mapToDTO(artists)).thenReturn(artistDTOs);
+	        when(mapper.listMapToDTO(Mockito.anyList())).thenReturn(artistDTOs);
 
 	        assertThat(artistDTOs).isEqualTo(service.read());
 
 	        verify(repo, times(1)).findAll();
-	        verify(mapper, times(1)).mapToDTO(artists);
+	        verify(mapper, times(1)).listMapToDTO(artists);
 	    }
+	
+	@Test
+	void readIDTest() {
+		when(repo.findById(Mockito.anyInt())).thenReturn(Optional.of(validArtist));
+		when(mapper.mapToDTO(Mockito.any(Artist.class))).thenReturn(validArtistDTO);
+
+		assertThat(service.read(validArtist.getId())).isEqualTo(validArtistDTO);
+
+		verify(repo, times(1)).findById(Mockito.anyInt());
+		verify(mapper, times(1)).mapToDTO(Mockito.any(Artist.class));
+	}
+
+	@Test
+	void updateTest() {
+		when(repo.findById(Mockito.anyInt())).thenReturn(Optional.of(validArtist));
+		when(repo.save(Mockito.any(Artist.class))).thenReturn(validArtist);
+		when(mapper.mapToDTO(Mockito.any(Artist.class))).thenReturn(validArtistDTO);
+
+		assertThat(service.update(validArtist, validArtist.getId())).isEqualTo(validArtistDTO);
+
+		verify(repo, times(1)).findById(Mockito.anyInt());
+		verify(repo, times(1)).save(Mockito.any(Artist.class));
+		verify(mapper, times(1)).mapToDTO(Mockito.any(Artist.class));
+	}
 
 	@Test
 	public void deleteTest() {
@@ -99,6 +129,16 @@ public class ArtistServiceUnitTest {
 		   verify(repo, times(1)).deleteById(Mockito.anyInt());
 		   verify(repo, times(1)).findById(Mockito.anyInt());
 		   
-		
 	}
+	
+	@Test
+	void deleteNotFoundTest() {
+		when(repo.findById(Mockito.anyInt())).thenReturn(Optional.empty());
+		int id = validArtist.getId();
+		assertThrows(ArtistNotFoundException.class, () -> {
+			service.delete(id);
+		});
+		verify(repo, times(1)).findById(Mockito.anyInt());
+	}
+
 }
