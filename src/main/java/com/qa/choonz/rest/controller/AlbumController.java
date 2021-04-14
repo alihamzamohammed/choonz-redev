@@ -9,6 +9,7 @@ import com.qa.choonz.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/albums")
 @CrossOrigin
+@PreAuthorize("hasAuthority('USER')")
 public class AlbumController {
 
     private AlbumService service;
@@ -38,11 +40,13 @@ public class AlbumController {
     }
 
     @GetMapping("/read")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<List<AlbumDTO>> read() {
         return new ResponseEntity<>(this.service.read(), HttpStatus.OK);
     }
 
     @GetMapping("/read/{id}")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<AlbumDTO> read(@PathVariable int id) {
         return new ResponseEntity<>(this.service.read(id), HttpStatus.OK);
     }
