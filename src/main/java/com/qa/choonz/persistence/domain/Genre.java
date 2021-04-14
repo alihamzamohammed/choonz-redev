@@ -3,18 +3,17 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Genre {
@@ -25,20 +24,18 @@ public class Genre {
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String name;
 
     @NotNull
     @Size(max = 250)
-    @Column(unique = true)
     private String description;
 
-    @ManyToMany(mappedBy = "genre", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "genre", fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
 
     public Genre() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public Genre(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
@@ -48,6 +45,13 @@ public class Genre {
         this.name = name;
         this.description = description;
         this.albums = albums;
+    }
+
+    public Genre(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
     public int getId() {

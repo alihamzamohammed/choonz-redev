@@ -2,10 +2,6 @@ package com.qa.choonz.rest.dto;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-
-import com.qa.choonz.persistence.domain.PlaylistTracks;
-import com.qa.choonz.persistence.domain.Track;
 
 public class PlaylistDTO {
 
@@ -13,20 +9,20 @@ public class PlaylistDTO {
     private String name;
     private String description;
     private String artwork;
-    private List<PlaylistTracks> playlistTracks;
+    private List<TrackDTO> tracks;
 
     public PlaylistDTO() {
         super();
 
     }
 
-    public PlaylistDTO(int id, String name, String description, String artwork, List<PlaylistTracks> playlistTracks) {
+    public PlaylistDTO(int id, String name, String description, String artwork, List<TrackDTO> tracks) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
         this.artwork = artwork;
-        this.playlistTracks = playlistTracks;
+        this.tracks = tracks;
     }
 
     /**
@@ -88,37 +84,29 @@ public class PlaylistDTO {
     /**
      * @return the tracks
      */
-    public List<TrackRelationshipDTO> getPlaylistTracks() {
-        return playlistTracks.stream().map(playlistTrack -> playlistTrack.getTrack()).map(track -> {
-            TrackRelationshipDTO dto = new TrackRelationshipDTO();
-            dto.setId(track.getId());
-            dto.setName(track.getName());
-            dto.setDuration(track.getDuration());
-            dto.setLyrics(track.getLyrics());
-            return dto;
-        }).collect(Collectors.toList());
-
+    public List<TrackDTO> getTracks() {
+        return this.tracks;
     }
 
     /**
      * @param tracks the tracks to set
      */
-    public void setPlaylistTracks(List<PlaylistTracks> playlistTracks) {
-        this.playlistTracks = playlistTracks;
+    public void setTracks(List<TrackDTO> tracks) {
+        this.tracks = tracks;
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("PlaylistDTO [id=").append(id).append(", name=").append(name).append(", description=")
-                .append(description).append(", artwork=").append(artwork).append(", tracks=").append(playlistTracks)
+                .append(description).append(", artwork=").append(artwork).append(", tracks=").append(tracks)
                 .append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artwork, description, id, name, playlistTracks);
+        return Objects.hash(artwork, description, id, name, tracks);
     }
 
     @Override
@@ -131,8 +119,7 @@ public class PlaylistDTO {
         }
         PlaylistDTO other = (PlaylistDTO) obj;
         return Objects.equals(artwork, other.artwork) && Objects.equals(description, other.description)
-                && id == other.id && Objects.equals(name, other.name)
-                && Objects.equals(playlistTracks, other.playlistTracks);
+                && id == other.id && Objects.equals(name, other.name) && Objects.equals(tracks, other.tracks);
     }
 
 }
