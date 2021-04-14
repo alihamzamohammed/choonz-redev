@@ -45,21 +45,17 @@ public class AlbumServiceIntegrationTest {
 
     @BeforeEach
     void init() {
+        repo.deleteAll();
+
         listOfTracks = Arrays.asList(new Track(1, "Till I Collapse", 298, "A lot of lyrics here"));
         validArtist = new Artist(1, "Eminem");
         listOfGenres = Arrays.asList(new Genre(1, "Hip Hop", "A genre based around rap music."));
         validAlbum = new Album(1, "The Eminem Show", listOfTracks, validArtist, listOfGenres, "eminemshow.jpg");
 
-        List<TrackRelationshipDTO> listOfTrackDTOs = Arrays
-                .asList(new TrackRelationshipDTO(1, "Till I Collapse", 298, "A lot of lyrics here"));
-
-        ArtistRelationshipDTO validArtistDTO = new ArtistRelationshipDTO(1, "Eminem");
-
-        List<GenreRelationshipDTO> listOfGenreDTOs = Arrays
-                .asList(new GenreRelationshipDTO(1, "Hip Hop", "A genre based around rap music."));
-
-        validAlbumDTO = new AlbumDTO(1, "The Eminem Show", listOfTrackDTOs, listOfGenreDTOs, "eminemshow.jpg",
-                validArtistDTO);
+        validAlbum = repo.save(validAlbum);
+        validAlbumDTO = mapper.mapToDTO(validAlbum);
+        albums.add(validAlbum);
+        albumDTOs.add(validAlbumDTO);
 
     }
 
@@ -67,6 +63,28 @@ public class AlbumServiceIntegrationTest {
     void createAlbumTest() {
         Album newAlbum = new Album("Hello World", listOfTracks, validArtist, listOfGenres, "test.png");
         assertThat(service.create(newAlbum)).isEqualTo(mapper.mapToDTO(newAlbum));
+    }
+
+    @Test
+    void readAllTest() {
+        assertThat(service.read()).isEqualTo(albumDTOs);
+    }
+
+    @Test
+    void readByIdTest() {
+        assertThat(service.read(validAlbum.getId())).isEqualTo(validAlbumDTO);
+    }
+
+    @Test
+    void updateTest() {
+        Album toUpdate = validAlbum;
+        toUpdate.setName("Updated album");
+        assertThat(service.update(toUpdate, toUpdate.getId())).isEqualTo(mapper.mapToDTO(toUpdate));
+    }
+
+    @Test
+    void deleteTest() {
+        assertThat(service.delete(validAlbum.getId())).isTrue();
     }
 
 }
