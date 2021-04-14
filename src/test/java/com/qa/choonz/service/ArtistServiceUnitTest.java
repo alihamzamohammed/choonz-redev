@@ -1,4 +1,4 @@
-package service;
+package com.qa.choonz.service;
 
 public class ArtistServiceUnitTest {
 

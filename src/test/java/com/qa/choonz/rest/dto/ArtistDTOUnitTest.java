@@ -1,4 +1,4 @@
-package rest.dto;
+package com.qa.choonz.rest.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
