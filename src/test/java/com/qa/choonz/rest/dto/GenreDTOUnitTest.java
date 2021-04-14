@@ -6,10 +6,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.qa.choonz.rest.dto.AlbumDTO;
-import com.qa.choonz.rest.dto.ArtistRelationshipDTO;
-import com.qa.choonz.rest.dto.GenreDTO;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 public class GenreDTOUnitTest {
