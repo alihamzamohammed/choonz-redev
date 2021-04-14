@@ -1,15 +1,5 @@
 "use strict";
 
-/*
-const createAlbum = document.querySelector("#CreateAlbum");
-createAlbum.addEventListener("click", (event) => {
-  event.preventDefault();
-  CreateAlbum();
-});
-*/
-
-
-
 //Create a Track
 const CreateAlbum = () => {
 
@@ -18,14 +8,14 @@ const CreateAlbum = () => {
   let ArtistID
 
   fetch("http://localhost:8082/albums/create", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
 
-    }),
-  })
+      }),
+    })
     .then((res) => res.json())
     .then((data) => console.log(data))
     .catch((err) => console.err(err));
@@ -35,8 +25,8 @@ const CreateAlbum = () => {
 //Read all Albums
 (function () {
   fetch(`http://localhost:8082/albums/read`, {
-    method: "GET",
-  })
+      method: "GET",
+    })
     .then((response) => {
       if (response.status === 200) {
         return response.json();
@@ -46,21 +36,47 @@ const CreateAlbum = () => {
     })
     .then((data) => {
       data.forEach((album) => {
-        var AlbumElement = document.createElement("option");
+        console.log(JSON.stringify(album))
+        var AlbumElement = document.createElement("div");
         var AlbumName = album.name;
+        var ArtistName = album.artist.name;
         var AlbumId = album.id;
+        var Genres = album.genre
+        var GenreString = "";
+        let i = 0;
+        Genres.forEach((Genre) => {
+          if (i == 0) {
+            GenreString += Genre.name
+          } else {
+            GenreString += ", " + Genre.name
+          }
+          i++;
+        })
 
-        AlbumElement.value = AlbumId;
-        AlbumElement.text = AlbumName;
-
-        document.querySelector("#Artists")
+        let URL = window.location
+        let BaseURL = URL.protocol + "//" + URL.host;
+        let FinalURL = BaseURL + `/album?AlbumID=${AlbumId}`
+        AlbumElement.className = "ListItem col-2 ms-5 mb-5 text-center";
+        AlbumElement.style = "border-radius: 12px;";
+        AlbumElement.innerHTML = `
+            <a href="${FinalURL}">
+              <img src="./img/Choonz.png" class="img-fluid mt-3" alt="Album Cover"
+                  style="border-radius: 12px;">
+              <div class="text-center">
+                  <h4>${AlbumName}</h4>
+                  <h4>${ArtistName}</h4>
+                  <h4>${GenreString}</h4>
+              </div>
+            </a>
+          `;
+        document.querySelector("#AlbumsList").append(AlbumElement)
 
       });
     })
     .catch((err) => {
       alert(
         "There was a problem getting the albums from the system. Please try again later." +
-          err
+        err
       );
     });
 })();
@@ -70,8 +86,8 @@ const CreateAlbum = () => {
 (function () {
   //Artists
   fetch("http://localhost:8082/artists/read", {
-    method: "GET",
-  })
+      method: "GET",
+    })
     .then((response) => {
       if (response.status === 200) {
         return response.json();
@@ -94,10 +110,10 @@ const CreateAlbum = () => {
       });
     });
 
-    //Genres
+  //Genres
   fetch("http://localhost:8082/genres/read", {
-    method: "GET",
-  })
+      method: "GET",
+    })
     .then((response) => {
       if (response.status === 200) {
         return response.json();
@@ -108,7 +124,7 @@ const CreateAlbum = () => {
       }
     })
     .then((data) => {
-        
+
       data.forEach((genre) => {
         var GenreElement = document.createElement("option");
         var GenreName = genre.name;

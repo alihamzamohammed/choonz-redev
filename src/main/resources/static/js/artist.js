@@ -60,7 +60,6 @@ const DeleteArtist = async (artists) => {
   })
     .then((response) => {
       if (response.status === 200) {
-        console.log("200 achieved")
         return response.json();
       } else {
         throw "Response code was not 200 it was " + response.status;
@@ -70,7 +69,7 @@ const DeleteArtist = async (artists) => {
       console.log(JSON.stringify(data))
       let ArtistName = data.name;
 
-      document.querySelector("#ArtistName").text = ArtistName;
+      document.querySelector("#ArtistName").innerHTML = ArtistName;
       data.albums.forEach(album => {
         console.log(JSON.stringify(album))
         let albumDiv = document.createElement('div')

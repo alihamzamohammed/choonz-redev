@@ -37,13 +37,14 @@ const CreateArtist = () => {
       }
     })
     .then((data) => {
+      var i =0;
       data.forEach((Artist) => {
         var ArtistElement = document.createElement("div");
         var name = Artist.name;
         console.log(JSON.stringify(data))
         ArtistElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
         ArtistElement.style = "border-radius: 12px;";
-        let ID = data[0].id;
+        let ID = data[i].id;
         let URL = window.location
         let BaseURL = URL.protocol + "//" + URL.host;
         let FinalURL = BaseURL + `/artist?ArtistID=${ID}`
@@ -58,6 +59,7 @@ const CreateArtist = () => {
               `;
 
         document.querySelector("#ArtistList").append(ArtistElement);
+        i++
       });
     })
     .catch((err) => {
