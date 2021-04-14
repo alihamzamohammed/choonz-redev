@@ -64,6 +64,15 @@ public class Album {
         this.cover = cover;
     }
 
+    public Album(@NotNull @Size(max = 100) String name, Artist artist, List<Genre> genre,
+            @NotNull @Size(max = 50) String cover) {
+        super();
+        this.name = name;
+        this.artist = artist;
+        this.genre = genre;
+        this.cover = cover;
+    }
+
     public Album(int id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, List<Genre> genre,
             @NotNull @Size(max = 50) String cover) {
         super();
