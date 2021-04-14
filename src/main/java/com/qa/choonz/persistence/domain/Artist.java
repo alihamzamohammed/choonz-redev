@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -29,28 +31,50 @@ public class Artist {
     private String name;
 
     @OneToMany(mappedBy = "artist")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Album> albums;
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "ARTIST_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "TRACK_ID", referencedColumnName = "ID"))
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Track> contributedTracks;
 
     public Artist() {
         super();
     }
 
-    public Artist(int id, @NotNull @Size(max = 100) String name, List<Album> albums) {
+    public Artist(@NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
+        super();
+        this.name = name;
+        this.albums = albums;
+        this.contributedTracks = contributedTracks;
+    }
+
+    public Artist(int id, @NotNull @Size(max = 100) String name, List<Album> albums, List<Track> contributedTracks) {
         super();
         this.id = id;
         this.name = name;
         this.albums = albums;
+        this.contributedTracks = contributedTracks;
     }
 
     public Artist(int id, @NotNull @Size(max = 100) String name) {
         super();
         this.id = id;
         this.name = name;
+    }
+
+    public Artist(@NotNull @Size(max = 100) String name) {
+        super();
+        this.name = name;
+    }
+
+    public Artist(@NotNull @Size(max = 100) String name, List<Album> albums) {
+        super();
+        this.name = name;
+        this.albums = albums;
     }
 
     public int getId() {
@@ -89,25 +113,23 @@ public class Artist {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Artist [id=").append(id).append(", name=").append(name).append(", albums=").append(albums)
-                .append("]");
+                .append(", contributedTracks=").append(contributedTracks).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(albums, id, name);
+        return Objects.hash(albums, contributedTracks, name);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (!(obj instanceof Artist)) {
+        if (!(obj instanceof Artist))
             return false;
-        }
         Artist other = (Artist) obj;
-        return Objects.equals(albums, other.albums) && id == other.id && Objects.equals(name, other.name);
+        return Objects.equals(albums, other.albums) && Objects.equals(contributedTracks, other.contributedTracks)
+                && Objects.equals(name, other.name);
     }
-
 }
