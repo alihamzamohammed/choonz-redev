@@ -20,7 +20,7 @@ import com.qa.choonz.rest.controller.TrackController;
 import com.qa.choonz.rest.dto.TrackDTO;
 import com.qa.choonz.service.TrackService;
 
-@SpringBootTest
+@SpringBootTest(classes = TrackController.class)
 public class TrackControllerUnitTest {
 	
 	@Autowired
