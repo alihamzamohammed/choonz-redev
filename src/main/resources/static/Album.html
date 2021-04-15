@@ -26,22 +26,22 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link" aria-current="page" href="home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Artists</a>
+                            <a class="nav-link" href="artists">Artists</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Albums</a>
+                            <a class="nav-link active" href="albums">Albums</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Genres</a>
+                            <a class="nav-link" href="genres">Genres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Playlist</a>
+                            <a class="nav-link" href="playlists">Playlist</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Tracks</a>
+                            <a class="nav-link" href="tracks">Tracks</a>
                         </li>
                     </ul>
                     <span class="navbar-text">
@@ -60,35 +60,30 @@
             <div class="container-fluid">
                 <!--Album Info / CRUD-->
                 <div class="row mt-5">
-                    <img src="./img/Choonz.png" alt="Album Art" class="col-3" />
+                    <img alt="Album Art" id="AlbumPic" class="col-3 input-group mb-3 input-group-lg img-fluid" style="border-radius: 12px;width: 300px !important;" height="200"/>
                     <div class="col-4">
-                        <div class="ms-5 ">
-                            <h2>Album name</h2>
-                            <h2>Artist name(link)</h2>
-                            <h2>Genre(s)</h2>
+                        <div class="ms-5">
+                            <h2 id="AlbumNameTitle">Album name</h2>
+                            <h2 id="ArtistNameTitle">Artist name(link)</h2>
+                            <h2 id="GenresTitle">Genre(s)</h2>
                         </div>
                     </div>
                     <div class="col-5">
                         <div class="row w-25 ms-auto me-3">
                             <button class="col-12 btn btn-primary mb-2" data-bs-target="#EditAlbumModal"
                                 data-bs-toggle="modal">Edit Btn</button>
-                            <button class="col-12  btn btn-primary">Delete</button>
+                            <button class="col-12  btn btn-primary" onclick="DeleteAlbum()" >Delete</button>
                             <div class="col-12">
-                                <small style="float: right !important;">Album ID:</small>
+                                <small style="float: right !important;" id="AlbumID">Album ID:</small>
                             </div>
 
                         </div>
                     </div>
                 </div>
                 <!--Songs-->
-                <h2 class="mt-5">Songs</h2>
+                <h2 class="mt-5 ms-5">Songs</h2>
                 <div id="SongsList" class="row justify-content-center">
                     <!--Add Albums here that are loaded from backend-->
-                    <div class="SongItem col-1 ms-5 mb-5 text-center" style="border-radius: 12px;">
-                        <h4>Name</h4>
-                        <h4>Duration</h4>
-                        <button class="btn btn-lg btn-primary">Load song</button>
-                    </div>
                 </div>
             </div>
         </main>
@@ -113,14 +108,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit an PUT ALBUM NAME HERE Album</h5>
+                <h5 class="modal-title" id="ModalTitle">Edit an PUT ALBUM NAME HERE Album</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form onsubmit="EditAlbum()">
+            <form onsubmit="EditAlbumFunc(event)">
                 <!--Prevent default etc-->
                 <div class="modal-body">
 
-                    <!--Load info into here-->
+
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Album Name</label>
                         <input type="text" class="form-control" id="AlbumName">
@@ -129,23 +124,20 @@
                         <label for="exampleInputEmail1" class="form-label">Album Cover Art</label>
                         <input type="file" class="form-control" id="AlbumCoverArt">
                     </div>
-                    
-                    
-                    <select class="form-control" name="Artists" id="Artists"
-                        style="background-color: var(--elementBgColor);">
-                        <option value="ArtistId">Please Select Album Artist Name</option> 
-                        
+                    <!--onchange="ArtistChanged(event, this)"-->
+                    <select class="form-control mb-3 selectpicker" name="Artists" id="Artists"
+                        style="background-color: var(--elementBgColor);" data-live-search="true">
+
                     </select>
 
-                    <br>
-                    
-                    <select class="form-control" name="Genres" id="Genres"
-                        style="background-color: var(--elementBgColor);">
-                        <label class="form-label">Albums's Genre Type</label>
-                        <option value="GenreId">Please Select Album Genre Type</option> 
-                        
-                           
+                    <!--<select class="form-control mb-3 selectpicker" name="FTArtists" id="FTArtists"
+                        style="background-color: var(--elementBgColor);" data-live-search="true" onchange="FTArtistChanged(event, this)" onfocus="FTArtistPreChange(event, this)">
+                        <option value="" disabled selected id="PlaceHolderSelectFTArtist">Please choose a featured artist</option>
+                    </select>-->
 
+                    <select class="form-control" name="Genres" id="Genres" data-live-search="true"
+                        onchange="GenreChanged(event, this)" style="background-color: var(--elementBgColor);">
+                        <option value="" disabled selected id="PlaceHolderSelectGenre">Please choose a genre</option>
                     </select>
 
                 </div>
@@ -157,5 +149,6 @@
         </div>
     </div>
 </div>
+
 <script src="./js/album.js"></script>
 </html>
