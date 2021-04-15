@@ -26,5 +26,5 @@ values (
     );
 insert into playlist_tracks
 values (1, 1);
-insert into artist_contributed_tracks
+insert into track_contributing_artists
 values (2, 1)
