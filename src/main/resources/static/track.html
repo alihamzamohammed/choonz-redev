@@ -26,22 +26,22 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link" aria-current="page" href="home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Artists</a>
+                            <a class="nav-link" href="artists">Artists</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Albums</a>
+                            <a class="nav-link" href="albums">Albums</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Genres</a>
+                            <a class="nav-link" href="genres">Genres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Playlist</a>
+                            <a class="nav-link" href="playlists">Playlist</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Tracks</a>
+                            <a class="nav-link active" href="tracks">Tracks</a>
                         </li>
                     </ul>
                     <span class="navbar-text">
@@ -61,21 +61,23 @@
             <div class="container-fluid">
                 <!--Album Info / CRUD-->
                 <div class="row mt-5">
-                    <img src="./img/Choonz.png" alt="Album Art" class="col-3" />
+                    <img src="" alt="Album Art" class="col-3" id="TrackAlbumPicDisplay"/>
                     <div class="col-4">
                         <div class="ms-5 ">
-                            <h2>Album name</h2>
-                            <h2>Artist name(link)</h2>
-                            <h2>Genre(s)</h2>
+                            <h2 id="TrackNameTitle">Album name</h2>
+                            <h2 id="AlbumNameTitle">Album name</h2>
+                            <h2 id="ArtistNameTitle">Artist name(link)</h2>
+                            <h2 id="GenresTitle">Genre(s)</h2>
                         </div>
                     </div>
                     <div class="col-5">
                         <div class="row w-25 ms-auto me-3">
                             <button class="col-12 btn btn-primary mb-2" data-bs-toggle="modal"
                                 data-bs-target="#EditTrackModal">Edit Btn</button>
-                            <button class="col-12 btn btn-primary">Delete</button>
+                            <button class="col-12 btn btn-primary" onclick="DeleteTrack()
+                            ">Delete</button>
                             <div class="col-12">
-                                <small style="float: right !important;">Track ID:</small>
+                                <small style="float: right !important;" id="TrackIDTitle">Track ID:</small>
                             </div>
 
                         </div>
@@ -83,37 +85,7 @@
                 </div>
                 <!--Lyrics-->
                 <h2 class="text-center">Lyrics</h2>
-                <h4 class="text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus consectetur
-                    blanditiis numquam
-                    suscipit?
-                    Repellendus debitis consequuntur excepturi iste, eum provident odio id ut sint doloremque
-                    est! Quod itaque fuga molestiae laudantium, officia consequatur laboriosam deserunt fugiat aperiam
-                    quasi obcaecati, deleniti sequi voluptatum nam ullam excepturi unde dicta pariatur cupiditate
-                    voluptatem ipsa asperiores suscipit. Impedit, laudantium voluptatem. Sequi odit dolorum, id est
-                    cumque, pariatur assumenda ad neque sit iste quis sed aut? Velit veniam, iste cupiditate tenetur
-                    tempora laudantium, ipsum unde vero illum aspernatur numquam quam, consectetur in iusto iure ut
-                    incidunt blanditiis deleniti aperiam suscipit debitis.<br>
-                    <!--If we want to have paragraphs need to detect the new lines and replace them with <br> before sending to 
-                    backend-->
-                    Totam nobis reprehenderit maxime quas beatae
-                    dolorum iusto ipsa quo omnis vero qui, obcaecati illo, architecto odio et eos tempora cum dolorem
-                    magni. Vitae eligendi maiores aspernatur esse, labore, at, earum ipsam aut consequuntur officiis
-                    rerum molestiae necessitatibus laudantium tempore facere libero enim recusandae incidunt hic! Dolor
-                    odio deleniti temporibus a ad rem veritatis sit pariatur maiores sapiente totam et ducimus ipsam,
-                    similique, voluptatum alias aliquam! Laudantium nobis repellat molestias magni? Dolore aliquam
-                    incidunt ducimus fugit, odio porro ipsam nemo ipsum.<br>
-                    Recusandae adipisci eaque ea? Asperiores
-                    ducimus, eum cumque praesentium officiis tenetur ipsum accusamus veritatis dolores in soluta maxime
-                    minima eveniet eos suscipit vero voluptate excepturi rem voluptates tempore unde ut dolore.
-                    Laboriosam distinctio odit culpa eius enim, dignissimos nesciunt numquam unde doloribus incidunt
-                    eaque voluptate iusto repellat commodi dolore similique a eveniet vero, ad necessitatibus minima?
-                    Mollitia fugit commodi cum debitis perspiciatis ratione!
-                    Dolores doloremque harum quisquam porro<br>
-                    provident autem impedit doloribus omnis. Nemo, dignissimos voluptates vero maiores ipsum placeat
-                    suscipit molestias voluptatum ullam ratione repellendus quod ex perferendis delectus! Eum deleniti
-                    molestiae perspiciatis rem, eos modi accusamus corrupti doloremque, veritatis sed dolores
-                    consectetur, alias explicabo ipsa. Illo autem quaerat delectus suscipit deserunt voluptates sed
-                    iusto. Inventore in beatae ratione neque cumque laboriosam.
+                <h4 class="text-center" id="LyricsDisplay">
                 </h4>
             </div>
         </main>
@@ -141,7 +113,7 @@
                 <h5 class="modal-title">Create a Playlist</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form onsubmit="EditTrack()">
+            <form onsubmit="EditTrack(event)">
                 <!--Prevent default etc-->
                 <div class="modal-body">
                     <div class="mb-3">
@@ -156,10 +128,21 @@
                         <label class="form-label">Playlist Lyrics</label>
                         <textarea type="file" class="form-control" id="TrackLyrics"></textarea>
                     </div>
-                    <select id="TrackAlbum">
-                        <!--Options are here-->
-                        <!--List of Albums or single-->
-                    </select>
+                    <div class="mb-3">
+                        <label class="form-label">Album</label>
+                        <select class="form-control" id="Album" data-live-search="true"
+                            style="background-color: var(--elementBgColor);">
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">FT Artist</label>
+                        <select class="form-control mb-3 selectpicker" name="FTArtists" id="FTArtists"
+                            style="background-color: var(--elementBgColor);" data-live-search="true"
+                            onchange="FTArtistChanged(event, this)" onfocus="FTArtistPreChange(event, this)">
+                            <option value="" disabled selected id="PlaceHolderSelectFTArtist">Please choose a featured
+                                artist</option>
+                        </select>
+                    </div>
 
 
                 </div>
