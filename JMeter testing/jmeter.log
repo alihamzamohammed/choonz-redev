@@ -1,0 +1,12 @@
+2021-04-15 11:38:57,837 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2021-04-15 11:38:57,942 INFO o.a.j.JMeter: Loading user properties from: C:\Users\ifan\Desktop\apache-jmeter-5.4.1\bin\user.properties
+2021-04-15 11:38:57,956 INFO o.a.j.JMeter: Loading system properties from: C:\Users\ifan\Desktop\apache-jmeter-5.4.1\bin\system.properties
+2021-04-15 11:38:57,958 ERROR o.a.j.JMeter: An error occurred: 
+java.lang.IllegalArgumentException: Unknown arg: Choonz Load Test.jmx
+	at org.apache.jmeter.JMeter.initializeProperties(JMeter.java:863) ~[ApacheJMeter_core.jar:5.4.1]
+	at org.apache.jmeter.JMeter.start(JMeter.java:474) [ApacheJMeter_core.jar:5.4.1]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:564) ~[?:?]
+	at org.apache.jmeter.NewDriver.main(NewDriver.java:254) [ApacheJMeter.jar:5.4.1]

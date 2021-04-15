@@ -17,10 +17,10 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">1</stringProp>
+          <stringProp name="LoopController.loops">10</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">1</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">30</stringProp>
+        <stringProp name="ThreadGroup.num_threads">100</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">100</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
@@ -102,10 +102,29 @@
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-	&quot;name&quot; : ${name},&#xd;
-	&quot;description&quot; : ${description}	&#xd;
-}&#xd;
-</stringProp>
+        &quot;id&quot;: ${genre_id},&#xd;
+        &quot;name&quot;: ${name},&#xd;
+        &quot;description&quot;: &quot;pop&quot;,&#xd;
+        &quot;albums&quot;: [&#xd;
+            {&#xd;
+                &quot;id&quot;: ${album_id},&#xd;
+                &quot;name&quot;: &quot;artist number 1 first album&quot;,&#xd;
+                &quot;tracks&quot;: [&#xd;
+                    {&#xd;
+                        &quot;id&quot;: 1,&#xd;
+                        &quot;name&quot;: &quot;A regular test track with no name&quot;,&#xd;
+                        &quot;duration&quot;: 1,&#xd;
+                        &quot;lyrics&quot;: &quot;Track 1&quot;&#xd;
+                    }&#xd;
+                ],&#xd;
+                &quot;artist&quot;: {&#xd;
+                    &quot;id&quot;: ${artist_id},&#xd;
+                    &quot;name&quot;: &quot;artist number 1&quot;&#xd;
+                },&#xd;
+                &quot;cover&quot;: &quot;album.png&quot;&#xd;
+            }&#xd;
+        ]&#xd;
+    }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -139,10 +158,33 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value"> &#xd;
- {&#xd;
- 	&quot;name&quot;: ${name}&#xd;
- }</stringProp>
+                  <stringProp name="Argument.value">{&#xd;
+        &quot;id&quot;: ${artist_id},&#xd;
+        &quot;name&quot;: ${name},&#xd;
+        &quot;albums&quot;: [&#xd;
+            {&#xd;
+                &quot;id&quot;: ${album_id},&#xd;
+                &quot;name&quot;: &quot;artist number 1 first album&quot;,&#xd;
+                &quot;tracks&quot;: [&#xd;
+                    {&#xd;
+                        &quot;id&quot;: ${album_id},&#xd;
+                        &quot;name&quot;: &quot;A regular test track with no name&quot;,&#xd;
+                        &quot;duration&quot;: 1,&#xd;
+                        &quot;lyrics&quot;: &quot;Track 1&quot;&#xd;
+                    }&#xd;
+                ],&#xd;
+                &quot;genre&quot;: [&#xd;
+                    {&#xd;
+                        &quot;id&quot;: ${genre_id},&#xd;
+                        &quot;name&quot;: &quot;very loud music&quot;,&#xd;
+                        &quot;description&quot;: &quot;pop&quot;&#xd;
+                    }&#xd;
+                ],&#xd;
+                &quot;cover&quot;: &quot;album.png&quot;&#xd;
+            }&#xd;
+        ],&#xd;
+        &quot;contributedTracks&quot;: []&#xd;
+    }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -170,6 +212,62 @@
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Track" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+        &quot;id&quot;: ${track_id},&#xd;
+        &quot;name&quot;: ${name},&#xd;
+        &quot;album&quot;: {&#xd;
+            &quot;id&quot;: ${album_id},&#xd;
+            &quot;name&quot;: &quot;artist number 1 first album&quot;,&#xd;
+            &quot;genre&quot;: [&#xd;
+                {&#xd;
+                    &quot;id&quot;: ${album_id},&#xd;
+                    &quot;name&quot;: &quot;very loud music&quot;,&#xd;
+                    &quot;description&quot;: &quot;pop&quot;&#xd;
+                }&#xd;
+            ],&#xd;
+            &quot;cover&quot;: &quot;album.png&quot;&#xd;
+        },&#xd;
+        &quot;duration&quot;: 1,&#xd;
+        &quot;lyrics&quot;: &quot;Track 1&quot;,&#xd;
+        &quot;artist&quot;: {&#xd;
+            &quot;id&quot;: ${artist_id},&#xd;
+            &quot;name&quot;: &quot;artist number 1&quot;&#xd;
+        },&#xd;
+        &quot;contributingArtists&quot;: []&#xd;
+    }</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">tracks/create</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">track_id</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              <stringProp name="Sample.scope">all</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Album" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -177,16 +275,29 @@
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-	&quot;name&quot; : ${name},&#xd;
-	&quot;artist&quot; : { &#xd;
-		&quot;id&quot; : ${artist_id}&#xd;
-	}, &#xd;
-	&quot;genre&quot; : [{&#xd;
-		&quot;id&quot; : ${genre_id}&#xd;
-	}],&#xd;
-	&quot;cover&quot; : ${description}&#xd;
-}&#xd;
-</stringProp>
+&#xd;
+        &quot;name&quot;: &quot;artist number 1 first album&quot;,&#xd;
+        &quot;tracks&quot;: [&#xd;
+            {&#xd;
+                &quot;id&quot;: ${track_id},&#xd;
+                &quot;name&quot;: &quot;A regular test track with no name&quot;,&#xd;
+                &quot;duration&quot;: 1,&#xd;
+                &quot;lyrics&quot;: &quot;Track 1&quot;&#xd;
+            }&#xd;
+        ],&#xd;
+        &quot;artist&quot;: {&#xd;
+            &quot;id&quot;: ${artist_id},&#xd;
+            &quot;name&quot;: &quot;artist number 1&quot;&#xd;
+        },&#xd;
+        &quot;genre&quot;: [&#xd;
+            {&#xd;
+                &quot;id&quot;: ${genre_id},&#xd;
+                &quot;name&quot;: &quot;very loud music&quot;,&#xd;
+                &quot;description&quot;: &quot;pop&quot;&#xd;
+            }&#xd;
+        ],&#xd;
+        &quot;cover&quot;: &quot;album.png&quot;&#xd;
+    }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
@@ -215,48 +326,6 @@
             </JSONPostProcessor>
             <hashTree/>
           </hashTree>
-          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Track" enabled="true">
-            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
-            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
-              <collectionProp name="Arguments.arguments">
-                <elementProp name="" elementType="HTTPArgument">
-                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&#xd;
-	&quot;name&quot; : ${name},&#xd;
-	&quot;album&quot; : {&#xd;
-		&quot;id&quot; : ${album_id}&#xd;
-	},&#xd;
-	&quot;duration&quot; : 30,&#xd;
-	&quot;lyrics&quot; : ${description}&#xd;
-}&#xd;
-</stringProp>
-                  <stringProp name="Argument.metadata">=</stringProp>
-                </elementProp>
-              </collectionProp>
-            </elementProp>
-            <stringProp name="HTTPSampler.domain"></stringProp>
-            <stringProp name="HTTPSampler.port"></stringProp>
-            <stringProp name="HTTPSampler.protocol"></stringProp>
-            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-            <stringProp name="HTTPSampler.path">tracks/create</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
-            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
-            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
-            <stringProp name="HTTPSampler.response_timeout"></stringProp>
-          </HTTPSamplerProxy>
-          <hashTree>
-            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor" enabled="true">
-              <stringProp name="JSONPostProcessor.referenceNames">track_id</stringProp>
-              <stringProp name="JSONPostProcessor.jsonPathExprs">.id</stringProp>
-              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-              <stringProp name="Sample.scope">all</stringProp>
-            </JSONPostProcessor>
-            <hashTree/>
-          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Playlist" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -264,13 +333,19 @@
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-	&quot;name&quot;: ${name},&#xd;
-	&quot;description&quot; : ${description},&#xd;
-	&quot;track&quot; : {&#xd;
-		&quot;id&quot; : ${track_id}&#xd;
-	},&#xd;
-	&quot;artwork&quot; : &quot;test.png&quot;&#xd;
-}</stringProp>
+        &quot;id&quot;: ${playlist_id},&#xd;
+        &quot;name&quot;: ${name},&#xd;
+        &quot;description&quot;: &quot;my favourite songs&quot;,&#xd;
+        &quot;artwork&quot;: &quot;My playlist&quot;,&#xd;
+        &quot;tracks&quot;: [&#xd;
+            {&#xd;
+                &quot;id&quot;: ${track_id},&#xd;
+                &quot;name&quot;: &quot;A regular test track with no name&quot;,&#xd;
+                &quot;duration&quot;: 1,&#xd;
+                &quot;lyrics&quot;: &quot;Track 1&quot;&#xd;
+            }&#xd;
+        ]&#xd;
+    }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
