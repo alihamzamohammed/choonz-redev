@@ -129,10 +129,14 @@ const CreateTrack = (e) => {
 
 const SearchTracks = (e) => {
   e.preventDefault();
-
+  var SearchStringFetch = "";
   var TrackParam = document.querySelector("#q").value;
-
-  fetch(`http://localhost:8082/search/tracks/${TrackParam}`, {
+  if(document.querySelector("#FeaturedArtists").checked){
+    SearchStringFetch = `http://localhost:8082/search/tracks/${TrackParam}?contributingartists=false`;
+  }else{
+    SearchStringFetch = `http://localhost:8082/search/tracks/${TrackParam}`
+  }
+  fetch(SearchStringFetch, {
     method: "GET"
   }).then((res) => {
     if(res.status === 200){

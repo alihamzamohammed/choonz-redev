@@ -3,7 +3,7 @@ let CurrentPlaylistTracks = [];
 let Tracks = [];
 let TrackNames = [];
 
-let GlobalPlaylistName;//these are needed for when i update the playlist to include the tracks i need them avaliable globally
+let GlobalPlaylistName; //these are needed for when i update the playlist to include the tracks i need them avaliable globally
 let GlobalPlaylistDescription;
 let GlobalArtwork;
 
@@ -49,52 +49,52 @@ let AddSongs = (e) => {
   e.preventDefault();
   const params = new URLSearchParams(window.location.search);
   let PlaylistParamID = params.get("PlaylistID");
-  var TrackAlreadyAdded = false;//set to false originally
+  var TrackAlreadyAdded = false; //set to false originally
   //track ids are in CurrentPlaylistTracks etc
   console.log(JSON.stringify(CurrentPlaylistTracks))
-  CurrentPlaylistTracks.forEach((CT) => {//if there are no existing tracks this will be skipped and allowed to contionue
+  CurrentPlaylistTracks.forEach((CT) => { //if there are no existing tracks this will be skipped and allowed to contionue
     Tracks.forEach((T) => {
-      if(parseInt(CT) == parseInt(T)){
+      if (parseInt(CT) == parseInt(T)) {
         //if an id is in the added tracks and already has been added dont allow it to pass on
         TrackAlreadyAdded = true;
       }
     })
   })
-  if(!TrackAlreadyAdded){
+  if (!TrackAlreadyAdded) {
     var UpdatedTracksArray = [];
     CurrentPlaylistTracks.forEach((C) => {
       UpdatedTracksArray.push({
-        id : C
+        id: C
       })
     })
     Tracks.forEach((T) => {
       UpdatedTracksArray.push({
-        id : T
+        id: T
       })
     })
     console.log(JSON.stringify(UpdatedTracksArray))
 
     //if none of teh tracks have been added
     fetch("http://localhost:8082/playlists/update/" + PlaylistParamID, {
-      method : "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body : JSON.stringify({
-        "name" : GlobalPlaylistName,
-        "description" : GlobalPlaylistDescription,
-        "artwork" : GlobalArtwork,
-        "tracks" : UpdatedTracksArray
-      })//will send the new array of tracks to be updated
-    }).then((res) => {
-      if(res.status === 202){
-        return res.json();
-      }else{
-        throw "The response code was " + res.status;
-      }
-    }).then((data) => location.reload())//restart the page to show the new tracks
-    .catch((err) => alert("There was a problem adding the songs to the playlist. "+err))
-  }else{
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          "name": GlobalPlaylistName,
+          "description": GlobalPlaylistDescription,
+          "artwork": GlobalArtwork,
+          "tracks": UpdatedTracksArray
+        }) //will send the new array of tracks to be updated
+      }).then((res) => {
+        if (res.status === 202) {
+          return res.json();
+        } else {
+          throw "The response code was " + res.status;
+        }
+      }).then((data) => location.reload()) //restart the page to show the new tracks
+      .catch((err) => alert("There was a problem adding the songs to the playlist. " + err))
+  } else {
     alert("One or more of those tracks is already in the playlist please remove them and try again. Thanks")
   }
 }
@@ -108,7 +108,7 @@ let EditPlaylist = (e) => {
 
   let playlistDescription = document.querySelector("#PlaylistDescription").value;
 
-  
+
 
   var Base64Img;
   var Reader = new FileReader();
@@ -117,47 +117,47 @@ let EditPlaylist = (e) => {
     Base64Img = e.target.result;
     //run once Base64String is made of img
     let Body = JSON.stringify({
-      "name" : playlistName,
-      "description" : playlistDescription,
-      "artwork" : Base64Img
+      "name": playlistName,
+      "description": playlistDescription,
+      "artwork": Base64Img
     });
 
     fetch(`http://localhost:8082/playlists/update/${PlaylistParamID}`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: Body,
-  })
-    .then((res) => {
-      if(res.status === 202){
-        return res.json()
-      }else{
-        throw "Couldn't modify the playlists status was " + res.status;
-      }
-    })
-    .then((data) => location.reload())
-    .catch((error) => alert("The playlist couldn't be modified. " + error));
-    
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: Body,
+      })
+      .then((res) => {
+        if (res.status === 202) {
+          return res.json()
+        } else {
+          throw "Couldn't modify the playlists status was " + res.status;
+        }
+      })
+      .then((data) => location.reload())
+      .catch((error) => alert("The playlist couldn't be modified. " + error));
+
   }
 
-  try{
-    Reader.readAsDataURL(document.querySelector("#PlaylistCoverArt").files[0])//calls the loadend func
-    }catch(error){
-      alert("You have forgotten to add an image to the form. Please submit once an image has been added.")//if no file has been added
-      //this will be flagged
-    }
+  try {
+    Reader.readAsDataURL(document.querySelector("#PlaylistCoverArt").files[0]) //calls the loadend func
+  } catch (error) {
+    alert("You have forgotten to add an image to the form. Please submit once an image has been added.") //if no file has been added
+    //this will be flagged
+  }
 
-  
+
 };
 // Creating Delete Functionality
 
 let DeletePlaylist = async () => {
   //  var playlist = parseInt(document.querySelector("#PlaylistList").value);
-  
+
   const params = new URLSearchParams(window.location.search);
   let PlaylistID = params.get("PlaylistID");
-  
+
   const response = await fetch(`http://localhost:8082/playlists/delete/${PlaylistID}`, {
     method: "DELETE",
   });
@@ -165,7 +165,7 @@ let DeletePlaylist = async () => {
     alert("The Delete Denied, the Playlist must be valid");
     console.error(`Error: Status code ${reponse.status}\n${response.json}`);
     return response.status;
-  }else{
+  } else {
     location.replace("http://localhost:8082/playlists")
   }
 };
@@ -180,8 +180,8 @@ let DeletePlaylist = async () => {
   const params = new URLSearchParams(window.location.search);
   let playlist = params.get("PlaylistID");
   fetch(`http://localhost:8082/playlists/read/${playlist}`, {
-    method: "GET",
-  })
+      method: "GET",
+    })
     .then((response) => {
       if (response.status === 200) {
         return response.json();
@@ -192,8 +192,8 @@ let DeletePlaylist = async () => {
     .then((playlist) => {
       GlobalPlaylistName = playlist.name;
       GlobalPlaylistDescription = playlist.description;
-      GlobalArtwork = playlist.artwork;//set these globally to use later
-      
+      GlobalArtwork = playlist.artwork; //set these globally to use later
+
       console.log(JSON.stringify(playlist))
 
       document.querySelector("#PlaylistNameDisplay").innerHTML = playlist.name;
@@ -202,8 +202,8 @@ let DeletePlaylist = async () => {
       document.querySelector("#PlaylistPic").src = playlist.artwork;
       document.querySelector("#PlaylistIDDisplay").innerHTML = "Playlist ID: " + playlist.id;
 
-      
-      
+
+
       playlist.tracks.forEach((Track) => {
         CurrentPlaylistTracks.push(Track.id)
         console.log(JSON.stringify(Track))
@@ -212,7 +212,7 @@ let DeletePlaylist = async () => {
         var TrackArtist = Track.artist.name; //artist is null
         var Index = 0;
         if (Track.contributingArtists.length > 0) {
-  
+
           Track.contributingArtists.forEach((CA) => {
             if (Index == 0) {
               TrackArtist += " f.t " + CA.name;
@@ -223,7 +223,7 @@ let DeletePlaylist = async () => {
           })
         }
         var AlbumName = Track.album.name;
-  
+
         var Genres = Track.album.genre
         var GenreString = "";
         let i = 0;
@@ -235,14 +235,16 @@ let DeletePlaylist = async () => {
           }
           i++;
         })
-  
+
         TrackElement.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
-        TrackElement.style = "border-radius: 12px;";
-  
+        TrackElement.style = "border-radius: 12px;position:relative;";
+
         let URL = window.location
         let BaseURL = URL.protocol + "//" + URL.host;
         let FinalURL = BaseURL + `/track?TrackID=${Track.id}`
         TrackElement.innerHTML = `
+              <i class="fas fa-times fa-2x" style="position:absolute;right:0;top:0;margin-right:5px;margin-top:5px;cursor: pointer;" 
+              id='RemoveTrack${Track.id}'></i>
               <a href="${FinalURL}">
               <div class="text-center">
                 <h4>${TrackName}</h4>
@@ -252,17 +254,20 @@ let DeletePlaylist = async () => {
               </div>
             </a>
           `;
-  
-        document.querySelector("#PlaylistList").append(TrackElement);
-      });
-      
 
-      
+        document.querySelector("#PlaylistList").append(TrackElement);
+        document.querySelector("#RemoveTrack" + Track.id).addEventListener("click", function () {
+          RemoveTrack(Track.id)
+        })
+      });
+
+
+
     })
     .catch((err) => {
       alert(
         "There was a problem getting the tracks from the system. Please try again later." +
-          err
+        err
       );
     });
 })();
@@ -270,11 +275,11 @@ let DeletePlaylist = async () => {
 (function () {
   //load tracks add them to select
   fetch("http://localhost:8082/tracks/read", {
-    method : "GET"
+    method: "GET"
   }).then((res) => {
-    if(res.status === 200){
+    if (res.status === 200) {
       return res.json()
-    }else{
+    } else {
       throw "There was a problem the status code is " + res.status
     }
   }).then((data) => {
@@ -284,7 +289,42 @@ let DeletePlaylist = async () => {
       TrackElement.innerHTML = tracks.name;
       document.querySelector("#Tracks").append(TrackElement)
     })
-    
-  }).catch((err) => alert("There was a problem loading the tracks into the system. "+err))
+
+  }).catch((err) => alert("There was a problem loading the tracks into the system. " + err))
 
 })();
+
+
+const RemoveTrack = (RemoveID) => {
+  const params = new URLSearchParams(window.location.search);
+  let PlaylistParamID = params.get("PlaylistID");
+  //track ids are in CurrentPlaylistTracks etc
+  var CurrentTrackIDIndex =0;
+  CurrentPlaylistTracks.forEach((CT) => { //if there are no existing tracks this will be skipped and allowed to contionue=
+    if (parseInt(CT) == parseInt(RemoveID)) {
+      CurrentPlaylistTracks.splice(CurrentTrackIDIndex,1);//remove from array
+    }
+    CurrentTrackIDIndex++;
+  })
+
+  fetch("http://localhost:8082/playlists/update/" + PlaylistParamID, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          "name": GlobalPlaylistName,
+          "description": GlobalPlaylistDescription,
+          "artwork": GlobalArtwork,
+          "tracks": CurrentPlaylistTracks
+        }) //will send the new array of tracks to be updated
+      }).then((res) => {
+        if (res.status === 202) {
+          return res.json();
+        } else {
+          throw "The response code was " + res.status;
+        }
+      }).then((data) => location.reload()) //restart the page to show the new tracks
+      .catch((err) => alert("There was a problem adding the songs to the playlist. " + err))
+  
+}

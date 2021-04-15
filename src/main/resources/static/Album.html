@@ -72,8 +72,6 @@
                         <div class="row w-25 ms-auto me-3">
                             <button class="col-12 btn btn-primary mb-2" data-bs-target="#EditAlbumModal"
                                 data-bs-toggle="modal">Edit Btn</button>
-                                <button class="col-12 btn btn-primary mb-2" data-bs-target="#AddTrackModal"
-                                data-bs-toggle="modal">Add songs</button>
                             <button class="col-12  btn btn-primary" onclick="DeleteAlbum()" >Delete</button>
                             <div class="col-12">
                                 <small style="float: right !important;" id="AlbumID">Album ID:</small>
@@ -152,29 +150,5 @@
     </div>
 </div>
 
-<div class="modal" tabindex="-1" id="AddTrackModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add a new track</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form onsubmit="AddTrackEvent(event)">
-                <!--Prevent default etc-->
-                <div class="modal-body">
-                    <select class="form-control" name="Tracks" id="Tracks" data-live-search="true"
-                        onchange="AddTracks(event, this)" style="background-color: var(--elementBgColor);">
-                        <option value="" disabled selected id="PlaceHolderSelectTrack">Please choose some tracks to add</option>
-                    </select>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add tracks</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 <script src="./js/album.js"></script>
 </html>

@@ -189,16 +189,16 @@ let DeleteAlbum = async () => {
     let URL = window.location
     let BaseURL = URL.protocol + "//" + URL.host;
     let FinalURL = BaseURL + `/artist?ArtistID=${data.artist.id}`
-    document.querySelector("#ArtistNameTitle").innerHTML = `<a href="${FinalURL}">${data.artist.name}</a>`
+    document.querySelector("#ArtistNameTitle").innerHTML = `<a href="${FinalURL}" class='AddTextDecoration'>${data.artist.name}</a>`
 
     var Genres = data.genre
     var GenreString = "";
     let i = 0;
     Genres.forEach((Genre) => {
       if (i == 0) {
-        GenreString += Genre.name
+        GenreString += "<a class='AddTextDecoration' href='http://localhost:8082/genre?GenreID="+Genre.id+"'>"+Genre.name+"</a>"
       } else {
-        GenreString += ", " + Genre.name
+        GenreString += ", " + "<a class='AddTextDecoration' href='http://localhost:8082/genre?GenreID="+Genre.id+"'>"+Genre.name+"</a>"
       }
       i++;
     })
@@ -236,7 +236,6 @@ let DeleteAlbum = async () => {
 
 
 (function () {
-  console.log("Hello there i am being launched")
   //Artists
   fetch("http://localhost:8082/artists/read", {
       method: "GET",

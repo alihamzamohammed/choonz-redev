@@ -147,31 +147,32 @@ const EditTrack = (e) => {
         })
         .then((data) => {
             console.log(JSON.stringify(data))
-            var AlbumName = "<a href='http://localhost:8082/album?AlbumID=" + data.album.id + "'>" + data.album.name + "</a>";
-            var ArtistName = "<a href='http://localhost:8082/artist?ArtistID=" + data.artist.id + "'>" + data.artist.name + "</a>";
+            var AlbumName = "<a class='AddTextDecoration' href='http://localhost:8082/album?AlbumID=" + data.album.id + "'>" + data.album.name + "</a>";
+            var ArtistName = "<a class='AddTextDecoration' href='http://localhost:8082/artist?ArtistID=" + data.artist.id + "'>" + data.artist.name + "</a>";
             var Genres = data.album.genre;
             var GenreString = "";
             var TrackNameText = data.name;
             var i = 0;
             Genres.forEach((Genre) => {
-                if (i == 0) {
-                    GenreString += Genre.name
-                } else {
-                    GenreString += ", " + Genre.name
-                }
-                i++;
+              if (i == 0) {
+                GenreString += "<a class='AddTextDecoration' href='http://localhost:8082/genre?GenreID="+Genre.id+"'>"+Genre.name+"</a>"
+              } else {
+                GenreString += ", " + "<a class='AddTextDecoration' href='http://localhost:8082/genre?GenreID="+Genre.id+"'>"+Genre.name+"</a>"
+              }
+              i++;
             })
             var TrackID = data.id;
             var AlbumPic = data.album.cover;
             var FeaturedArtists = data.contributingArtists;
             var Lyrics = data.lyrics;
             var FeaturedString = "";
+            var TrackDuration = data.duration;
             var j = 0;
             FeaturedArtists.forEach((Artist) => {
                 if (j == 0) {
-                    FeaturedString += "<a href='http://localhost:8082/artist?ArtistID=" + Artist.id + "'>" + Artist.name + "</a>"
+                    FeaturedString += "<a class='AddTextDecoration' href='http://localhost:8082/artist?ArtistID=" + Artist.id + "'>" + Artist.name + "</a>"
                 } else {
-                    FeaturedString += ", " + "<a href='http://localhost:8082/artist?ArtistID=" + Artist.id + "'>" + Artist.name + "</a>"
+                    FeaturedString += ", " + "<a class='AddTextDecoration' href='http://localhost:8082/artist?ArtistID=" + Artist.id + "'>" + Artist.name + "</a>"
                 }
                 j++;
             })
@@ -187,6 +188,12 @@ const EditTrack = (e) => {
             document.querySelector("#TrackAlbumPicDisplay").src = AlbumPic;
             document.querySelector("#LyricsDisplay").innerHTML = Lyrics;
             document.querySelector("#TrackNameTitle").innerHTML = TrackNameText;
+            var TrackSeconds = (parseInt(TrackDuration % 60)).toString();
+            if(TrackSeconds.length == 1){
+              TrackSeconds += "0";
+            }
+            var TrackTime = "Track duration: "+Math.floor(parseInt(TrackDuration / 60)) + ":" + TrackSeconds;
+            document.querySelector("#TrackDurationDisplay").innerHTML = TrackTime;
 
         })
         .catch((err) => {

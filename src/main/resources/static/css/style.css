@@ -1,33 +1,36 @@
-*{
+* {
   --elementBgColor: white;
-  --bg : #a8dadc;
-  --itemBgColor : #07c7c7;
-  --btnBackgroundColor : #118ab2;
+  --bg: #a8dadc;
+  --itemBgColor: #07c7c7;
+  --btnBackgroundColor: #118ab2;
 }
 
-body{
+body {
   overflow-x: hidden !important;
   min-height: 100vh;
 }
 
-a{
-  text-decoration: none;
-  color: black;
+a {
+  text-decoration: none !important;
+  color: black !important;
 }
 
-
-
-wrapper{
-  min-height: 100vh;/* Force footer to bottopm of page */
+.AddTextDecoration{
+  text-decoration: underline !important;
+  color: rgb(37, 37, 255) !important;
 }
 
-.ListItem{
+wrapper {
+  min-height: 100vh;
+  /* Force footer to bottopm of page */
+}
+
+.ListItem {
   background-color: var(--itemBgColor);
-  height:330px;
+  min-height: 200px;
+  height: auto;
 }
 
-
-
-.btn-primary{
+.btn-primary {
   background-color: var(--btnBackgroundColor) !important;
 }

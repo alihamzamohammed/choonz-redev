@@ -103,8 +103,13 @@ const SearchPlaylists = (e) => {
   e.preventDefault();
 
   var PlaylistParam = document.querySelector("#q").value;
-
-  fetch(`http://localhost:8082/search/playlists/${PlaylistParam}`, {
+  var SearchStringFetch = "";
+  if(document.querySelector("#FeaturedArtists").checked){
+    SearchStringFetch = `http://localhost:8082/search/playlists/${PlaylistParam}?contributingartists=false`
+  }else{
+    SearchStringFetch = `http://localhost:8082/search/playlists/${PlaylistParam}`
+  }
+  fetch(SearchStringFetch, {
       method: "GET"
     }).then((res) => {
       if (res.status === 200) {
