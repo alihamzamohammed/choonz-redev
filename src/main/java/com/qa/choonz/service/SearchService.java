@@ -70,13 +70,26 @@ public class SearchService {
                 .collect(Collectors.toList()));
     }
 
-    public List<PlaylistDTO> searchPlaylists(String name) {
-        return playlistMapper.mapToDTO(playlistRepo.findAll().stream()
-                .filter(playlist -> playlist.getName().contains(name)).collect(Collectors.toList()));
+    public List<PlaylistDTO> searchPlaylists(String name, Boolean contributingArtists) {
+        if (Boolean.FALSE.equals(contributingArtists)) {
+            return playlistMapper.mapToDTO(playlistRepo.findAll().stream()
+                    .filter(playlist -> playlist.getName().contains(name)).filter(playlist -> playlist.getTracks()
+                            .stream().anyMatch(track -> track.getContributingArtists().isEmpty()))
+                    .collect(Collectors.toList()));
+        } else {
+            return playlistMapper.mapToDTO(playlistRepo.findAll().stream()
+                    .filter(playlist -> playlist.getName().contains(name)).collect(Collectors.toList()));
+        }
     }
 
-    public List<TrackDTO> searchTracks(String name) {
-        return tracksMapper.listMapToDTO(trackRepo.findAll().stream().filter(track -> track.getName().contains(name))
-                .collect(Collectors.toList()));
+    public List<TrackDTO> searchTracks(String name, Boolean contributingArtists) {
+        if (Boolean.FALSE.equals(contributingArtists)) {
+            return tracksMapper
+                    .listMapToDTO(trackRepo.findAll().stream().filter(track -> track.getName().contains(name))
+                            .filter(track -> track.getContributingArtists().isEmpty()).collect(Collectors.toList()));
+        } else {
+            return tracksMapper.listMapToDTO(trackRepo.findAll().stream()
+                    .filter(track -> track.getName().contains(name)).collect(Collectors.toList()));
+        }
     }
 }
