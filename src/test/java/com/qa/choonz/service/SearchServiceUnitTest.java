@@ -72,35 +72,35 @@ class SearchServiceUnitTest {
     @MockBean
     private TrackRepository trackRepo;
 
-    List<Album> albums;
-    List<Artist> artists;
-    List<Genre> genres;
-    List<Playlist> playlists;
-    List<Track> tracks;
+    private List<Album> albums;
+    private List<Artist> artists;
+    private List<Genre> genres;
+    private List<Playlist> playlists;
+    private List<Track> tracks;
 
-    Album goodAlbum;
-    Album badAlbum;
-    AlbumDTO expectedAlbum;
+    private Album goodAlbum;
+    private Album badAlbum;
+    private AlbumDTO expectedAlbum;
 
-    Artist goodArtist;
-    Artist badArtist;
-    ArtistDTO expectedArtist;
+    private Artist goodArtist;
+    private Artist badArtist;
+    private ArtistDTO expectedArtist;
 
-    Genre goodGenre;
-    Genre badGenre;
-    GenreDTO expectedGenre;
+    private Genre goodGenre;
+    private Genre badGenre;
+    private GenreDTO expectedGenre;
 
-    Playlist goodPlaylist;
-    Playlist badPlaylist;
-    Playlist playlistWithCA;
-    PlaylistDTO expectedPlaylist;
-    PlaylistDTO expectedPlaylistWithCA;
+    private Playlist goodPlaylist;
+    private Playlist badPlaylist;
+    private Playlist playlistWithCA;
+    private PlaylistDTO expectedPlaylist;
+    private PlaylistDTO expectedPlaylistWithCA;
 
-    Track goodTrack;
-    Track badTrack;
-    Track trackWithCA;
-    TrackDTO expectedTrack;
-    TrackDTO expectedTrackWithCA;
+    private Track goodTrack;
+    private Track badTrack;
+    private Track trackWithCA;
+    private TrackDTO expectedTrack;
+    private TrackDTO expectedTrackWithCA;
 
     @BeforeEach
     void init() {
