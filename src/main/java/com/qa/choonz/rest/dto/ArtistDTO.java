@@ -14,6 +14,14 @@ public class ArtistDTO {
         super();
     }
 
+    public ArtistDTO(String name, List<AlbumArtistRelationshipDTO> albums,
+            List<TrackRelationshipDTO> contributedTracks) {
+        super();
+        this.name = name;
+        this.albums = albums;
+        this.contributedTracks = contributedTracks;
+    }
+
     public ArtistDTO(int id, String name, List<AlbumArtistRelationshipDTO> albums,
             List<TrackRelationshipDTO> contributedTracks) {
         super();
