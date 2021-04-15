@@ -54,8 +54,11 @@ public class ArtistServiceUnitTest {
 		artists = new ArrayList<Artist>();
 		artistDTOs = new ArrayList<ArtistDTO>();
 		
+		
 		validArtist = new Artist(1, "Eminem");
+		validArtist.setAlbums(List.of());
 		artists.add(validArtist);
+		
 		
 		ArtistRelationshipDTO validArtistRelationshipDTO = new ArtistRelationshipDTO(1, "Eminem");
 		List<GenreRelationshipDTO> listOfGenreDTOs = Arrays
@@ -63,7 +66,7 @@ public class ArtistServiceUnitTest {
 		
 		List<TrackRelationshipDTO> listOfTrackDTOs = Arrays
 				.asList(new TrackRelationshipDTO(1, "Till I Collapse", 298, "A lot of lyrics here"));
-
+		
 		AlbumArtistRelationshipDTO albumArtistRelationshipDTO = new AlbumArtistRelationshipDTO(
 				1, "Eminem", List.of() ,List.of(), "Cover");
 		
@@ -124,7 +127,7 @@ public class ArtistServiceUnitTest {
 		   
 	       when(repo.findById(Mockito.anyInt())).thenReturn(Optional.of(validArtist));
 	       when(repo.existsById(Mockito.anyInt())).thenReturn(false);
-		   assertThat(service.delete(validArtist.getId())).isTrue();
+	       assertThat(service.delete(validArtist.getId())).isTrue();
 		   verify(repo, times(1)).existsById(Mockito.anyInt());
 		   verify(repo, times(1)).deleteById(Mockito.anyInt());
 		   verify(repo, times(1)).findById(Mockito.anyInt());
