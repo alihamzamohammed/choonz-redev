@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -45,9 +47,9 @@ public class Track {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Playlist> playlists;
 
-
-    @ManyToMany(mappedBy = "contributedTracks")
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(joinColumns = @JoinColumn(name = "TRACK_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ARTIST_ID", referencedColumnName = "ID"))
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Artist> contributingArtists;
 
