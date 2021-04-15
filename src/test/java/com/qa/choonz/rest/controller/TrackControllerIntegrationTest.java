@@ -3,13 +3,12 @@ package com.qa.choonz.rest.controller;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.choonz.persistence.domain.Genre;
-import com.qa.choonz.persistence.domain.Playlist;
-import com.qa.choonz.rest.dto.AlbumGenresRelationshipDTO;
+import com.qa.choonz.persistence.domain.Album;
+import com.qa.choonz.persistence.domain.Track;
+import com.qa.choonz.rest.dto.AlbumRelationshipDTO;
 import com.qa.choonz.rest.dto.ArtistRelationshipDTO;
-import com.qa.choonz.rest.dto.GenreDTO;
-import com.qa.choonz.rest.dto.PlaylistDTO;
-import com.qa.choonz.rest.dto.TrackRelationshipDTO;
+import com.qa.choonz.rest.dto.GenreRelationshipDTO;
+import com.qa.choonz.rest.dto.TrackDTO;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 @Sql(scripts = { "classpath:test-schema.sql",
                 "classpath:test-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-class GenreControllerIntegrationTest {
+class TrackControllerIntegrationTest {
 
         @Autowired
         private MockMvc mvc;
@@ -40,40 +39,41 @@ class GenreControllerIntegrationTest {
         @Autowired
         private ObjectMapper objectMapper;
 
-        private TrackRelationshipDTO track = new TrackRelationshipDTO(1, "Track 1", 1,
-                        "A regular test track with no name");
-        private ArtistRelationshipDTO artist = new ArtistRelationshipDTO(1, "artist number 1");
+        private GenreRelationshipDTO genre = new GenreRelationshipDTO(1, "pop", "very loud music");
+        private ArtistRelationshipDTO validArtistDTO1 = new ArtistRelationshipDTO(1, "artist number 1");
+        private ArtistRelationshipDTO validArtistDTO2 = new ArtistRelationshipDTO(2, "artist number 2");
+        private AlbumRelationshipDTO album = new AlbumRelationshipDTO(1, "artist number 1 first album", List.of(genre),
+                        "album.png");
 
-        private AlbumGenresRelationshipDTO album = new AlbumGenresRelationshipDTO(1, "artist number 1 first album",
-                        List.of(track), "album.png", artist);
-        private GenreDTO validGenre = new GenreDTO(1, "pop", "very loud music", List.of(album));
+        private TrackDTO validTrack = new TrackDTO(1, "Track 1", album, 1, "A regular test track with no name",
+                        validArtistDTO1, List.of(validArtistDTO2));
 
         @WithAnonymousUser
         @Test
-        void readGenreByIdTest() throws Exception {
+        void readTrackByIdTest() throws Exception {
                 MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET,
-                                "/genres/read/1");
+                                "/tracks/read/1");
                 mockRequest.accept(MediaType.APPLICATION_JSON);
 
                 ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
 
                 ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-                                .json(objectMapper.writeValueAsString(validGenre));
+                                .json(objectMapper.writeValueAsString(validTrack));
 
                 mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
         }
 
         @WithAnonymousUser
         @Test
-        void readAllGenresTest() throws Exception {
+        void readAllTracksTest() throws Exception {
                 MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET,
-                                "/genres/read");
+                                "/tracks/read");
                 mockRequest.accept(MediaType.APPLICATION_JSON);
 
                 ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
 
                 ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-                                .json(objectMapper.writeValueAsString(List.of(validGenre)));
+                                .json(objectMapper.writeValueAsString(List.of(validTrack)));
 
                 mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 
@@ -81,51 +81,62 @@ class GenreControllerIntegrationTest {
 
         @WithMockUser(authorities = { "USER" })
         @Test
-        void createGenreTest() throws Exception {
-                Genre genreToSave = new Genre("New Genre", "New Description");
-                GenreDTO expectedGenre = new GenreDTO(2, "New Genre", "New Description", null);
+        void createTrackTest() throws Exception {
+                Album newAlbum = new Album();
+                newAlbum.setId(1);
+                AlbumRelationshipDTO newAlbumDTO = new AlbumRelationshipDTO();
+                newAlbumDTO.setId(1);
+
+                Track trackToSave = new Track("New Track", newAlbum, 10, "Example lyrics");
+                TrackDTO expectedTrack = new TrackDTO(2, "New Track", newAlbumDTO, 10, "Example lyrics", null, null);
 
                 MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.POST,
-                                "/genres/create");
+                                "/tracks/create");
 
                 mockRequest.contentType(MediaType.APPLICATION_JSON);
-                mockRequest.content(objectMapper.writeValueAsString(genreToSave));
+                mockRequest.content(objectMapper.writeValueAsString(trackToSave));
                 mockRequest.accept(MediaType.APPLICATION_JSON);
 
                 ResultMatcher statusMatcher = MockMvcResultMatchers.status().isCreated();
 
                 ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-                                .json(objectMapper.writeValueAsString(expectedGenre));
+                                .json(objectMapper.writeValueAsString(expectedTrack));
 
                 mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
         }
 
         @WithMockUser(authorities = { "USER" })
         @Test
-        void updateGenreTest() throws Exception {
-                Genre genreToSave = new Genre("New Genre", "New Description");
-                GenreDTO expectedGenre = new GenreDTO(1, "New Genre", "New Description", List.of(album));
+        void updateTrackTest() throws Exception {
+                Album newAlbum = new Album();
+                newAlbum.setId(1);
+                AlbumRelationshipDTO newAlbumDTO = new AlbumRelationshipDTO();
+                newAlbumDTO.setId(1);
+
+                Track trackToSave = new Track("New Track", newAlbum, 10, "Example lyrics");
+                TrackDTO expectedTrack = new TrackDTO(1, "New Track", newAlbumDTO, 10, "Example lyrics",
+                                validArtistDTO1, List.of(validArtistDTO2));
 
                 MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.PUT,
-                                "/genres/update/1");
+                                "/tracks/update/1");
 
                 mockRequest.contentType(MediaType.APPLICATION_JSON);
-                mockRequest.content(objectMapper.writeValueAsString(genreToSave));
+                mockRequest.content(objectMapper.writeValueAsString(trackToSave));
                 mockRequest.accept(MediaType.APPLICATION_JSON);
 
                 ResultMatcher statusMatcher = MockMvcResultMatchers.status().isAccepted();
 
                 ResultMatcher contentMatcher = MockMvcResultMatchers.content()
-                                .json(objectMapper.writeValueAsString(expectedGenre));
+                                .json(objectMapper.writeValueAsString(expectedTrack));
 
                 mvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
         }
 
         @WithMockUser(authorities = { "USER" })
         @Test
-        void deleteGenreTest() throws Exception {
+        void deleteTrackTest() throws Exception {
                 MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.DELETE,
-                                "/genres/delete/1");
+                                "/tracks/delete/1");
 
                 ResultMatcher statusMatcher = MockMvcResultMatchers.status().isNoContent();
 
