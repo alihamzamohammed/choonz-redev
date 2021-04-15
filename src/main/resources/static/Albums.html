@@ -63,30 +63,30 @@
             <div class="container-fluid">
                 <!-- Search -->
                 <div class="col-lg-6 col-md-6 col-12 mx-auto mt-5">
-                    <div class="input-group mb-3 input-group-lg">
+                    <form onsubmit="SearchAlbum(event)" class="input-group mb-3 input-group-lg">
                         <input type="text" name="user" class="form-control" placeholder="Search for some Choonz"
-                            style="background-color: var(--elementBgColor);border: 0px;">
+                            style="background-color: var(--elementBgColor);border: 0px;" id="q">
                         <div class="input-group-append">
                             <button
                                 style="border-top-right-radius: 12px;border-bottom-right-radius: 12px;background-color: var(--elementBgColor);border:0px;"><i
                                     class="fas fa-search fa-5x ms-3"></i></button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-                <!-- /Search -->
-                <!--Albums List-->
-                <div class="col-12">
-                    <h2 class="ms-5" style="float: left;">Albums</h2>
-                    <button style="float: right;" class="btn btn-primary btn-lg me-3" data-bs-toggle="modal"
-                        id="CreateAlbum" data-bs-target="#CreateAlbumModal">Create New Album</button>
-                </div>
-                <div id="AlbumsList" class="row justify-content-center mt-5">
-                    <!--Add Albums here that are loaded from backend-->
-                </div>
-                <div class="text-center">
+            </div>
+            <!-- /Search -->
+            <!--Albums List-->
+            <div class="col-12">
+                <h2 class="ms-5" style="float: left;" id="AlbumsListTitle">Albums</h2>
+                <button style="float: right;" class="btn btn-primary btn-lg me-3" data-bs-toggle="modal"
+                    id="CreateAlbum" data-bs-target="#CreateAlbumModal">Create New Album</button>
+            </div>
+            <div id="AlbumsList" class="row justify-content-center mt-5">
+                <!--Add Albums here that are loaded from backend-->
+            </div>
+            <!--<div class="text-center">
                     <button class="mx-auto btn btn-lg btn-primary w-25">Load More Albums</button>
-                </div>
-                <!--End of Albums-->
+                </div>-->
+            <!--End of Albums-->
             </div>
         </main>
         <footer class="mt-5" style="background-color: var(--elementBgColor)">
@@ -114,7 +114,7 @@
                 <h5 class="modal-title">Create an Album</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form onsubmit="CreateAlbum()">
+            <form onsubmit="CreateAlbum(event)">
                 <!--Prevent default etc-->
                 <div class="modal-body">
 
@@ -129,7 +129,7 @@
                     </div>
                     <!--onchange="ArtistChanged(event, this)"-->
                     <select class="form-control mb-3 selectpicker" name="Artists" id="Artists"
-                        style="background-color: var(--elementBgColor);" data-live-search="true" >
+                        style="background-color: var(--elementBgColor);" data-live-search="true">
 
                     </select>
 
@@ -138,8 +138,8 @@
                         <option value="" disabled selected id="PlaceHolderSelectFTArtist">Please choose a featured artist</option>
                     </select>-->
 
-                    <select class="form-control" name="Genres" id="Genres" data-live-search="true" onchange="GenreChanged(event, this)"
-                        style="background-color: var(--elementBgColor);">
+                    <select class="form-control" name="Genres" id="Genres" data-live-search="true"
+                        onchange="GenreChanged(event, this)" style="background-color: var(--elementBgColor);">
                         <option value="" disabled selected id="PlaceHolderSelectGenre">Please choose a genre</option>
                     </select>
 

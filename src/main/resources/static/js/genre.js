@@ -17,12 +17,12 @@ let EditGenre = () => {
   };
 
   fetch(`http://localhost:8082/genres/${genre}`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(updatedGenre),
-  })
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(updatedGenre),
+    })
     .then((res) => res.json())
     .then((data) => console.log(`Success ${data}`))
     .catch((error) => console.log(`Failure ${error}`));
@@ -31,10 +31,10 @@ let EditGenre = () => {
 
 let DeleteGenre = async (genre) => {
   //  var genre = parseInt(document.querySelector("#GenreList").value);
-  
+
   const params = new URLSearchParams(window.location.search);
   let genreID = params.get("GenreID");
-  
+
   const response = await fetch(`http://localhost:8082/genres/${genreID}`, {
     method: "DELETE",
   });
@@ -54,8 +54,8 @@ let DeleteGenre = async (genre) => {
   let genre = params.get("GenreID");
 
   fetch(`http://localhost:8082/genres/read/${genre}`, {
-    method: "GET",
-  })
+      method: "GET",
+    })
     .then((response) => {
       if (response.status === 200) {
         return response.json();
@@ -64,32 +64,37 @@ let DeleteGenre = async (genre) => {
       }
     })
     .then((data) => {
-      var Track = document.createElement("div");
+      
       var GenreName = data.name;
       console.log(JSON.stringify(data))
-     
-      document.querySelector("#GenreNameTitle").innerHTML = GenreName;
 
-      Track.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
-      Track.style = "border-radius: 12px;";
-      //need to finish this ask if possible to include the genre in album or track rather than making a seperate request
-      Track.innerHTML = `
+      document.querySelector("#GenreNameTitle").innerHTML = GenreName;
+      data.albums.forEach((album) => {
+        album.tracks.forEach((track) => {
+          var Track = document.createElement("div");
+          Track.className = "ListItem col-2 ms-5 mb-5 text-center mt-5";
+          Track.style = "border-radius: 12px;";
+          //need to finish this ask if possible to include the genre in album or track rather than making a seperate request
+          Track.innerHTML = `
 
             <div class="text-center">
-                <h4>Track name</h4>
+                <h4>${track.name}</h4>
                 <h4>Artist Name</h4>
-                <h4>Album name</h4>
+                <h4>${album.name}</h4>
                 <h4>Genre(s)</h4>
             </div>
   
         `;
 
-      document.querySelector("#TrackList").append(Track);
+          document.querySelector("#TrackList").append(Track);
+        })
+      })
+
     })
     .catch((err) => {
       alert(
         "There was a problem getting the genre from the system. Please try again later." +
-          err
+        err
       );
     });
 })();

@@ -81,12 +81,12 @@ public class ArtistServiceUnitTest {
 	@Test
 	public void readTest() {
 	        when(repo.findAll()).thenReturn(artists);
-	        when(mapper.mapToDTO(artists)).thenReturn(artistDTOs);
+	        when(mapper.listMapToDTO(artists)).thenReturn(artistDTOs);
 
 	        assertThat(artistDTOs).isEqualTo(service.read());
 
 	        verify(repo, times(1)).findAll();
-	        verify(mapper, times(1)).mapToDTO(artists);
+	        verify(mapper, times(1)).listMapToDTO(artists);//changed to list
 	    }
 
 	@Test
