@@ -17,7 +17,7 @@ class TrackDTOUnitTest {
 				.withPrefabValues(PlaylistDTO.class, new PlaylistDTO("Name", "Description", "Artwork", List.of()),
 						new PlaylistDTO())
 				.withPrefabValues(ArtistDTO.class, new ArtistDTO("Name", List.of(), List.of()), new ArtistDTO())
-				.verify();
+				.withIgnoredFields("id").verify();
 
 	}
 
@@ -29,7 +29,7 @@ class TrackDTOUnitTest {
 
 		builder.append("TrackDTO [id=").append(trackDTO.getId()).append(", name=").append(trackDTO.getName())
 				.append(", album=").append(trackDTO.getAlbum()).append(", duration=").append(trackDTO.getDuration())
-				.append(", lyrics=").append(", artist=").append(trackDTO.getArtist()).append(trackDTO.getLyrics())
+				.append(", lyrics=").append(trackDTO.getLyrics()).append(", artist=").append(trackDTO.getArtist())
 				.append(", contributingArtists=").append(trackDTO.getContributingArtists()).append("]");
 
 		assertThat(trackDTO.toString()).hasToString(builder.toString());

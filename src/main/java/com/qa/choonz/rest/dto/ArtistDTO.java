@@ -13,7 +13,7 @@ public class ArtistDTO {
     public ArtistDTO() {
         super();
     }
-    
+
     public ArtistDTO(String name, List<AlbumArtistRelationshipDTO> albums,
             List<TrackRelationshipDTO> contributedTracks) {
         super();

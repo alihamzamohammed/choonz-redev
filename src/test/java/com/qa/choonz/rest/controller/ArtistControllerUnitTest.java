@@ -18,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithAnonymousUser;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @SpringBootTest
 class ArtistControllerUnitTest {
@@ -41,6 +43,7 @@ class ArtistControllerUnitTest {
 
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void createArtistTest() {
 		when(service.create(validArtist)).thenReturn(validArtistDTO);
@@ -52,6 +55,7 @@ class ArtistControllerUnitTest {
 		verify(service, times(1)).create(validArtist);
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readAllArtistsTest() {
 
@@ -64,6 +68,7 @@ class ArtistControllerUnitTest {
 		verify(service, times(1)).read();
 	}
 
+	@WithAnonymousUser
 	@Test
 	void readArtistByIdTest() {
 
@@ -76,6 +81,7 @@ class ArtistControllerUnitTest {
 		verify(service, times(1)).read(validArtistDTO.getId());
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void deleteArtistTest() {
 
@@ -88,6 +94,7 @@ class ArtistControllerUnitTest {
 		verify(service, times(1)).delete(validArtist.getId());
 	}
 
+	@WithMockUser(authorities = { "USER" })
 	@Test
 	void updateArtistTest() {
 

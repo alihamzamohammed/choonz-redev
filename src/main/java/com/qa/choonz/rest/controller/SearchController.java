@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -45,12 +46,22 @@ public class SearchController {
     }
 
     @GetMapping("/tracks/{name}")
-    public ResponseEntity<List<TrackDTO>> searchTracks(@PathVariable String name) {
-        return new ResponseEntity<>(service.searchTracks(name), HttpStatus.OK);
+    public ResponseEntity<List<TrackDTO>> searchTracks(@PathVariable String name,
+            @RequestParam(name = "contributingartists", required = false) Boolean contributingArtists) {
+        if (contributingArtists != null && !contributingArtists) {
+            return new ResponseEntity<>(service.searchTracks(name, false), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(service.searchTracks(name, true), HttpStatus.OK);
+        }
     }
 
     @GetMapping("/playlists/{name}")
-    public ResponseEntity<List<PlaylistDTO>> searchPlaylists(@PathVariable String name) {
-        return new ResponseEntity<>(service.searchPlaylists(name), HttpStatus.OK);
+    public ResponseEntity<List<PlaylistDTO>> searchPlaylists(@PathVariable String name,
+            @RequestParam(name = "contributingartists", required = false) Boolean contributingArtists) {
+        if (contributingArtists != null && !contributingArtists) {
+            return new ResponseEntity<>(service.searchPlaylists(name, false), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(service.searchPlaylists(name, true), HttpStatus.OK);
+        }
     }
 }

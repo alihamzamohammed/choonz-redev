@@ -30,21 +30,28 @@ public class Genre {
     @Size(max = 250)
     private String description;
 
-    @ManyToMany(mappedBy = "genre", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "genre", fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Album> albums;
 
     public Genre() {
         super();
     }
-    
+
     public Genre(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
             List<Album> albums) {
-       
-    	super();
+
+        super();
         this.name = name;
         this.description = description;
         this.albums = albums;
+    }
+
+    public Genre(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description) {
+
+        super();
+        this.name = name;
+        this.description = description;
     }
 
     public Genre(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
@@ -100,7 +107,7 @@ public class Genre {
         StringBuilder builder = new StringBuilder();
         builder.append("Genre [id=").append(id).append(", name=").append(name).append(", description=")
                 .append(description).append(", albums=").append(albums).append("]");
-       
+
         return builder.toString();
     }
 
@@ -118,8 +125,8 @@ public class Genre {
             return false;
         }
         Genre other = (Genre) obj;
-        return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && 
-                Objects.equals(name, other.name);
+        return Objects.equals(albums, other.albums) && Objects.equals(description, other.description)
+                && Objects.equals(name, other.name);
     }
 
 }

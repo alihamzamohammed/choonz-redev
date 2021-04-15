@@ -31,14 +31,14 @@ public class TrackDTO {
 		this.artist = artist;
 		this.contributingArtists = contributingArtists;
 	}
-	
-	 public TrackDTO(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
-	        super();
-	        this.id = id;
-	        this.name = name;
-	        this.duration = duration;
-	        this.lyrics = lyrics;
-	    }
+
+	public TrackDTO(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.duration = duration;
+		this.lyrics = lyrics;
+	}
 
 	public int getId() {
 		return id;
@@ -97,18 +97,18 @@ public class TrackDTO {
 	}
 
 	@Override
-	public final int hashCode() {
-		return Objects.hash(album, duration, id, lyrics, name, artist, contributingArtists);
+	public int hashCode() {
+		return Objects.hash(album, duration, lyrics, name, artist, contributingArtists);
 	}
 
 	@Override
-	public final boolean equals(Object obj) {
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (!(obj instanceof TrackDTO))
 			return false;
 		TrackDTO other = (TrackDTO) obj;
-		return Objects.equals(album, other.album) && Objects.equals(duration, other.duration) && id == other.id
+		return Objects.equals(album, other.album) && Objects.equals(duration, other.duration)
 				&& Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
 				&& Objects.equals(artist, other.artist)
 				&& Objects.equals(contributingArtists, other.contributingArtists);
@@ -118,8 +118,8 @@ public class TrackDTO {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("TrackDTO [id=").append(id).append(", name=").append(name).append(", album=").append(album)
-				.append(", duration=").append(duration).append(", lyrics=").append(", artist=").append(artist)
-				.append(lyrics).append(", contributingArtists=").append(contributingArtists).append("]");
+				.append(", duration=").append(duration).append(", lyrics=").append(lyrics).append(", artist=")
+				.append(artist).append(", contributingArtists=").append(contributingArtists).append("]");
 		return builder.toString();
 	}
 
