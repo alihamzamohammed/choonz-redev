@@ -29,22 +29,22 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link" aria-current="page" href="home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Artists</a>
+                            <a class="nav-link" href="artists">Artists</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Albums</a>
+                            <a class="nav-link" href="albums">Albums</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Genres</a>
+                            <a class="nav-link" href="genres">Genres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Playlist</a>
+                            <a class="nav-link" href="playlists">Playlist</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Tracks</a>
+                            <a class="nav-link active" href="tracks">Tracks</a>
                         </li>
                     </ul>
                     <span class="navbar-text">
@@ -63,36 +63,33 @@
             <div class="container-fluid">
                 <!-- Search -->
                 <div class="col-lg-6 col-md-6 col-12 mx-auto mt-5">
-                    <div class="input-group mb-3 input-group-lg">
+                    <form class="input-group mb-3 input-group-lg" onsubmit="SearchTracks(event)">
                         <input type="text" name="user" class="form-control" placeholder="Search for some Choonz"
-                            style="background-color: var(--elementBgColor);border: 0px;">
+                            style="background-color: var(--elementBgColor);border: 0px;" id="q">
                         <div class="input-group-append">
                             <button
                                 style="border-top-right-radius: 12px;border-bottom-right-radius: 12px;background-color: var(--elementBgColor);border:0px;"><i
                                     class="fas fa-search fa-5x ms-3"></i></button>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class=" col-12form-check mx-auto text-center">
+                            <input class="form-check-input" type="checkbox" value="" id="FeaturedArtists">
+                            <label class="form-check-label" for="FeaturedArtists">
+                                Don't show any tracks that have any featured artists.
+                            </label>
                         </div>
                     </div>
                 </div>
                 <!-- /Search -->
                 <!--Albums List-->
                 <div class="col-12">
-                    <h2 class="ms-5" style="float: left;">Tracks</h2>
+                    <h2 class="ms-5" style="float: left;" id="SearchTitle">Tracks</h2>
                     <button style="float: right;" class="btn btn-primary btn-lg me-3" data-bs-target="#CreateTrackModal"
                         data-bs-toggle="modal">Create Track</button>
                 </div>
-                <div id="AlbumsList" class="row justify-content-center mt-5">
-                    <!--Add Albums here that are loaded from backend-->
-                    <div class="ListItem col-2 ms-5 mb-5 text-center mt-5" style="border-radius: 12px;">
-                        <div class="text-center">
-                            <h4>Track name</h4>
-                            <h4>Artist Name</h4>
-                            <h4>Album name</h4>
-                            <h4>Genre(s)</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <button class="mx-auto btn btn-lg btn-primary w-25">Load More Tracks</button>
+                <div id="TracksList" class="row justify-content-center mt-5">
+                    <!--Add Tracks here that are loaded from backend-->
                 </div>
                 <!--End of Albums-->
             </div>
@@ -108,20 +105,20 @@
         <!--Changed to BS5-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
-            </script>
+        </script>
         <script src="./js/usermanagement.js"></script>
 
     </wrapper>
 </body>
 <!--Modals-->
-<div class="modal" tabindex="-1" id="CreatePlaylistModal">
+<div class="modal" tabindex="-1" id="CreateTrackModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Create a Playlist</h5>
+                <h5 class="modal-title">Create a track</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form onsubmit="CreatePlaylist()">
+            <form onsubmit="CreateTrack(event)">
                 <!--Prevent default etc-->
                 <div class="modal-body">
                     <div class="mb-3">
@@ -133,13 +130,24 @@
                         <input type="text" class="form-control" id="TrackDuration">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Playlist Lyrics</label>
+                        <label class="form-label">Lyrics</label>
                         <textarea type="file" class="form-control" id="TrackLyrics"></textarea>
                     </div>
-                    <select id="TrackAlbum">
-                        <!--Options are here-->
-                        <!--Albums or single-->
-                    </select>
+                    <div class="mb-3">
+                        <label class="form-label">Album</label>
+                        <select class="form-control" id="Album" data-live-search="true"
+                            style="background-color: var(--elementBgColor);">
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">FT Artist</label>
+                        <select class="form-control mb-3 selectpicker" name="FTArtists" id="FTArtists"
+                            style="background-color: var(--elementBgColor);" data-live-search="true"
+                            onchange="FTArtistChanged(event, this)" onfocus="FTArtistPreChange(event, this)">
+                            <option value="" disabled selected id="PlaceHolderSelectFTArtist">Please choose a featured
+                                artist</option>
+                        </select>
+                    </div>
 
 
                 </div>
@@ -151,6 +159,6 @@
         </div>
     </div>
 </div>
-<script src="js/Tracks.js"></script>
+<script src="./js/Tracks.js"></script>
 
 </html>
