@@ -3,8 +3,8 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -32,16 +34,26 @@ public class Playlist {
     private String description;
 
     @NotNull
-    @Size(max = 100)
+    @Column(columnDefinition = "varchar(max)")
     private String artwork;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Track> tracks;
 
     public Playlist() {
         super();
+    }
+
+    public Playlist(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
+            @NotNull @Size(max = 100) String artwork, List<Track> tracks) {
+        super();
+        this.name = name;
+        this.description = description;
+        this.artwork = artwork;
+        this.tracks = tracks;
     }
 
     public Playlist(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 500) String description,
@@ -104,12 +116,12 @@ public class Playlist {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(artwork, description, id, name, tracks);
+    public final int hashCode() {
+        return Objects.hash(artwork, description, name, tracks);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -118,7 +130,7 @@ public class Playlist {
         }
         Playlist other = (Playlist) obj;
         return Objects.equals(artwork, other.artwork) && Objects.equals(description, other.description)
-                && id == other.id && Objects.equals(name, other.name) && Objects.equals(tracks, other.tracks);
+                && Objects.equals(name, other.name) && Objects.equals(tracks, other.tracks);
     }
 
 }

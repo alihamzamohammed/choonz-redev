@@ -25,22 +25,22 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link" aria-current="page" href="home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Artists</a>
+                            <a class="nav-link active" href="artists">Artists</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Albums</a>
+                            <a class="nav-link" href="albums">Albums</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Genres</a>
+                            <a class="nav-link" href="genres">Genres</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Playlist</a>
+                            <a class="nav-link" href="playlists">Playlist</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Tracks</a>
+                            <a class="nav-link" href="tracks">Tracks</a>
                         </li>
                     </ul>
                     <span class="navbar-text">
@@ -68,9 +68,9 @@
                         <div class="row w-25 ms-auto me-3">
                             <button class="col-12 btn btn-primary mb-2" data-bs-toggle="modal"
                                 data-bs-target="#EditArtistModal">Edit Btn</button>
-                            <button class="col-12 btn btn-primary">Delete</button>
+                            <button class="col-12 btn btn-primary" onclick="DeleteArtist()">Delete</button>
                             <div class="col-12">
-                                <small style="float: right !important;">Album ID:</small>
+                                <small style="float: right !important;" id="ArtistID">Artist ID:</small>
                             </div>
 
                         </div>
@@ -80,9 +80,6 @@
                 <h2 class="ms-5 mt-5">Albums</h2>
                 <div id="AlbumsList" class="row justify-content-center">
                     <!--Add Albums here that are loaded from backend-->
-                </div>
-                <div class="text-center">
-                    <button class="mx-auto btn btn-lg btn-primary w-25">Load More Albums</button>
                 </div>
                 <!--End of Albums-->
             </div>
@@ -108,15 +105,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit an Artist</h5>
+                <h5 class="modal-title" id="ModalTitle">Edit an Artist</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form onsubmit="EditArtist()">
+            <form onsubmit="EditArtist(event)">
                 <!--Prevent default etc-->
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Artist Name</label>
-                        <input type="text" class="form-control" id="ArtistName">
+                        <input type="text" class="form-control" id="ArtistNameModal">
                     </div>
                 </div>
                 <div class="modal-footer">

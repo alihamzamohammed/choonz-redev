@@ -8,6 +8,7 @@ import com.qa.choonz.service.GenreService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/genres")
 @CrossOrigin
+@PreAuthorize("hasAuthority('USER')")
 public class GenreController {
 
     private GenreService service;
@@ -36,18 +38,20 @@ public class GenreController {
     }
 
     @GetMapping("/read")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<List<GenreDTO>> readAll() {
         return new ResponseEntity<>(this.service.readAll(), HttpStatus.OK);
     }
 
     @GetMapping("/read/{id}")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<GenreDTO> readById(@PathVariable int id) {
         return new ResponseEntity<>(this.service.readById(id), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<GenreDTO> update(@RequestBody Genre genre, @PathVariable int id) {
-        return new ResponseEntity<>(this.service.update(genre, id), HttpStatus.OK);
+        return new ResponseEntity<>(this.service.update(genre, id), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete/{id}")

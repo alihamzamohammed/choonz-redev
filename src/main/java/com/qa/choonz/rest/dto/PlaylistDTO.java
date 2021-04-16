@@ -9,14 +9,22 @@ public class PlaylistDTO {
     private String name;
     private String description;
     private String artwork;
-    private List<TrackRelationshipDTO> tracks;
+    private List<TrackDTO> tracks;
 
     public PlaylistDTO() {
         super();
-
     }
 
-    public PlaylistDTO(int id, String name, String description, String artwork, List<TrackRelationshipDTO> tracks) {
+
+    public PlaylistDTO(String name, String description, String artwork, List<TrackDTO> tracks) {
+        super();
+        this.name = name;
+        this.description = description;
+        this.artwork = artwork;
+        this.tracks = tracks;
+    }
+    
+    public PlaylistDTO(int id, String name, String description, String artwork, List<TrackDTO> tracks) {
         super();
         this.id = id;
         this.name = name;
@@ -84,14 +92,14 @@ public class PlaylistDTO {
     /**
      * @return the tracks
      */
-    public List<TrackRelationshipDTO> getTracks() {
+    public List<TrackDTO> getTracks() {
         return this.tracks;
     }
 
     /**
      * @param tracks the tracks to set
      */
-    public void setTracks(List<TrackRelationshipDTO> tracks) {
+    public void setTracks(List<TrackDTO> tracks) {
         this.tracks = tracks;
     }
 
@@ -105,12 +113,12 @@ public class PlaylistDTO {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(artwork, description, id, name, tracks);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
