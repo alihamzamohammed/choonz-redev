@@ -6,6 +6,6 @@ import io.cucumber.spring.CucumberContextConfiguration;
 
 @CucumberContextConfiguration
 @SpringBootTest
-public class Config {
-	
+public class CucumberConfig {
+
 }
