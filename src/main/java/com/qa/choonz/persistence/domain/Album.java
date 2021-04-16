@@ -47,7 +47,7 @@ public class Album {
     private List<Genre> genre;
 
     @NotNull
-    @Column(columnDefinition = "varchar(max)")
+    @Column(columnDefinition = "longtext")
     private String cover;
 
     public Album() {
