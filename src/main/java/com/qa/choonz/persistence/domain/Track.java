@@ -1,61 +1,124 @@
 package com.qa.choonz.persistence.domain;
 
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Track {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Track.class)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Album album;
 
-    @ManyToOne
-    private Playlist playlist;
+    @OneToOne
+    private Artist artist;
 
     // in seconds
-    private int duration;
+    private Integer duration;
 
     private String lyrics;
 
+    @ManyToMany(mappedBy = "tracks")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Playlist> playlists;
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(joinColumns = @JoinColumn(name = "TRACK_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ARTIST_ID", referencedColumnName = "ID"))
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Artist> contributingArtists;
+
     public Track() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public Track(long id, @NotNull @Size(max = 100) String name, Album album, Playlist playlist, int duration,
-            String lyrics) {
+    public Track(int id, @NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List<Artist> contributingArtists) {
         super();
         this.id = id;
         this.name = name;
         this.album = album;
-        this.playlist = playlist;
+        this.duration = duration;
+        this.lyrics = lyrics;
+        this.contributingArtists = contributingArtists;
+    }
+
+    public Track(@NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List<Artist> contributingArtists) {
+        super();
+        this.name = name;
+        this.album = album;
+        this.duration = duration;
+        this.lyrics = lyrics;
+        this.contributingArtists = contributingArtists;
+    }
+
+    public Track(@NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List<Artist> contributingArtists, Artist artist) {
+        super();
+        this.name = name;
+        this.album = album;
+        this.duration = duration;
+        this.lyrics = lyrics;
+        this.artist = artist;
+        this.contributingArtists = contributingArtists;
+    }
+
+    public Track(@NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics) {
+        super();
+        this.name = name;
+        this.album = album;
         this.duration = duration;
         this.lyrics = lyrics;
     }
 
-    public long getId() {
+    public Track(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+        this.lyrics = lyrics;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public Artist getArtist() {
+        return this.artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     public String getName() {
@@ -74,19 +137,11 @@ public class Track {
         this.album = album;
     }
 
-    public Playlist getPlaylist() {
-        return playlist;
-    }
-
-    public void setPlaylist(Playlist playlist) {
-        this.playlist = playlist;
-    }
-
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -98,18 +153,26 @@ public class Track {
         this.lyrics = lyrics;
     }
 
+    public List<Artist> getContributingArtists() {
+        return this.contributingArtists;
+    }
+
+    public void setContributingArtists(List<Artist> contributingArtists) {
+        this.contributingArtists = contributingArtists;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("Track [id=").append(id).append(", name=").append(name).append(", album=").append(album)
-                .append(", playlist=").append(playlist).append(", duration=").append(duration).append(", lyrics=")
-                .append(lyrics).append("]");
+                .append(", duration=").append(duration).append(", lyrics=").append(lyrics).append(", artist=")
+                .append(artist).append(", contributingArtists=").append(contributingArtists).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(album, duration, id, lyrics, name, playlist);
+        return Objects.hash(artist, album, duration, lyrics, name, contributingArtists, playlists);
     }
 
     @Override
@@ -121,9 +184,11 @@ public class Track {
             return false;
         }
         Track other = (Track) obj;
-        return Objects.equals(album, other.album) && duration == other.duration && id == other.id
+        return Objects.equals(album, other.album) && Objects.equals(duration, other.duration)
                 && Objects.equals(lyrics, other.lyrics) && Objects.equals(name, other.name)
-                && Objects.equals(playlist, other.playlist);
+                && Objects.equals(artist, other.artist)
+                && Objects.equals(contributingArtists, other.contributingArtists)
+                && Objects.equals(playlists, other.playlists);
     }
 
 }

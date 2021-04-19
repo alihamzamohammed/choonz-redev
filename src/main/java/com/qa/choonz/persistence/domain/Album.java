@@ -3,47 +3,78 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Album {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "album")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Track> tracks;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Artist artist;
 
-    @ManyToOne
-    private Genre genre;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Genre> genre;
 
+    @NotNull
+    @Column(columnDefinition = "longtext")
     private String cover;
 
     public Album() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public Album(long id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, Genre genre,
-            String cover) {
+    public Album(@NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, List<Genre> genre,
+            @NotNull @Size(max = 50) String cover) {
+        super();
+        this.name = name;
+        this.tracks = tracks;
+        this.artist = artist;
+        this.genre = genre;
+        this.cover = cover;
+    }
+
+    public Album(@NotNull @Size(max = 100) String name, Artist artist, List<Genre> genre,
+            @NotNull @Size(max = 50) String cover) {
+        super();
+        this.name = name;
+        this.artist = artist;
+        this.genre = genre;
+        this.cover = cover;
+    }
+
+    public Album(int id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, List<Genre> genre,
+            @NotNull @Size(max = 50) String cover) {
         super();
         this.id = id;
         this.name = name;
@@ -53,11 +84,11 @@ public class Album {
         this.cover = cover;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -85,11 +116,11 @@ public class Album {
         this.artist = artist;
     }
 
-    public Genre getGenre() {
+    public List<Genre> getGenre() {
         return genre;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(List<Genre> genre) {
         this.genre = genre;
     }
 

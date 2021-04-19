@@ -3,22 +3,28 @@ package com.qa.choonz.rest.dto;
 import java.util.List;
 import java.util.Objects;
 
-import com.qa.choonz.persistence.domain.Track;
-
 public class PlaylistDTO {
 
-    private long id;
+    private int id;
     private String name;
     private String description;
     private String artwork;
-    private List<Track> tracks;
+    private List<TrackDTO> tracks;
 
     public PlaylistDTO() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public PlaylistDTO(long id, String name, String description, String artwork, List<Track> tracks) {
+
+    public PlaylistDTO(String name, String description, String artwork, List<TrackDTO> tracks) {
+        super();
+        this.name = name;
+        this.description = description;
+        this.artwork = artwork;
+        this.tracks = tracks;
+    }
+    
+    public PlaylistDTO(int id, String name, String description, String artwork, List<TrackDTO> tracks) {
         super();
         this.id = id;
         this.name = name;
@@ -30,14 +36,14 @@ public class PlaylistDTO {
     /**
      * @return the id
      */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -86,14 +92,14 @@ public class PlaylistDTO {
     /**
      * @return the tracks
      */
-    public List<Track> getTracks() {
-        return tracks;
+    public List<TrackDTO> getTracks() {
+        return this.tracks;
     }
 
     /**
      * @param tracks the tracks to set
      */
-    public void setTracks(List<Track> tracks) {
+    public void setTracks(List<TrackDTO> tracks) {
         this.tracks = tracks;
     }
 
@@ -107,12 +113,12 @@ public class PlaylistDTO {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(artwork, description, id, name, tracks);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }

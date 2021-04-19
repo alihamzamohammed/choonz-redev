@@ -3,21 +3,19 @@ package com.qa.choonz.rest.dto;
 import java.util.List;
 import java.util.Objects;
 
-import com.qa.choonz.persistence.domain.Album;
-
 public class GenreDTO {
 
-    private long id;
+    private int id;
     private String name;
     private String description;
-    private List<Album> albums;
+    private List<AlbumGenresRelationshipDTO> albums;
 
     public GenreDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public GenreDTO(long id, String name, String description, List<Album> albums) {
+    public GenreDTO(int id, String name, String description, List<AlbumGenresRelationshipDTO> albums) {
         super();
         this.id = id;
         this.name = name;
@@ -25,11 +23,11 @@ public class GenreDTO {
         this.albums = albums;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,11 +47,11 @@ public class GenreDTO {
         this.description = description;
     }
 
-    public List<Album> getAlbums() {
+    public List<AlbumGenresRelationshipDTO> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<Album> albums) {
+    public void setAlbums(List<AlbumGenresRelationshipDTO> albums) {
         this.albums = albums;
     }
 
@@ -66,12 +64,12 @@ public class GenreDTO {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(albums, description, id, name);
+    public final int hashCode() {
+        return Objects.hash(description, id, name, albums);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -79,8 +77,8 @@ public class GenreDTO {
             return false;
         }
         GenreDTO other = (GenreDTO) obj;
-        return Objects.equals(albums, other.albums) && Objects.equals(description, other.description) && id == other.id
-                && Objects.equals(name, other.name);
+        return Objects.equals(description, other.description) && id == other.id && Objects.equals(name, other.name)
+                && Objects.equals(albums, other.albums);
     }
 
 }

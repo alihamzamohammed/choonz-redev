@@ -3,31 +3,39 @@ package com.qa.choonz.rest.dto;
 import java.util.List;
 import java.util.Objects;
 
-import com.qa.choonz.persistence.domain.Album;
-
 public class ArtistDTO {
 
-    private long id;
+    private int id;
     private String name;
-    private List<Album> albums;
+    private List<AlbumArtistRelationshipDTO> albums;
+    private List<TrackRelationshipDTO> contributedTracks;
 
     public ArtistDTO() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public ArtistDTO(long id, String name, List<Album> albums) {
+    public ArtistDTO(String name, List<AlbumArtistRelationshipDTO> albums,
+            List<TrackRelationshipDTO> contributedTracks) {
+        super();
+        this.name = name;
+        this.albums = albums;
+        this.contributedTracks = contributedTracks;
+    }
+
+    public ArtistDTO(int id, String name, List<AlbumArtistRelationshipDTO> albums,
+            List<TrackRelationshipDTO> contributedTracks) {
         super();
         this.id = id;
         this.name = name;
         this.albums = albums;
+        this.contributedTracks = contributedTracks;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,25 +47,33 @@ public class ArtistDTO {
         this.name = name;
     }
 
-    public List<Album> getAlbums() {
+    public List<AlbumArtistRelationshipDTO> getAlbums() {
         return albums;
     }
 
-    public void setAlbums(List<Album> albums) {
+    public void setAlbums(List<AlbumArtistRelationshipDTO> albums) {
         this.albums = albums;
+    }
+
+    public List<TrackRelationshipDTO> getContributedTracks() {
+        return this.contributedTracks;
+    }
+
+    public void setContributedTracks(List<TrackRelationshipDTO> contributedTracks) {
+        this.contributedTracks = contributedTracks;
     }
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("ArtistDTO [id=").append(id).append(", name=").append(name).append(", albums=").append(albums)
-                .append("]");
+                .append(", contributedTracks=").append(contributedTracks).append("]");
         return builder.toString();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(albums, id, name);
+        return Objects.hash(id, name, contributedTracks, albums);
     }
 
     @Override
@@ -69,7 +85,8 @@ public class ArtistDTO {
             return false;
         }
         ArtistDTO other = (ArtistDTO) obj;
-        return Objects.equals(albums, other.albums) && id == other.id && Objects.equals(name, other.name);
+        return Objects.equals(albums, other.albums) && id == other.id && Objects.equals(name, other.name)
+                && Objects.equals(contributedTracks, other.contributedTracks);
     }
 
 }

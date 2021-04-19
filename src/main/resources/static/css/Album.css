@@ -1,0 +1,5 @@
+.SongItem{
+    background-color: var(--itemBgColor);
+    min-height:130px;
+    height: auto;
+  }

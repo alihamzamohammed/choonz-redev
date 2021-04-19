@@ -1,55 +1,60 @@
 package com.qa.choonz.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 
 import com.qa.choonz.exception.GenreNotFoundException;
+import com.qa.choonz.mapper.GenreMapper;
 import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.repository.GenreRepository;
 import com.qa.choonz.rest.dto.GenreDTO;
 
+import org.springframework.stereotype.Service;
+
 @Service
 public class GenreService {
 
-    private GenreRepository repo;
-    private ModelMapper mapper;
+    private GenreRepository genreRepo;
+    private GenreMapper genreMap;
 
-    public GenreService(GenreRepository repo, ModelMapper mapper) {
+    public GenreService(GenreRepository genreRepo, GenreMapper map) {
         super();
-        this.repo = repo;
-        this.mapper = mapper;
-    }
-
-    private GenreDTO mapToDTO(Genre genre) {
-        return this.mapper.map(genre, GenreDTO.class);
+        this.genreRepo = genreRepo;
+        this.genreMap = map;
     }
 
     public GenreDTO create(Genre genre) {
-        Genre created = this.repo.save(genre);
-        return this.mapToDTO(created);
+        Genre newGenre = genreRepo.save(genre);
+
+        return genreMap.mapToDTO(newGenre);
+
     }
 
-    public List<GenreDTO> read() {
-        return this.repo.findAll().stream().map(this::mapToDTO).collect(Collectors.toList());
+    public List<GenreDTO> readAll() {
+        List<Genre> genres = genreRepo.findAll();
+        return genreMap.listMapToDTO(genres);
+
     }
 
-    public GenreDTO read(long id) {
-        Genre found = this.repo.findById(id).orElseThrow(GenreNotFoundException::new);
-        return this.mapToDTO(found);
+    public GenreDTO readById(int id) {
+        Genre genre = genreRepo.findById(id).orElseThrow(GenreNotFoundException::new);
+        return genreMap.mapToDTO(genre);
     }
 
-    public GenreDTO update(Genre genre, long id) {
-        Genre toUpdate = this.repo.findById(id).orElseThrow(GenreNotFoundException::new);
-        Genre updated = this.repo.save(toUpdate);
-        return this.mapToDTO(updated);
+    public GenreDTO update(Genre genre, int id) {
+        Genre genreInDb = genreRepo.findById(id).orElseThrow(GenreNotFoundException::new);
+        genreInDb.setName(genre.getName() != null ? genre.getName() : genreInDb.getName());
+        genreInDb.setDescription(genre.getDescription() != null ? genre.getDescription() : genreInDb.getDescription());
+        genreInDb.setAlbums(genre.getAlbums() != null ? genre.getAlbums() : genreInDb.getAlbums());
+
+        Genre updatedGenre = genreRepo.save(genreInDb);
+
+        return genreMap.mapToDTO(updatedGenre);
     }
 
-    public boolean delete(long id) {
-        this.repo.deleteById(id);
-        return !this.repo.existsById(id);
+    public boolean delete(int id) {
+        Genre genre = genreRepo.findById(id).orElseThrow(GenreNotFoundException::new);
+        genreRepo.deleteById(genre.getId());
+        return !genreRepo.existsById(genre.getId());
     }
 
 }
