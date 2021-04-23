@@ -9,8 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login {
 
-	// public static String URL = "http://localhost:8082/login.html?signup=true";
-
 	private WebElement loginBtn;
 	private WebElement uNameTxt;
 	private WebElement passwordTxt;

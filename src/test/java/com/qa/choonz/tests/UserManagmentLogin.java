@@ -23,12 +23,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 
-// import cucumber.api.java.After;
-// import cucumber.api.java.Before;
-// import cucumber.api.java.en.Given;
-// import cucumber.api.java.en.Then;
-// import cucumber.api.java.en.When;
-
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 public class UserManagmentLogin {
