@@ -47,7 +47,7 @@ public class GenreController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<GenreDTO> update(@RequestBody Genre genre, @PathVariable int id) {
-        return new ResponseEntity<>(this.service.update(genre, id), HttpStatus.OK);
+        return new ResponseEntity<>(this.service.update(genre, id), HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/delete/{id}")
