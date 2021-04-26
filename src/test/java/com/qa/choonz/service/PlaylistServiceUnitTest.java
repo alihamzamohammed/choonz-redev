@@ -24,7 +24,7 @@ import com.qa.choonz.persistence.repository.PlaylistRepository;
 import com.qa.choonz.rest.dto.PlaylistDTO;
 
 @SpringBootTest 
-public class PlaylistServiceUnitTest {
+class PlaylistServiceUnitTest {
 	
 	@Autowired
 	private PlaylistService service;
@@ -55,7 +55,7 @@ public class PlaylistServiceUnitTest {
 	}
 
 	@Test
-	public void createTest() {
+	void createTest() {
 		when(repo.save(Mockito.any(Playlist.class))).thenReturn(validPlaylist);
 		when(mapper.mapToDTO(Mockito.any(Playlist.class))).thenReturn(validPlaylistDTO);
 		
@@ -66,7 +66,7 @@ public class PlaylistServiceUnitTest {
 	}
 	
 	@Test
-	public void readTest() {
+	void readTest() {
 	        when(repo.findAll()).thenReturn(playlist);
 	        when(mapper.mapToDTO(Mockito.anyList())).thenReturn(playlistDTO);
 
@@ -101,7 +101,7 @@ public class PlaylistServiceUnitTest {
 	}
 
 	@Test
-	public void deleteTest() {
+	void deleteTest() {
 		   
 	       when(repo.findById(Mockito.anyInt())).thenReturn(Optional.of(validPlaylist));
 	       when(repo.existsById(Mockito.anyInt())).thenReturn(false);
