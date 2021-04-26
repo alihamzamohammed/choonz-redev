@@ -3,6 +3,7 @@ package com.qa.choonz.persistence.domain;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -32,21 +35,43 @@ public class Album {
 
     @OneToMany(mappedBy = "album")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Track> tracks;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Artist artist;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Genre> genre;
 
-    @Size(max = 50)
     @NotNull
+    @Column(columnDefinition = "varchar(max)")
     private String cover;
 
     public Album() {
         super();
+    }
+
+    public Album(@NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, List<Genre> genre,
+            @NotNull @Size(max = 50) String cover) {
+        super();
+        this.name = name;
+        this.tracks = tracks;
+        this.artist = artist;
+        this.genre = genre;
+        this.cover = cover;
+    }
+
+    public Album(@NotNull @Size(max = 100) String name, Artist artist, List<Genre> genre,
+            @NotNull @Size(max = 50) String cover) {
+        super();
+        this.name = name;
+        this.artist = artist;
+        this.genre = genre;
+        this.cover = cover;
     }
 
     public Album(int id, @NotNull @Size(max = 100) String name, List<Track> tracks, Artist artist, List<Genre> genre,
