@@ -34,7 +34,7 @@ public class Playlist {
     private String description;
 
     @NotNull
-    @Column(columnDefinition = "varchar(max)")
+    @Column(columnDefinition = "longtext")
     private String artwork;
 
     @ManyToMany
