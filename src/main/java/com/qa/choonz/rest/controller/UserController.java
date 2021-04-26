@@ -16,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     
-    final private String usernameFormFieldName = "username";
+    private final static String usernameFormFieldName = "username";
     
     
     @GetMapping(value = "/perform_signup")
