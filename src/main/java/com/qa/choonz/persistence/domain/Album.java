@@ -24,7 +24,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 public class Album {
 
-    // Cascade on Delete.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -48,7 +47,7 @@ public class Album {
     private List<Genre> genre;
 
     @NotNull
-    @Column(columnDefinition = "varchar(max)")
+    @Column(columnDefinition = "longtext")
     private String cover;
 
     public Album() {

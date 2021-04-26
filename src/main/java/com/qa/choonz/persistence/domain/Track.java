@@ -31,7 +31,7 @@ public class Track {
     @Size(max = 100)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Track.class)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Album album;
 
