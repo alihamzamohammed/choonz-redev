@@ -12,7 +12,7 @@ public class GenreRelationshipDTO {
         super();
     }
 
-    public GenreRelationshipDTO(int id, String name, String description) {// }, List<Album> albums) {
+    public GenreRelationshipDTO(int id, String name, String description) {
         super();
         this.id = id;
         this.name = name;
