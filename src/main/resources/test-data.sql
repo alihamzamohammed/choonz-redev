@@ -4,8 +4,10 @@ insert into artist
 values (1, 'artist number 1');
 insert into artist
 values (2, 'artist number 2');
-/*insert into album
-values (1, 'album.png', 'artist number 1 first album', 1);*/
+
+insert into album
+values (1, 'album.png', 'artist number 1 first album', 1);
+
 insert into album_genre
 values (1, 1);
 insert into track
