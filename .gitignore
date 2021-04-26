@@ -35,3 +35,4 @@ mvnw
 mvnw.cmd
 bin/
 
+src/test/java/com/qa/choonz/tests/SeleniumLogin.java
