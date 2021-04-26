@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.qa.choonz.exception.AlbumNotFoundException;
 import com.qa.choonz.exception.GenreNotFoundException;
 import com.qa.choonz.mapper.GenreMapper;
 import com.qa.choonz.persistence.domain.Album;
@@ -31,7 +30,7 @@ import com.qa.choonz.rest.dto.ArtistRelationshipDTO;
 import com.qa.choonz.rest.dto.GenreDTO;
 
 @SpringBootTest
-public class GenreServiceUnitTest {
+class GenreServiceUnitTest {
 	
 	@Autowired
 	private GenreService service;
