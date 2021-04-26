@@ -14,7 +14,6 @@ public class AlbumDTO {
 
     public AlbumDTO() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public AlbumDTO(String name, List<TrackRelationshipDTO> tracks, List<GenreRelationshipDTO> genre, String cover,

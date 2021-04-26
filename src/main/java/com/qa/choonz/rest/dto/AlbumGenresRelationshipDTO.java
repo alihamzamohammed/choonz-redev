@@ -13,7 +13,6 @@ public class AlbumGenresRelationshipDTO {
 
     public AlbumGenresRelationshipDTO() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public AlbumGenresRelationshipDTO(int id, String name, List<TrackRelationshipDTO> tracks, String cover,

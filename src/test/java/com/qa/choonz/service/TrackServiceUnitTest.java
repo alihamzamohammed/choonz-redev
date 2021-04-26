@@ -17,12 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.qa.choonz.exception.GenreNotFoundException;
 import com.qa.choonz.exception.TrackNotFoundException;
 import com.qa.choonz.mapper.TracksMapper;
 import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
-import com.qa.choonz.persistence.domain.Genre;
 import com.qa.choonz.persistence.domain.Track;
 import com.qa.choonz.persistence.repository.TrackRepository;
 import com.qa.choonz.rest.dto.AlbumRelationshipDTO;
@@ -30,7 +28,7 @@ import com.qa.choonz.rest.dto.ArtistRelationshipDTO;
 import com.qa.choonz.rest.dto.TrackDTO;
 
 @SpringBootTest
-public class TrackServiceUnitTest {
+class TrackServiceUnitTest {
 	
 	@Autowired
 	private TrackService service;

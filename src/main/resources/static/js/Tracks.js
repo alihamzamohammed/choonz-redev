@@ -91,6 +91,18 @@ const CreateTrack = (e) => {
       })
       //check up on how to add this 
       console.log(JSON.stringify(FTArtistID))
+      console.log(JSON.stringify({
+        "name": TrackName,
+        "album": {
+          "id": parseInt(AlbumID)
+        },
+        "duration": parseInt(TrackDuration),
+        "lyrics": TrackLyrics,
+        "artist": {
+          "id": parseInt(ArtistID)
+        },
+        "contributingArtists" : FTArtistID
+      }))
       fetch("http://localhost:8082/tracks/create", {
           method: "POST",
           headers: {
@@ -99,12 +111,12 @@ const CreateTrack = (e) => {
           body: JSON.stringify({
             "name": TrackName,
             "album": {
-              "id": AlbumID
+              "id": parseInt(AlbumID)
             },
-            "duration": TrackDuration,
+            "duration": parseInt(TrackDuration),
             "lyrics": TrackLyrics,
             "artist": {
-              "id": ArtistID
+              "id": parseInt(ArtistID)
             },
             "contributingArtists" : FTArtistID
           }),

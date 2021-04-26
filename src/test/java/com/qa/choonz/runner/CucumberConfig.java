@@ -2,7 +2,6 @@ package com.qa.choonz.runner;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 
 import io.cucumber.spring.CucumberContextConfiguration;
