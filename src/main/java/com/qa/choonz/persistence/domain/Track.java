@@ -31,7 +31,7 @@ public class Track {
     @Size(max = 100)
     private String name;
 
-    @ManyToOne(targetEntity = Track.class)
+    @ManyToOne(targetEntity = Album.class)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Album album;
 
@@ -159,6 +159,14 @@ public class Track {
 
     public void setContributingArtists(List<Artist> contributingArtists) {
         this.contributingArtists = contributingArtists;
+    }
+
+    public List<Playlist> getPlaylists() {
+        return this.playlists;
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
     }
 
     @Override
