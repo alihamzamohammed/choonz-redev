@@ -6,7 +6,7 @@ Choonz is a full stack web app muslci management tool that allows the user to cr
 
 The backend is a rest API written in Java with Spring Boot. Frontend is written in HTML, CSS and JavaScript.
 
-Autmated tests have been written for this program, with a test coverage of above 80%. Unit and Integration testing done with Mockito and JUnit. User Acceptance tests also carried out in JMeter and Selenium.
+Automated tests have been written for this program, with a test coverage of above 80%. Unit and Integration testing done with Mockito and JUnit. User Acceptance tests also carried out in JMeter and Selenium.
 
 ## Requirements
 
@@ -73,7 +73,7 @@ If downloading pre-compiled binary, create folder `config/` in the same director
 
 All backend classes are tested. Unit tests have been written for the Services, Controllers, Mappers, DTOs and Domain classes.  
 Frontend tests have been written with Selenium for the sign up and login page.  
-Current test coverage is at 80%.
+Current test coverage is at 89%.
 
 ### Non-fuctional tests
 
