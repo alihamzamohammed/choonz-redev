@@ -7,19 +7,16 @@ public class GenreRelationshipDTO {
     private int id;
     private String name;
     private String description;
-    // private List<Album> albums;
 
     public GenreRelationshipDTO() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-    public GenreRelationshipDTO(int id, String name, String description) {// }, List<Album> albums) {
+    public GenreRelationshipDTO(int id, String name, String description) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
-        // this.albums = albums;
     }
 
     public int getId() {
@@ -46,13 +43,6 @@ public class GenreRelationshipDTO {
         this.description = description;
     }
 
-    // public List<Album> getAlbums() {
-    // return albums;
-    // }
-
-    // public void setAlbums(List<Album> albums) {
-    // this.albums = albums;
-    // }
 
     @Override
     public String toString() {

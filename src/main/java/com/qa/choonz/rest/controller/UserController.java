@@ -15,10 +15,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    
+    private final static String usernameFormFieldName = "username";
+    
+    
     @GetMapping(value = "/perform_signup")
     public String registration(@RequestParam Map<String, String> formData) {
         User user = new User();
-        user.setUsername(formData.get("username"));
+        user.setUsername(formData.get(usernameFormFieldName));//replaced username with a variable for sonar
         user.setPassword(formData.get("password"));
         user.setPasswordConfirm(formData.get("passwordConfirm"));
         userService.save(user);
@@ -29,7 +33,7 @@ public class UserController {
     @GetMapping(value = "/perform_change_password")
     public String changePassword(@RequestParam Map<String, String> formData) {
         User user = new User();
-        user.setUsername(formData.get("username"));
+        user.setUsername(formData.get(usernameFormFieldName));//replaced username with a variable for sonar
         user.setPassword(formData.get("password"));
         user.setPasswordConfirm(formData.get("passwordConfirm"));
         userService.update(user);
@@ -40,7 +44,7 @@ public class UserController {
     @GetMapping(value = "/perform_delete_user")
     public String deleteUser(@RequestParam Map<String, String> formData) {
         User user = new User();
-        user.setUsername(formData.get("username"));
+        user.setUsername(formData.get(usernameFormFieldName));//replaced "username" for sonar
         userService.delete(user);
         return "redirect:perform_logout";
     }

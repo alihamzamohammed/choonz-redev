@@ -18,10 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.qa.choonz.exception.AlbumNotFoundException;
 import com.qa.choonz.exception.ArtistNotFoundException;
 import com.qa.choonz.mapper.ArtistMapper;
-import com.qa.choonz.persistence.domain.Album;
 import com.qa.choonz.persistence.domain.Artist;
 import com.qa.choonz.persistence.repository.ArtistRepository;
 import com.qa.choonz.rest.dto.AlbumArtistRelationshipDTO;
@@ -31,7 +29,7 @@ import com.qa.choonz.rest.dto.GenreRelationshipDTO;
 import com.qa.choonz.rest.dto.TrackRelationshipDTO;
 
 @SpringBootTest
-public class ArtistServiceUnitTest {
+class ArtistServiceUnitTest {
 
 	@Autowired
 	private ArtistService service;
@@ -75,7 +73,7 @@ public class ArtistServiceUnitTest {
 	}
 
 	@Test
-	public void createTest() {
+	void createTest() {
 		when(repo.save(Mockito.any(Artist.class))).thenReturn(validArtist);
 		when(mapper.mapToDTO(Mockito.any(Artist.class))).thenReturn(validArtistDTO);
 
@@ -86,7 +84,7 @@ public class ArtistServiceUnitTest {
 	}
 
 	@Test
-	public void readTest() {
+	void readTest() {
 		when(repo.findAll()).thenReturn(artists);
 		when(mapper.listMapToDTO(Mockito.anyList())).thenReturn(artistDTOs);
 
@@ -121,7 +119,7 @@ public class ArtistServiceUnitTest {
 	}
 
 	@Test
-	public void deleteTest() {
+	void deleteTest() {
 
 		when(repo.findById(Mockito.anyInt())).thenReturn(Optional.of(validArtist));
 		when(repo.existsById(Mockito.anyInt())).thenReturn(false);
