@@ -23,6 +23,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 
+import org.apache.commons.lang3.SystemUtils;
+
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 public class UserManagmentLogin {
@@ -58,16 +60,19 @@ public class UserManagmentLogin {
 		// so need diffrent names probably best to use a counter
 
 		// setup the chrome driver
-		System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
+		if (SystemUtils.IS_OS_WINDOWS) {
+			System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
+		} else if (SystemUtils.IS_OS_LINUX) {
+			System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver");
+		}
 		ChromeOptions cOptions = new ChromeOptions();
 		cOptions.addArguments("--no-sandbox");
-		cOptions.setHeadless(false);// wanna set it for now
+		cOptions.setHeadless(true);
 		// disable cookies
 		cOptions.setCapability("profile.default_content_setting_values.cookies", 2);
 		cOptions.setCapability("network.cookie.cookieBehavior", 2);
 		cOptions.setCapability("profile.block_third_party_cookies", true);
 		driver = new ChromeDriver(cOptions);
-		driver.manage().window().maximize();
 
 		try {
 			System.out.println(URL);
