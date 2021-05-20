@@ -2,7 +2,7 @@
 
 ## Intoduction
 
-Choonz is a full stack web app muslci management tool that allows the user to create, read, update and delete tracks, artists, albums, genres and playlists.
+Choonz is a full stack web app music management tool that allows the user to create, read, update and delete tracks, artists, albums, genres and playlists.
 
 The backend is a rest API written in Java with Spring Boot. Frontend is written in HTML, CSS and JavaScript.
 
