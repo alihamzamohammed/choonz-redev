@@ -23,8 +23,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 
-import org.apache.commons.lang3.SystemUtils;
-
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 public class UserManagmentLogin {
@@ -54,17 +52,10 @@ public class UserManagmentLogin {
 	}
 
 	public void setup() {
-		extent = new ExtentReports("src/test/resources/reports/reportLogin.html", true);// this will be called three
-																						// times
-		// replacing itself
-		// so need diffrent names probably best to use a counter
+		extent = new ExtentReports("src/test/resources/reports/reportLogin.html", true);
 
 		// setup the chrome driver
-		if (SystemUtils.IS_OS_WINDOWS) {
-			System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
-		} else if (SystemUtils.IS_OS_LINUX) {
-			System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver");
-		}
+		System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver");
 		ChromeOptions cOptions = new ChromeOptions();
 		cOptions.addArguments("--no-sandbox");
 		cOptions.setHeadless(true);
@@ -129,7 +120,7 @@ public class UserManagmentLogin {
 
 	@After
 	public void teardown() {
-		driver.quit();
+		driver.close();
 		// end the test and delete the resources
 		extent.flush();
 		extent.close();
