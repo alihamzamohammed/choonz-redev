@@ -1,4 +1,4 @@
-package com.qa.choonz.tests.pages;
+package com.qa.choonz.frontend.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -22,10 +22,8 @@ public class Login {
 	}
 
 	private void getElements() {
-		new WebDriverWait(driver, 10).until(webDriver -> ((JavascriptExecutor) webDriver)
-				.executeScript("return document.readyState").equals("complete"));
-		new WebDriverWait(driver, 5).until(ExpectedConditions
-				.textToBePresentInElement(driver.findElement(By.xpath("//*[@id=\"info-box\"]")), "User created"));
+		new WebDriverWait(driver, 10).until(webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+		new WebDriverWait(driver, 5).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.xpath("//*[@id=\"info-box\"]")), "User created"));
 		loginBtn = driver.findElement(By.xpath("/html/body/wrapper/main/div/div/div/form/button"));
 		uNameTxt = driver.findElement(By.id("UName"));
 		System.out.println("display me " + uNameTxt.isDisplayed());

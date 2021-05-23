@@ -1,4 +1,6 @@
-package com.qa.choonz.tests.pages;
+package com.qa.choonz.frontend.pages;
+
+import com.gargoylesoftware.htmlunit.javascript.host.URL;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -40,30 +42,17 @@ public class SignupPage {
 
 	public void SubmitForm() {
 		SignUpBtn.click();
-		new WebDriverWait(driver, 5).until(ExpectedConditions.urlContains("login"));// wait
-																					// until
-																					// page
-																					// has
-																					// loaded
-		// wait for login page to load first
+		new WebDriverWait(driver, 5).until(ExpectedConditions.urlContains("login"));
 	}
 
 	public void SubmitFormNoRedirect() {
-		SignUpBtn.click();// diffrent from above this wont redirect because it fails
-		new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(SignUpBtn));// wait for page to
-																								// refresh because it
-																								// failed
+		SignUpBtn.click();
+		new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(SignUpBtn));
 	}
 
 	public void LoadURL(String URL) {
 		driver.get(URL);
-		// wait for signupbtn to be clickable
-		new WebDriverWait(driver, 5).until(
-				ExpectedConditions.elementToBeClickable(By.xpath("/html/body/wrapper/main/div/div/div/form/button")));// wait
-																														// until
-																														// page
-																														// has
-																														// loaded
+		new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/wrapper/main/div/div/div/form/button")));
 		getElements();
 	}
 

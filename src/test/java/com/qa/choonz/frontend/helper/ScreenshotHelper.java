@@ -1,4 +1,4 @@
-package com.qa.choonz.tests.helper;
+package com.qa.choonz.frontend.helper;
 
 import java.io.File;
 

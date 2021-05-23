@@ -1,37 +1,35 @@
-package com.qa.choonz.tests;
+package com.qa.choonz.frontend.tests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.concurrent.TimeUnit;
 
-import com.qa.choonz.tests.pages.Login;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
+import com.qa.choonz.frontend.pages.Login;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.spring.CucumberContextConfiguration;
 
-@CucumberContextConfiguration
-@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+import io.github.bonigarcia.seljup.SeleniumJupiter;
+
+@ExtendWith(SeleniumJupiter.class)
 public class UserManagmentLogin {
 
-	private static WebDriver driver;
+	private WebDriver driver;
 
-	// reports
-	private static ExtentReports extent;
-	private static ExtentTest test;
 
 	private boolean AccountCreated = false;
 	// Get page
@@ -45,15 +43,6 @@ public class UserManagmentLogin {
 		// call setup before every scenario
 		URL = "http://localhost:8082";
 
-		setup();
-
-		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-		// try to load the page within 30 seconds
-	}
-
-	public void setup() {
-		extent = new ExtentReports("src/test/resources/reports/reportLogin.html", true);
-
 		// setup the chrome driver
 		System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver");
 		ChromeOptions cOptions = new ChromeOptions();
@@ -66,16 +55,19 @@ public class UserManagmentLogin {
 		driver = new ChromeDriver(cOptions);
 
 		try {
-			System.out.println(URL);
 			LP = new Login(driver);
 		} catch (TimeoutException e) {
 			System.out.println("Page: " + URL + " did not load within 30 seconds!");
 		}
 
+		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		driver.get(URL);
+		// try to load the page within 30 seconds
 	}
 
 	@Given("^I have created an account$")
 	public void i_have_created_an_account() {
+		assertThat(driver.getCurrentUrl()).contains(URL);
 		if (!AccountCreated) {
 			LP.CreateAccount("Testusername1", "Testpassword1", "Testpassword1", URL);// this redirects to login page
 			AccountCreated = true;
@@ -88,6 +80,7 @@ public class UserManagmentLogin {
 	public void i_load_the_Login_Page() {
 		// assert that
 		assertThat(driver.getCurrentUrl()).isEqualTo(URL + "/login.html?signup=true");
+		assertThat(driver.findElement(By.xpath("//*[@id=\"info-box\"]")).getText()).isEqualTo("User created");
 	}
 
 	@When("^I enter the login credentials$")
@@ -120,9 +113,7 @@ public class UserManagmentLogin {
 
 	@After
 	public void teardown() {
-		driver.close();
+		driver.quit();
 		// end the test and delete the resources
-		extent.flush();
-		extent.close();
 	}
 }
