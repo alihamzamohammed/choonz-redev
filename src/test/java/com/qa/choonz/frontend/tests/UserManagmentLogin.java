@@ -37,6 +37,9 @@ public class UserManagmentLogin {
 
 	private String URL;
 
+	private static ExtentReports extentReport;
+    private static ExtentSparkReporter sparkReporter;
+
 	@Before // runs before each scenario
 	public void init() {
 
@@ -63,13 +66,16 @@ public class UserManagmentLogin {
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.get(URL);
 		// try to load the page within 30 seconds
+		extentReport = new ExtentReports();
+        sparkReporter = new ExtentSparkReporter("reports/functional/frontend/Report.html");
+        extentReport.attachReporter(sparkReporter);
 	}
 
 	@Given("^I have created an account$")
 	public void i_have_created_an_account() {
 		assertThat(driver.getCurrentUrl()).contains(URL);
 		if (!AccountCreated) {
-			LP.CreateAccount("Testusername1", "Testpassword1", "Testpassword1", URL);// this redirects to login page
+			LP.CreateAccount("Testusername1", "Testpassword1", "Testpassword1", URL); // this redirects to login page
 			AccountCreated = true;
 		} else {
 			LP.LoadLoginPage(URL);// if we already created then load this instead
