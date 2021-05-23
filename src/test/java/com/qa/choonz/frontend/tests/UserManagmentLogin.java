@@ -5,12 +5,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.concurrent.TimeUnit;
 
 import com.qa.choonz.frontend.pages.Login;
+import com.qa.choonz.frontend.helper.ScreenshotHelper;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +22,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -38,10 +42,18 @@ public class UserManagmentLogin {
 	private String URL;
 
 	private static ExtentReports extentReport;
-    private static ExtentSparkReporter sparkReporter;
+	private static ExtentSparkReporter sparkReporter;
+	private static ExtentTest test;
+
+	@BeforeAll
+	public void setup() {
+		extentReport = new ExtentReports();
+        sparkReporter = new ExtentSparkReporter("reports/functional/frontend/Report.html");
+		extentReport.attachReporter(sparkReporter);
+	}
 
 	@Before // runs before each scenario
-	public void init() {
+	public void init(Scenario scenario) {
 
 		// call setup before every scenario
 		URL = "http://localhost:8082";
@@ -66,13 +78,14 @@ public class UserManagmentLogin {
 		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 		driver.get(URL);
 		// try to load the page within 30 seconds
-		extentReport = new ExtentReports();
-        sparkReporter = new ExtentSparkReporter("reports/functional/frontend/Report.html");
-        extentReport.attachReporter(sparkReporter);
+
+		test = extentReport.createTest(scenario.getName() + ".html");
+        test.assignAuthor("Ali Hamza M");
 	}
 
 	@Given("^I have created an account$")
 	public void i_have_created_an_account() {
+		
 		assertThat(driver.getCurrentUrl()).contains(URL);
 		if (!AccountCreated) {
 			LP.CreateAccount("Testusername1", "Testpassword1", "Testpassword1", URL); // this redirects to login page
@@ -118,8 +131,23 @@ public class UserManagmentLogin {
 	}
 
 	@After
-	public void teardown() {
+	public void teardown(Scenario scenario) {
+		try {
+			test.addScreenCaptureFromPath(ScreenshotHelper.screenShot(driver, "reports/functional/frontend/" + scenario.getName().replaceAll(":", "") + ".png"));
+		} catch (Exception e) {
+			test.fail("Screenshot couldn't be captured: \n" + e);
+		}
 		driver.quit();
 		// end the test and delete the resources
+
+		if (scenario.isFailed()) {
+			test.fail("Scenario failed");
+		}
+		test.pass("Scenario passed");
+	}
+
+	@AfterAll
+	public void end() {
+		extentReport.flush();
 	}
 }

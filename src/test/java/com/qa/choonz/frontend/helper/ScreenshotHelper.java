@@ -10,7 +10,7 @@ import com.google.common.io.Files;
 
 public class ScreenshotHelper {
 
-	public static void screenShot(WebDriver driver, String path) throws Exception {
+	public static String screenShot(WebDriver driver, String path) throws Exception {
 
 		// takes screenshot
 		TakesScreenshot shot = ((TakesScreenshot) driver);
@@ -22,5 +22,7 @@ public class ScreenshotHelper {
 		File destination = new File(path);
 
 		Files.copy(SrcFile, destination);// store the SrcFile in the destination file
+
+		return destination.getPath();
 	}
 }
