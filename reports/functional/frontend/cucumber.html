@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary"></span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">May 24, 2021 03:28:18 pm</span></a>
+<a href="#"><span class="badge badge-primary">May 24, 2021 03:30:59 pm</span></a>
 </li>
 </ul>
 </div>
@@ -45,6 +45,11 @@
 <li class="nav-item dropdown" onclick="toggleView('test-view')">
 <a id="nav-test" class="dropdown-toggle" href="#">
 <span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('exception-view')">
+<a id="nav-exception" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bug"></i></span>
 </a>
 </li>
 <li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
@@ -82,7 +87,7 @@
           <div class="test-detail">
             <p class="name">Check login page</p>
             <p class="text-sm">
-              <span>15:28:23 pm</span> / <span>00:00:06:330</span>
+              <span>15:31:04 pm</span> / <span>00:00:06:300</span>
               <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
@@ -91,9 +96,9 @@
 <div class="p-v-10">
 <div class="info">
 <h5 class="test-status text-pass">Check login page</h5>
-<span class='badge badge-success'>05.24.2021 15:28:23</span>
-<span class='badge badge-danger'>05.24.2021 15:28:30</span>
-<span class='badge badge-default'>00:00:06:330</span>
+<span class='badge badge-success'>05.24.2021 15:31:04</span>
+<span class='badge badge-danger'>05.24.2021 15:31:11</span>
+<span class='badge badge-default'>00:00:06:300</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 </div>
 <div class="m-t-10 m-l-5"></div>
@@ -182,7 +187,7 @@
           <div class="test-detail">
             <p class="name">Check Signup Page</p>
             <p class="text-sm">
-              <span>15:28:30 pm</span> / <span>00:00:04:760</span>
+              <span>15:31:11 pm</span> / <span>00:00:04:946</span>
               <span class="badge fail-bg log float-right">Fail</span>
             </p>
           </div>
@@ -191,9 +196,9 @@
 <div class="p-v-10">
 <div class="info">
 <h5 class="test-status text-fail">Check Signup Page</h5>
-<span class='badge badge-success'>05.24.2021 15:28:30</span>
-<span class='badge badge-danger'>05.24.2021 15:28:34</span>
-<span class='badge badge-default'>00:00:04:760</span>
+<span class='badge badge-success'>05.24.2021 15:31:11</span>
+<span class='badge badge-danger'>05.24.2021 15:31:16</span>
+<span class='badge badge-default'>00:00:04:946</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=22</span>
 </div>
 <div class="m-t-10 m-l-5"></div>
@@ -285,9 +290,23 @@
       <div>
       </div>
               </div>
-              <div class="step fail-bg" >
-                <span>Then I shoudl be notified that the passwords didnt match</span>
-      <div>Step undefined
+              <div class="step fail-bg" title="com.qa.choonz.frontend.tests.UserManagementSignup.i_should_be_notified_that_the_passwords_didnt_match()">
+                <span>Then I should be notified that the passwords didnt match</span>
+      <div>
+        <textarea disabled class="code-block">org.opentest4j.AssertionFailedError: 
+Expecting:
+ <"http://localhost:8082/signup.html">
+to be equal to:
+ <"http://localhost:8082/signup.html?signup=error">
+but was not.
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:64)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:500)
+	at com.qa.choonz.frontend.tests.UserManagementSignup.i_should_be_notified_that_the_passwords_didnt_match(UserManagementSignup.java:98)
+	at ✽.I should be notified that the passwords didnt match(file:///home/alihamza/Projects/QA/Choonz%20Redev%20Project/choonz-redev/src/test/resources/cucumber/Signup.feature:19)
+</textarea>
+      
       </div>
               </div>
           </div>
@@ -305,18 +324,70 @@
 </div>
 <div class="test-content-detail"><div class="detail-body"></div></div>
 </div></div>
-<div class="container-fluid p-4 view dashboard-view">
+<div class="test-wrapper row view exception-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Exception</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>1</span>
+</span>
+<p class="name">org.opentest4j.AssertionFailedError</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>org.opentest4j.AssertionFailedError</h4>
+<span status="fail" class='badge log badge-danger'>1 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>15:31:16 pm</td>
+<td>
+<a href="#" class="linked" test-id='22' id='47'>Then I should be notified that the passwords didnt match</a>
+<div class="">
+<span class="badge badge-default">Check Signup Page.Diffrent passwords.Then I should be notified that the passwords didnt match</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="container-fluid p-4 view dashboard-view">
 <div class="row">
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>May 24, 2021 03:28:18 pm</h3>
+<h3>May 24, 2021 03:30:59 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>May 24, 2021 03:28:34 pm</h3>
+<h3>May 24, 2021 03:31:16 pm</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -406,7 +477,7 @@
 </div></div>
 <script>
 var timeline = {
-"Check login page":6.33,"Check Signup Page":4.76
+"Check login page":6.3,"Check Signup Page":4.946
 };
 </script>
 <div class="row">

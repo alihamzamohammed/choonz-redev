@@ -14,6 +14,6 @@ Scenario: Signup with bad information
 
 Scenario: Diffrent passwords
 	Given I load the signup page
-	When I enter a password 
+	When I enter a password
 	When I confirm with wrong password
-	Then I shoudl be notified that the passwords didnt match
+	Then I should be notified that the passwords didnt match
