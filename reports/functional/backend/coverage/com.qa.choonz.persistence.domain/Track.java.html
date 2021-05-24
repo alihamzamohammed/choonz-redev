@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Track.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Choonz</a> &gt; <a href="index.source.html" class="el_package">com.qa.choonz.persistence.domain</a> &gt; <span class="el_source">Track.java</span></div><h1>Track.java</h1><pre class="source lang-java linenums">package com.qa.choonz.persistence.domain;
+
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+@Entity
+public class Track {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @NotNull
+    @Size(max = 100)
+    private String name;
+
+    @ManyToOne(targetEntity = Album.class)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Album album;
+
+    @OneToOne
+    private Artist artist;
+
+    // in seconds
+    private Integer duration;
+
+    private String lyrics;
+
+    @ManyToMany(mappedBy = &quot;tracks&quot;)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List&lt;Playlist&gt; playlists;
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(joinColumns = @JoinColumn(name = &quot;TRACK_ID&quot;, referencedColumnName = &quot;ID&quot;), inverseJoinColumns = @JoinColumn(name = &quot;ARTIST_ID&quot;, referencedColumnName = &quot;ID&quot;))
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List&lt;Artist&gt; contributingArtists;
+
+    public Track() {
+<span class="fc" id="L57">        super();</span>
+<span class="fc" id="L58">    }</span>
+
+    public Track(int id, @NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List&lt;Artist&gt; contributingArtists) {
+<span class="fc" id="L62">        super();</span>
+<span class="fc" id="L63">        this.id = id;</span>
+<span class="fc" id="L64">        this.name = name;</span>
+<span class="fc" id="L65">        this.album = album;</span>
+<span class="fc" id="L66">        this.duration = duration;</span>
+<span class="fc" id="L67">        this.lyrics = lyrics;</span>
+<span class="fc" id="L68">        this.contributingArtists = contributingArtists;</span>
+<span class="fc" id="L69">    }</span>
+
+    public Track(@NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List&lt;Artist&gt; contributingArtists) {
+<span class="nc" id="L73">        super();</span>
+<span class="nc" id="L74">        this.name = name;</span>
+<span class="nc" id="L75">        this.album = album;</span>
+<span class="nc" id="L76">        this.duration = duration;</span>
+<span class="nc" id="L77">        this.lyrics = lyrics;</span>
+<span class="nc" id="L78">        this.contributingArtists = contributingArtists;</span>
+<span class="nc" id="L79">    }</span>
+
+    public Track(@NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics,
+            List&lt;Artist&gt; contributingArtists, Artist artist) {
+<span class="fc" id="L83">        super();</span>
+<span class="fc" id="L84">        this.name = name;</span>
+<span class="fc" id="L85">        this.album = album;</span>
+<span class="fc" id="L86">        this.duration = duration;</span>
+<span class="fc" id="L87">        this.lyrics = lyrics;</span>
+<span class="fc" id="L88">        this.artist = artist;</span>
+<span class="fc" id="L89">        this.contributingArtists = contributingArtists;</span>
+<span class="fc" id="L90">    }</span>
+
+    public Track(@NotNull @Size(max = 100) String name, Album album, Integer duration, String lyrics) {
+<span class="fc" id="L93">        super();</span>
+<span class="fc" id="L94">        this.name = name;</span>
+<span class="fc" id="L95">        this.album = album;</span>
+<span class="fc" id="L96">        this.duration = duration;</span>
+<span class="fc" id="L97">        this.lyrics = lyrics;</span>
+<span class="fc" id="L98">    }</span>
+
+    public Track(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
+<span class="fc" id="L101">        super();</span>
+<span class="fc" id="L102">        this.id = id;</span>
+<span class="fc" id="L103">        this.name = name;</span>
+<span class="fc" id="L104">        this.duration = duration;</span>
+<span class="fc" id="L105">        this.lyrics = lyrics;</span>
+<span class="fc" id="L106">    }</span>
+
+    public int getId() {
+<span class="fc" id="L109">        return id;</span>
+    }
+
+    public void setId(int id) {
+<span class="fc" id="L113">        this.id = id;</span>
+<span class="fc" id="L114">    }</span>
+
+    public Artist getArtist() {
+<span class="fc" id="L117">        return this.artist;</span>
+    }
+
+    public void setArtist(Artist artist) {
+<span class="fc" id="L121">        this.artist = artist;</span>
+<span class="fc" id="L122">    }</span>
+
+    public String getName() {
+<span class="fc" id="L125">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="fc" id="L129">        this.name = name;</span>
+<span class="fc" id="L130">    }</span>
+
+    public Album getAlbum() {
+<span class="fc" id="L133">        return album;</span>
+    }
+
+    public void setAlbum(Album album) {
+<span class="fc" id="L137">        this.album = album;</span>
+<span class="fc" id="L138">    }</span>
+
+    public Integer getDuration() {
+<span class="fc" id="L141">        return duration;</span>
+    }
+
+    public void setDuration(Integer duration) {
+<span class="fc" id="L145">        this.duration = duration;</span>
+<span class="fc" id="L146">    }</span>
+
+    public String getLyrics() {
+<span class="fc" id="L149">        return lyrics;</span>
+    }
+
+    public void setLyrics(String lyrics) {
+<span class="fc" id="L153">        this.lyrics = lyrics;</span>
+<span class="fc" id="L154">    }</span>
+
+    public List&lt;Artist&gt; getContributingArtists() {
+<span class="fc" id="L157">        return this.contributingArtists;</span>
+    }
+
+    public void setContributingArtists(List&lt;Artist&gt; contributingArtists) {
+<span class="fc" id="L161">        this.contributingArtists = contributingArtists;</span>
+<span class="fc" id="L162">    }</span>
+
+    public List&lt;Playlist&gt; getPlaylists() {
+<span class="fc" id="L165">        return this.playlists;</span>
+    }
+
+    public void setPlaylists(List&lt;Playlist&gt; playlists) {
+<span class="fc" id="L169">        this.playlists = playlists;</span>
+<span class="fc" id="L170">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L174">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L175">        builder.append(&quot;Track [id=&quot;).append(id).append(&quot;, name=&quot;).append(name).append(&quot;, album=&quot;).append(album)</span>
+<span class="fc" id="L176">                .append(&quot;, duration=&quot;).append(duration).append(&quot;, lyrics=&quot;).append(lyrics).append(&quot;, artist=&quot;)</span>
+<span class="fc" id="L177">                .append(artist).append(&quot;, contributingArtists=&quot;).append(contributingArtists).append(&quot;]&quot;);</span>
+<span class="fc" id="L178">        return builder.toString();</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L183">        return Objects.hash(artist, album, duration, lyrics, name, contributingArtists, playlists);</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L189">            return true;</span>
+        }
+<span class="fc bfc" id="L191" title="All 2 branches covered.">        if (!(obj instanceof Track)) {</span>
+<span class="fc" id="L192">            return false;</span>
+        }
+<span class="fc" id="L194">        Track other = (Track) obj;</span>
+<span class="fc bfc" id="L195" title="All 4 branches covered.">        return Objects.equals(album, other.album) &amp;&amp; Objects.equals(duration, other.duration)</span>
+<span class="fc bfc" id="L196" title="All 4 branches covered.">                &amp;&amp; Objects.equals(lyrics, other.lyrics) &amp;&amp; Objects.equals(name, other.name)</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">                &amp;&amp; Objects.equals(artist, other.artist)</span>
+<span class="fc bfc" id="L198" title="All 2 branches covered.">                &amp;&amp; Objects.equals(contributingArtists, other.contributingArtists)</span>
+<span class="fc bfc" id="L199" title="All 2 branches covered.">                &amp;&amp; Objects.equals(playlists, other.playlists);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

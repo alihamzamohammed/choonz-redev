@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Choonz</a> &gt; <a href="index.source.html" class="el_package">com.qa.choonz.persistence.domain</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.qa.choonz.persistence.domain;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = &quot;user&quot;)
+<span class="fc" id="L12">public class User {</span>
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    private String username;
+
+    private String password;
+
+    @Transient
+    private String passwordConfirm;
+
+    private String roles;
+
+    public Integer getId() {
+<span class="fc" id="L27">        return id;</span>
+    }
+
+    public void setId(Integer id) {
+<span class="fc" id="L31">        this.id = id;</span>
+<span class="fc" id="L32">    }</span>
+
+    public String getUsername() {
+<span class="fc" id="L35">        return username;</span>
+    }
+
+    public void setUsername(String username) {
+<span class="fc" id="L39">        this.username = username;</span>
+<span class="fc" id="L40">    }</span>
+
+    public String getPassword() {
+<span class="fc" id="L43">        return password;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="fc" id="L47">        this.password = password;</span>
+<span class="fc" id="L48">    }</span>
+
+    public String getPasswordConfirm() {
+<span class="fc" id="L51">        return passwordConfirm;</span>
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+<span class="fc" id="L55">        this.passwordConfirm = passwordConfirm;</span>
+<span class="fc" id="L56">    }</span>
+
+    public String getRoles() {
+<span class="nc" id="L59">        return roles;</span>
+    }
+
+    public void setRoles(String roles) {
+<span class="fc" id="L63">        this.roles = roles;</span>
+<span class="fc" id="L64">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SearchService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Choonz</a> &gt; <a href="index.source.html" class="el_package">com.qa.choonz.service</a> &gt; <span class="el_source">SearchService.java</span></div><h1>SearchService.java</h1><pre class="source lang-java linenums">package com.qa.choonz.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.qa.choonz.mapper.AlbumMapper;
+import com.qa.choonz.mapper.ArtistMapper;
+import com.qa.choonz.mapper.GenreMapper;
+import com.qa.choonz.mapper.PlaylistMapper;
+import com.qa.choonz.mapper.TracksMapper;
+import com.qa.choonz.persistence.repository.AlbumRepository;
+import com.qa.choonz.persistence.repository.ArtistRepository;
+import com.qa.choonz.persistence.repository.GenreRepository;
+import com.qa.choonz.persistence.repository.PlaylistRepository;
+import com.qa.choonz.persistence.repository.TrackRepository;
+import com.qa.choonz.rest.dto.AlbumDTO;
+import com.qa.choonz.rest.dto.ArtistDTO;
+import com.qa.choonz.rest.dto.GenreDTO;
+import com.qa.choonz.rest.dto.PlaylistDTO;
+import com.qa.choonz.rest.dto.TrackDTO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+<span class="fc" id="L26">public class SearchService {</span>
+
+    @Autowired
+    private AlbumRepository albumRepo;
+
+    @Autowired
+    private ArtistRepository artistRepo;
+
+    @Autowired
+    private GenreRepository genreRepo;
+
+    @Autowired
+    private PlaylistRepository playlistRepo;
+
+    @Autowired
+    private TrackRepository trackRepo;
+
+    @Autowired
+    private ArtistMapper artistMapper;
+
+    @Autowired
+    private AlbumMapper albumMapper;
+
+    @Autowired
+    private GenreMapper genreMapper;
+
+    @Autowired
+    private PlaylistMapper playlistMapper;
+
+    @Autowired
+    private TracksMapper tracksMapper;
+
+    public List&lt;AlbumDTO&gt; searchAlbums(String name) {
+<span class="fc" id="L59">        return albumMapper.mapToDTO(albumRepo.findAll().stream().filter(album -&gt; album.getName().contains(name))</span>
+<span class="fc" id="L60">                .collect(Collectors.toList()));</span>
+    }
+
+    public List&lt;ArtistDTO&gt; searchArtists(String name) {
+<span class="fc" id="L64">        return artistMapper.listMapToDTO(artistRepo.findAll().stream().filter(artist -&gt; artist.getName().contains(name))</span>
+<span class="fc" id="L65">                .collect(Collectors.toList()));</span>
+    }
+
+    public List&lt;GenreDTO&gt; searchGenres(String name) {
+<span class="fc" id="L69">        return genreMapper.listMapToDTO(genreRepo.findAll().stream().filter(genre -&gt; genre.getName().contains(name))</span>
+<span class="fc" id="L70">                .collect(Collectors.toList()));</span>
+    }
+
+    public List&lt;PlaylistDTO&gt; searchPlaylists(String name, Boolean contributingArtists) {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (Boolean.FALSE.equals(contributingArtists)) {</span>
+<span class="fc" id="L75">            return playlistMapper.mapToDTO(playlistRepo.findAll().stream()</span>
+<span class="pc" id="L76">                    .filter(playlist -&gt; playlist.getName().contains(name)).filter(playlist -&gt; playlist.getTracks()</span>
+<span class="nc" id="L77">                            .stream().anyMatch(track -&gt; track.getContributingArtists().isEmpty()))</span>
+<span class="fc" id="L78">                    .collect(Collectors.toList()));</span>
+        } else {
+<span class="fc" id="L80">            return playlistMapper.mapToDTO(playlistRepo.findAll().stream()</span>
+<span class="fc" id="L81">                    .filter(playlist -&gt; playlist.getName().contains(name)).collect(Collectors.toList()));</span>
+        }
+    }
+
+    public List&lt;TrackDTO&gt; searchTracks(String name, Boolean contributingArtists) {
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (Boolean.FALSE.equals(contributingArtists)) {</span>
+<span class="fc" id="L87">            return tracksMapper</span>
+<span class="fc" id="L88">                    .listMapToDTO(trackRepo.findAll().stream().filter(track -&gt; track.getName().contains(name))</span>
+<span class="pc" id="L89">                            .filter(track -&gt; track.getContributingArtists().isEmpty()).collect(Collectors.toList()));</span>
+        } else {
+<span class="fc" id="L91">            return tracksMapper.listMapToDTO(trackRepo.findAll().stream()</span>
+<span class="fc" id="L92">                    .filter(track -&gt; track.getName().contains(name)).collect(Collectors.toList()));</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AlbumService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Choonz</a> &gt; <a href="index.source.html" class="el_package">com.qa.choonz.service</a> &gt; <span class="el_source">AlbumService.java</span></div><h1>AlbumService.java</h1><pre class="source lang-java linenums">package com.qa.choonz.service;
+
+import java.util.List;
+
+import com.qa.choonz.exception.AlbumNotFoundException;
+import com.qa.choonz.mapper.AlbumMapper;
+import com.qa.choonz.persistence.domain.Album;
+import com.qa.choonz.persistence.repository.AlbumRepository;
+import com.qa.choonz.rest.dto.AlbumDTO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AlbumService {
+
+	private AlbumRepository repo;
+	private AlbumMapper mapper;
+
+	@Autowired
+	public AlbumService(AlbumRepository repo, AlbumMapper mapper) {
+<span class="fc" id="L22">		super();</span>
+<span class="fc" id="L23">		this.repo = repo;</span>
+<span class="fc" id="L24">		this.mapper = mapper;</span>
+<span class="fc" id="L25">	}</span>
+
+	public AlbumDTO create(Album album) {
+<span class="fc" id="L28">		Album created = this.repo.save(album);</span>
+<span class="fc" id="L29">		return this.mapper.mapToDTO(created);</span>
+	}
+
+	public List&lt;AlbumDTO&gt; read() {
+
+<span class="fc" id="L34">		List&lt;Album&gt; albumDTO = repo.findAll();</span>
+
+<span class="fc" id="L36">		return this.mapper.mapToDTO(albumDTO);</span>
+	}
+
+	public AlbumDTO read(int id) {
+<span class="fc" id="L40">		Album found = this.repo.findById(id).orElseThrow(AlbumNotFoundException::new);</span>
+<span class="fc" id="L41">		return this.mapper.mapToDTO(found);</span>
+	}
+
+	public AlbumDTO update(Album album, int id) {
+<span class="fc" id="L45">		Album toUpdate = this.repo.findById(id).orElseThrow(AlbumNotFoundException::new);</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">		toUpdate.setName(album.getName() != null ? album.getName() : toUpdate.getName());</span>
+<span class="fc" id="L47">		toUpdate.setTracks(album.getTracks());</span>
+<span class="fc" id="L48">		toUpdate.setArtist(album.getArtist());</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">		toUpdate.setCover(album.getCover() != null ? album.getCover() : toUpdate.getCover());</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">		toUpdate.setGenre(album.getGenre() != null ? album.getGenre() : toUpdate.getGenre());</span>
+<span class="fc" id="L51">		Album updated = this.repo.save(toUpdate);</span>
+<span class="fc" id="L52">		return this.mapper.mapToDTO(updated);</span>
+	}
+
+	public boolean delete(int id) {
+<span class="fc" id="L56">		Album album = this.repo.findById(id).orElseThrow(AlbumNotFoundException::new);</span>
+<span class="fc" id="L57">		this.repo.deleteById(album.getId());</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">		return !this.repo.existsById(album.getId());</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

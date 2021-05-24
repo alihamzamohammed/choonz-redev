@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlaylistDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Choonz</a> &gt; <a href="index.source.html" class="el_package">com.qa.choonz.rest.dto</a> &gt; <span class="el_source">PlaylistDTO.java</span></div><h1>PlaylistDTO.java</h1><pre class="source lang-java linenums">package com.qa.choonz.rest.dto;
+
+import java.util.List;
+import java.util.Objects;
+
+public class PlaylistDTO {
+
+    private int id;
+    private String name;
+    private String description;
+    private String artwork;
+    private List&lt;TrackDTO&gt; tracks;
+
+    public PlaylistDTO() {
+<span class="fc" id="L15">        super();</span>
+<span class="fc" id="L16">    }</span>
+
+
+    public PlaylistDTO(String name, String description, String artwork, List&lt;TrackDTO&gt; tracks) {
+<span class="fc" id="L20">        super();</span>
+<span class="fc" id="L21">        this.name = name;</span>
+<span class="fc" id="L22">        this.description = description;</span>
+<span class="fc" id="L23">        this.artwork = artwork;</span>
+<span class="fc" id="L24">        this.tracks = tracks;</span>
+<span class="fc" id="L25">    }</span>
+    
+    public PlaylistDTO(int id, String name, String description, String artwork, List&lt;TrackDTO&gt; tracks) {
+<span class="fc" id="L28">        super();</span>
+<span class="fc" id="L29">        this.id = id;</span>
+<span class="fc" id="L30">        this.name = name;</span>
+<span class="fc" id="L31">        this.description = description;</span>
+<span class="fc" id="L32">        this.artwork = artwork;</span>
+<span class="fc" id="L33">        this.tracks = tracks;</span>
+<span class="fc" id="L34">    }</span>
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+<span class="fc" id="L40">        return id;</span>
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+<span class="fc" id="L47">        this.id = id;</span>
+<span class="fc" id="L48">    }</span>
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+<span class="fc" id="L54">        return name;</span>
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+<span class="fc" id="L61">        this.name = name;</span>
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+<span class="fc" id="L68">        return description;</span>
+    }
+
+    /**
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+<span class="fc" id="L75">        this.description = description;</span>
+<span class="fc" id="L76">    }</span>
+
+    /**
+     * @return the artwork
+     */
+    public String getArtwork() {
+<span class="fc" id="L82">        return artwork;</span>
+    }
+
+    /**
+     * @param artwork the artwork to set
+     */
+    public void setArtwork(String artwork) {
+<span class="fc" id="L89">        this.artwork = artwork;</span>
+<span class="fc" id="L90">    }</span>
+
+    /**
+     * @return the tracks
+     */
+    public List&lt;TrackDTO&gt; getTracks() {
+<span class="fc" id="L96">        return this.tracks;</span>
+    }
+
+    /**
+     * @param tracks the tracks to set
+     */
+    public void setTracks(List&lt;TrackDTO&gt; tracks) {
+<span class="fc" id="L103">        this.tracks = tracks;</span>
+<span class="fc" id="L104">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L108">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L109">        builder.append(&quot;PlaylistDTO [id=&quot;).append(id).append(&quot;, name=&quot;).append(name).append(&quot;, description=&quot;)</span>
+<span class="fc" id="L110">                .append(description).append(&quot;, artwork=&quot;).append(artwork).append(&quot;, tracks=&quot;).append(tracks)</span>
+<span class="fc" id="L111">                .append(&quot;]&quot;);</span>
+<span class="fc" id="L112">        return builder.toString();</span>
+    }
+
+    @Override
+    public final int hashCode() {
+<span class="fc" id="L117">        return Objects.hash(artwork, description, id, name, tracks);</span>
+    }
+
+    @Override
+    public final boolean equals(Object obj) {
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L123">            return true;</span>
+        }
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        if (!(obj instanceof PlaylistDTO)) {</span>
+<span class="fc" id="L126">            return false;</span>
+        }
+<span class="fc" id="L128">        PlaylistDTO other = (PlaylistDTO) obj;</span>
+<span class="fc bfc" id="L129" title="All 6 branches covered.">        return Objects.equals(artwork, other.artwork) &amp;&amp; Objects.equals(description, other.description)</span>
+<span class="fc bfc" id="L130" title="All 4 branches covered.">                &amp;&amp; id == other.id &amp;&amp; Objects.equals(name, other.name) &amp;&amp; Objects.equals(tracks, other.tracks);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

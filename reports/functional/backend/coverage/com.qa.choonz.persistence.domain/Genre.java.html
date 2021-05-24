@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Genre.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Choonz</a> &gt; <a href="index.source.html" class="el_package">com.qa.choonz.persistence.domain</a> &gt; <span class="el_source">Genre.java</span></div><h1>Genre.java</h1><pre class="source lang-java linenums">package com.qa.choonz.persistence.domain;
+
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+@Entity
+public class Genre {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @NotNull
+    @Size(max = 100)
+    private String name;
+
+    @NotNull
+    @Size(max = 250)
+    private String description;
+
+    @ManyToMany(mappedBy = &quot;genre&quot;, fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List&lt;Album&gt; albums;
+
+    public Genre() {
+<span class="fc" id="L38">        super();</span>
+<span class="fc" id="L39">    }</span>
+
+    public Genre(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
+            List&lt;Album&gt; albums) {
+
+<span class="fc" id="L44">        super();</span>
+<span class="fc" id="L45">        this.name = name;</span>
+<span class="fc" id="L46">        this.description = description;</span>
+<span class="fc" id="L47">        this.albums = albums;</span>
+<span class="fc" id="L48">    }</span>
+
+    public Genre(@NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description) {
+
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">        this.name = name;</span>
+<span class="fc" id="L54">        this.description = description;</span>
+<span class="fc" id="L55">    }</span>
+
+    public Genre(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description,
+            List&lt;Album&gt; albums) {
+<span class="fc" id="L59">        super();</span>
+<span class="fc" id="L60">        this.id = id;</span>
+<span class="fc" id="L61">        this.name = name;</span>
+<span class="fc" id="L62">        this.description = description;</span>
+<span class="fc" id="L63">        this.albums = albums;</span>
+<span class="fc" id="L64">    }</span>
+
+    public Genre(int id, @NotNull @Size(max = 100) String name, @NotNull @Size(max = 250) String description) {
+<span class="fc" id="L67">        super();</span>
+<span class="fc" id="L68">        this.id = id;</span>
+<span class="fc" id="L69">        this.name = name;</span>
+<span class="fc" id="L70">        this.description = description;</span>
+<span class="fc" id="L71">    }</span>
+
+    public int getId() {
+<span class="fc" id="L74">        return id;</span>
+    }
+
+    public void setId(int id) {
+<span class="fc" id="L78">        this.id = id;</span>
+<span class="fc" id="L79">    }</span>
+
+    public String getName() {
+<span class="fc" id="L82">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="fc" id="L86">        this.name = name;</span>
+<span class="fc" id="L87">    }</span>
+
+    public String getDescription() {
+<span class="fc" id="L90">        return description;</span>
+    }
+
+    public void setDescription(String description) {
+<span class="fc" id="L94">        this.description = description;</span>
+<span class="fc" id="L95">    }</span>
+
+    public List&lt;Album&gt; getAlbums() {
+<span class="fc" id="L98">        return albums;</span>
+    }
+
+    public void setAlbums(List&lt;Album&gt; albums) {
+<span class="fc" id="L102">        this.albums = albums;</span>
+<span class="fc" id="L103">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L107">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L108">        builder.append(&quot;Genre [id=&quot;).append(id).append(&quot;, name=&quot;).append(name).append(&quot;, description=&quot;)</span>
+<span class="fc" id="L109">                .append(description).append(&quot;, albums=&quot;).append(albums).append(&quot;]&quot;);</span>
+
+<span class="fc" id="L111">        return builder.toString();</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L116">        return Objects.hash(albums, description, name);</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L122">            return true;</span>
+        }
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (!(obj instanceof Genre)) {</span>
+<span class="fc" id="L125">            return false;</span>
+        }
+<span class="fc" id="L127">        Genre other = (Genre) obj;</span>
+<span class="fc bfc" id="L128" title="All 4 branches covered.">        return Objects.equals(albums, other.albums) &amp;&amp; Objects.equals(description, other.description)</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">                &amp;&amp; Objects.equals(name, other.name);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

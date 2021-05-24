@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Album.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Choonz</a> &gt; <a href="index.source.html" class="el_package">com.qa.choonz.persistence.domain</a> &gt; <span class="el_source">Album.java</span></div><h1>Album.java</h1><pre class="source lang-java linenums">package com.qa.choonz.persistence.domain;
+
+import java.util.List;
+import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+@Entity
+public class Album {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @NotNull
+    @Size(max = 100)
+    private String name;
+
+    @OneToMany(mappedBy = &quot;album&quot;)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List&lt;Track&gt; tracks;
+
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Artist artist;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List&lt;Genre&gt; genre;
+
+    @NotNull
+    @Column(columnDefinition = &quot;longtext&quot;)
+    private String cover;
+
+    public Album() {
+<span class="fc" id="L54">        super();</span>
+<span class="fc" id="L55">    }</span>
+
+    public Album(@NotNull @Size(max = 100) String name, List&lt;Track&gt; tracks, Artist artist, List&lt;Genre&gt; genre,
+            @NotNull @Size(max = 50) String cover) {
+<span class="fc" id="L59">        super();</span>
+<span class="fc" id="L60">        this.name = name;</span>
+<span class="fc" id="L61">        this.tracks = tracks;</span>
+<span class="fc" id="L62">        this.artist = artist;</span>
+<span class="fc" id="L63">        this.genre = genre;</span>
+<span class="fc" id="L64">        this.cover = cover;</span>
+<span class="fc" id="L65">    }</span>
+
+    public Album(@NotNull @Size(max = 100) String name, Artist artist, List&lt;Genre&gt; genre,
+            @NotNull @Size(max = 50) String cover) {
+<span class="fc" id="L69">        super();</span>
+<span class="fc" id="L70">        this.name = name;</span>
+<span class="fc" id="L71">        this.artist = artist;</span>
+<span class="fc" id="L72">        this.genre = genre;</span>
+<span class="fc" id="L73">        this.cover = cover;</span>
+<span class="fc" id="L74">    }</span>
+
+    public Album(int id, @NotNull @Size(max = 100) String name, List&lt;Track&gt; tracks, Artist artist, List&lt;Genre&gt; genre,
+            @NotNull @Size(max = 50) String cover) {
+<span class="fc" id="L78">        super();</span>
+<span class="fc" id="L79">        this.id = id;</span>
+<span class="fc" id="L80">        this.name = name;</span>
+<span class="fc" id="L81">        this.tracks = tracks;</span>
+<span class="fc" id="L82">        this.artist = artist;</span>
+<span class="fc" id="L83">        this.genre = genre;</span>
+<span class="fc" id="L84">        this.cover = cover;</span>
+<span class="fc" id="L85">    }</span>
+
+    public int getId() {
+<span class="fc" id="L88">        return id;</span>
+    }
+
+    public void setId(int id) {
+<span class="fc" id="L92">        this.id = id;</span>
+<span class="fc" id="L93">    }</span>
+
+    public String getName() {
+<span class="fc" id="L96">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="fc" id="L100">        this.name = name;</span>
+<span class="fc" id="L101">    }</span>
+
+    public List&lt;Track&gt; getTracks() {
+<span class="fc" id="L104">        return tracks;</span>
+    }
+
+    public void setTracks(List&lt;Track&gt; tracks) {
+<span class="fc" id="L108">        this.tracks = tracks;</span>
+<span class="fc" id="L109">    }</span>
+
+    public Artist getArtist() {
+<span class="fc" id="L112">        return artist;</span>
+    }
+
+    public void setArtist(Artist artist) {
+<span class="fc" id="L116">        this.artist = artist;</span>
+<span class="fc" id="L117">    }</span>
+
+    public List&lt;Genre&gt; getGenre() {
+<span class="fc" id="L120">        return genre;</span>
+    }
+
+    public void setGenre(List&lt;Genre&gt; genre) {
+<span class="fc" id="L124">        this.genre = genre;</span>
+<span class="fc" id="L125">    }</span>
+
+    public String getCover() {
+<span class="fc" id="L128">        return cover;</span>
+    }
+
+    public void setCover(String cover) {
+<span class="fc" id="L132">        this.cover = cover;</span>
+<span class="fc" id="L133">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L137">        StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L138">        builder.append(&quot;Album [id=&quot;).append(id).append(&quot;, name=&quot;).append(name).append(&quot;, tracks=&quot;).append(tracks)</span>
+<span class="fc" id="L139">                .append(&quot;, artist=&quot;).append(artist).append(&quot;, genre=&quot;).append(genre).append(&quot;, cover=&quot;).append(cover)</span>
+<span class="fc" id="L140">                .append(&quot;]&quot;);</span>
+<span class="fc" id="L141">        return builder.toString();</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L146">        return Objects.hash(artist, cover, genre, id, name, tracks);</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L152">            return true;</span>
+        }
+<span class="fc bfc" id="L154" title="All 2 branches covered.">        if (!(obj instanceof Album)) {</span>
+<span class="fc" id="L155">            return false;</span>
+        }
+<span class="fc" id="L157">        Album other = (Album) obj;</span>
+<span class="pc bpc" id="L158" title="1 of 4 branches missed.">        return Objects.equals(artist, other.artist) &amp;&amp; Objects.equals(cover, other.cover)</span>
+<span class="pc bpc" id="L159" title="3 of 6 branches missed.">                &amp;&amp; Objects.equals(genre, other.genre) &amp;&amp; id == other.id &amp;&amp; Objects.equals(name, other.name)</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">                &amp;&amp; Objects.equals(tracks, other.tracks);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

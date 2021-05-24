@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ArtistService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Choonz</a> &gt; <a href="index.source.html" class="el_package">com.qa.choonz.service</a> &gt; <span class="el_source">ArtistService.java</span></div><h1>ArtistService.java</h1><pre class="source lang-java linenums">package com.qa.choonz.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.qa.choonz.exception.ArtistNotFoundException;
+import com.qa.choonz.mapper.ArtistMapper;
+import com.qa.choonz.persistence.domain.Artist;
+import com.qa.choonz.persistence.repository.ArtistRepository;
+import com.qa.choonz.rest.dto.ArtistDTO;
+
+@Service
+public class ArtistService {
+
+    private ArtistRepository repo;
+    private ArtistMapper mapper;
+    private AlbumService albumService;
+
+    @Autowired
+    public ArtistService(ArtistRepository repo, ArtistMapper mapper, AlbumService albumService) {
+<span class="fc" id="L23">        super();</span>
+<span class="fc" id="L24">        this.repo = repo;</span>
+<span class="fc" id="L25">        this.mapper = mapper;</span>
+<span class="fc" id="L26">        this.albumService = albumService;</span>
+<span class="fc" id="L27">    }</span>
+
+    public ArtistDTO create(Artist artist) {
+<span class="fc" id="L30">        Artist created = this.repo.save(artist);</span>
+<span class="fc" id="L31">        return this.mapper.mapToDTO(created);</span>
+    }
+
+    public List&lt;ArtistDTO&gt; read() {
+<span class="fc" id="L35">        return this.mapper.listMapToDTO(this.repo.findAll());</span>
+    }
+
+    public ArtistDTO read(int id) {
+<span class="fc" id="L39">        Artist found = this.repo.findById(id).orElseThrow(ArtistNotFoundException::new);</span>
+<span class="fc" id="L40">        return this.mapper.mapToDTO(found);</span>
+    }
+
+    public ArtistDTO update(Artist artist, int id) {
+<span class="fc" id="L44">        Artist toUpdate = this.repo.findById(id).orElseThrow(ArtistNotFoundException::new);</span>
+<span class="fc" id="L45">        toUpdate.setName(artist.getName());</span>
+<span class="fc" id="L46">        toUpdate.setAlbums(artist.getAlbums());</span>
+<span class="fc" id="L47">        Artist updated = this.repo.save(toUpdate);</span>
+<span class="fc" id="L48">        return this.mapper.mapToDTO(updated);</span>
+    }
+
+    public boolean delete(int id) {
+<span class="fc" id="L52">        Artist artist = this.repo.findById(id).orElseThrow(ArtistNotFoundException::new);</span>
+<span class="fc" id="L53">        artist.getAlbums().forEach(album -&gt; albumService.delete(album.getId()));</span>
+<span class="fc" id="L54">        this.repo.deleteById(artist.getId());</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        return !this.repo.existsById(artist.getId());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

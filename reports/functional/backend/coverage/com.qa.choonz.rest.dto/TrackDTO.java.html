@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TrackDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Choonz</a> &gt; <a href="index.source.html" class="el_package">com.qa.choonz.rest.dto</a> &gt; <span class="el_source">TrackDTO.java</span></div><h1>TrackDTO.java</h1><pre class="source lang-java linenums">package com.qa.choonz.rest.dto;
+
+import java.util.List;
+import java.util.Objects;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+public class TrackDTO {
+
+	private int id;
+	private String name;
+	private AlbumRelationshipDTO album;
+	private Integer duration;
+	private String lyrics;
+	private ArtistRelationshipDTO artist;
+	private List&lt;ArtistRelationshipDTO&gt; contributingArtists;
+
+	public TrackDTO() {
+<span class="fc" id="L20">		super();</span>
+<span class="fc" id="L21">	}</span>
+
+	public TrackDTO(int id, String name, AlbumRelationshipDTO album, Integer duration, String lyrics,
+			ArtistRelationshipDTO artist, List&lt;ArtistRelationshipDTO&gt; contributingArtists) {
+<span class="fc" id="L25">		super();</span>
+<span class="fc" id="L26">		this.id = id;</span>
+<span class="fc" id="L27">		this.name = name;</span>
+<span class="fc" id="L28">		this.album = album;</span>
+<span class="fc" id="L29">		this.duration = duration;</span>
+<span class="fc" id="L30">		this.lyrics = lyrics;</span>
+<span class="fc" id="L31">		this.artist = artist;</span>
+<span class="fc" id="L32">		this.contributingArtists = contributingArtists;</span>
+<span class="fc" id="L33">	}</span>
+
+	public TrackDTO(int id, @NotNull @Size(max = 100) String name, Integer duration, String lyrics) {
+<span class="fc" id="L36">		super();</span>
+<span class="fc" id="L37">		this.id = id;</span>
+<span class="fc" id="L38">		this.name = name;</span>
+<span class="fc" id="L39">		this.duration = duration;</span>
+<span class="fc" id="L40">		this.lyrics = lyrics;</span>
+<span class="fc" id="L41">	}</span>
+
+	public int getId() {
+<span class="fc" id="L44">		return id;</span>
+	}
+
+	public void setId(int id) {
+<span class="fc" id="L48">		this.id = id;</span>
+<span class="fc" id="L49">	}</span>
+
+	public String getName() {
+<span class="fc" id="L52">		return name;</span>
+	}
+
+	public void setName(String name) {
+<span class="fc" id="L56">		this.name = name;</span>
+<span class="fc" id="L57">	}</span>
+
+	public AlbumRelationshipDTO getAlbum() {
+<span class="fc" id="L60">		return album;</span>
+	}
+
+	public void setAlbum(AlbumRelationshipDTO album) {
+<span class="fc" id="L64">		this.album = album;</span>
+<span class="fc" id="L65">	}</span>
+
+	public Integer getDuration() {
+<span class="fc" id="L68">		return duration;</span>
+	}
+
+	public void setDuration(Integer duration) {
+<span class="fc" id="L72">		this.duration = duration;</span>
+<span class="fc" id="L73">	}</span>
+
+	public String getLyrics() {
+<span class="fc" id="L76">		return lyrics;</span>
+	}
+
+	public void setLyrics(String lyrics) {
+<span class="fc" id="L80">		this.lyrics = lyrics;</span>
+<span class="fc" id="L81">	}</span>
+
+	public ArtistRelationshipDTO getArtist() {
+<span class="fc" id="L84">		return this.artist;</span>
+	}
+
+	public void setArtist(ArtistRelationshipDTO artist) {
+<span class="fc" id="L88">		this.artist = artist;</span>
+<span class="fc" id="L89">	}</span>
+
+	public List&lt;ArtistRelationshipDTO&gt; getContributingArtists() {
+<span class="fc" id="L92">		return this.contributingArtists;</span>
+	}
+
+	public void setContributingArtists(List&lt;ArtistRelationshipDTO&gt; contributingArtists) {
+<span class="fc" id="L96">		this.contributingArtists = contributingArtists;</span>
+<span class="fc" id="L97">	}</span>
+
+	@Override
+	public int hashCode() {
+<span class="fc" id="L101">		return Objects.hash(album, duration, lyrics, name, artist, contributingArtists);</span>
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+<span class="fc bfc" id="L106" title="All 2 branches covered.">		if (this == obj)</span>
+<span class="fc" id="L107">			return true;</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">		if (!(obj instanceof TrackDTO))</span>
+<span class="fc" id="L109">			return false;</span>
+<span class="fc" id="L110">		TrackDTO other = (TrackDTO) obj;</span>
+<span class="fc bfc" id="L111" title="All 4 branches covered.">		return Objects.equals(album, other.album) &amp;&amp; Objects.equals(duration, other.duration)</span>
+<span class="fc bfc" id="L112" title="All 4 branches covered.">				&amp;&amp; Objects.equals(lyrics, other.lyrics) &amp;&amp; Objects.equals(name, other.name)</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">				&amp;&amp; Objects.equals(artist, other.artist)</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">				&amp;&amp; Objects.equals(contributingArtists, other.contributingArtists);</span>
+	}
+
+	@Override
+	public String toString() {
+<span class="fc" id="L119">		StringBuilder builder = new StringBuilder();</span>
+<span class="fc" id="L120">		builder.append(&quot;TrackDTO [id=&quot;).append(id).append(&quot;, name=&quot;).append(name).append(&quot;, album=&quot;).append(album)</span>
+<span class="fc" id="L121">				.append(&quot;, duration=&quot;).append(duration).append(&quot;, lyrics=&quot;).append(lyrics).append(&quot;, artist=&quot;)</span>
+<span class="fc" id="L122">				.append(artist).append(&quot;, contributingArtists=&quot;).append(contributingArtists).append(&quot;]&quot;);</span>
+<span class="fc" id="L123">		return builder.toString();</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
