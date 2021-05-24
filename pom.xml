@@ -13,7 +13,8 @@
 	<artifactId>Choonz</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Choonz</name>
-	<description>Choonz - The Music Database</description>
+	<description>Choonz is a full stack web app music management tool that allows the user to create, read, update and delete tracks, artists, albums, genres and playlists.</description>
+	<url>https://github.com/alihamzamohammed/choonz-redev/</url>
 
 	<properties>
 		<java.version>14</java.version>
@@ -185,9 +186,72 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
 		</plugins>
 	</build>
 
-	
+	<reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.0.0-M4</version>
+				<configuration>
+					<webAccessUrl>https://github.com/alihamzamohammed/choonz-redev/</webAccessUrl>
+				</configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+	<scm>
+		<url>https://github.com/alihamzamohammed/choonz-redev/</url>
+	</scm>
+
+	<developers>
+      <developer>
+        <id>alihamzamohammed</id>
+        <name>Ali Hamza Mohammed</name>
+        <organization>QA</organization>
+        <organizationUrl>http://www.github.com/alihamzamohammed</organizationUrl>
+        <roles>
+          <role>developer</role>
+        </roles>
+        <timezone>0</timezone>
+      </developer>
+      <developer>
+        <id>peter5600</id>
+        <name>Peter Colquhoun</name>
+        <organization>QA</organization>
+        <organizationUrl>http://www.github.com/peter5600</organizationUrl>
+        <roles>
+          <role>developer</role>
+        </roles>
+        <timezone>0</timezone>
+      </developer>
+	        <developer>
+        <id>ChrisQA-GB</id>
+        <name>Chris Yiangou</name>
+        <organization>QA</organization>
+        <organizationUrl>http://www.github.com/ChrisQA-GB</organizationUrl>
+        <roles>
+          <role>developer</role>
+        </roles>
+        <timezone>0</timezone>
+      </developer>
+	        <developer>
+        <id>IfanClarke</id>
+        <name>Ifan Clarke</name>
+        <organization>QA</organization>
+        <organizationUrl>http://www.github.com/IfanClarke</organizationUrl>
+        <roles>
+          <role>developer</role>
+        </roles>
+        <timezone>0</timezone>
+      </developer>
+    </developers>
 
 </project>
