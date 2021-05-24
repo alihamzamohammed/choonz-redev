@@ -1,7 +1,5 @@
 package com.qa.choonz.frontend.pages;
 
-import com.gargoylesoftware.htmlunit.javascript.host.URL;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
