@@ -55,7 +55,11 @@
             </div>
         </nav>
         <!-- /Navbar -->
-        <div id="info-box"></div>
+        <div class="flex-fill align-items-center" id="info-box-container">
+            <div class="alert alert-box" role="alert" id="info-box">
+
+            </div>
+        </div>
         <main class="flex-fill d-flex align-items-center">
             <div class="container-fluid text-center">
                 <!--Sign Up Form-->
@@ -64,7 +68,7 @@
                         class="col-3 mx-auto">
                         <h2 class="mt-2">Sign Up</h2>
                         <!--Send data to SubmitForm and then post to endpoint-->
-                        <form style="position: relative;" method="GET" action="perform_signup">
+                        <form style="position: relative;">
                             <div class="form-group mt-3 mb-3">
                                 <label for="exampleFormControlInput1"
                                     style="float:left;font-size:20px;">Username</label>
@@ -84,8 +88,7 @@
                                     placeholder="Confirm password" name="passwordConfirm" required>
                             </div>
 
-                            <button style="position: absolute;right:0" type="submit" class="btn btn-primary btn-lg">Sign
-                                Up</button>
+                            <button type="button" style="position: absolute;right:0" class="btn btn-primary btn-lg" onclick="sendDetails();">SignUp</button>
                         </form>
                     </div>
                 </div>
@@ -104,6 +107,7 @@
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
             </script>
         <script src="./js/usermanagement.js"></script>
+        <script src="./js/signup.js"></script>
 
     </wrapper>
 </body>
