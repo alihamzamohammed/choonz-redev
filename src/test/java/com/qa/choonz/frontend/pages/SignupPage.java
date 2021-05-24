@@ -45,7 +45,6 @@ public class SignupPage {
 
 	public void SubmitFormNoRedirect() {
 		SignUpBtn.click();
-		new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(SignUpBtn));
 	}
 
 	public void LoadURL(String URL) {

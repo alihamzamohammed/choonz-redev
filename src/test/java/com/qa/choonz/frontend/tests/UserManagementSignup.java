@@ -91,11 +91,12 @@ public class UserManagementSignup {
     @When("^I confirm with wrong password$")
     public void i_confirm_with_wrong_password() {
         SP.enterCPassword("password2");
+        SP.SubmitFormNoRedirect();
     }
 
     @Then("^I should be notified that the passwords didnt match$")
     public void i_should_be_notified_that_the_passwords_didnt_match() {
-        assertThat(driver.getCurrentUrl()).isEqualTo("http://localhost:8082/signup.html?signup=error");
+        assertThat(driver.getCurrentUrl()).isEqualTo("http://localhost:8082/signup.html?incorrect=true");
     }
 
     @After
