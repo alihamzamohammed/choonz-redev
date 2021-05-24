@@ -8,6 +8,6 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 @CucumberOptions(plugin = { "pretty", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" }, features = {
                 "src/test/resources/cucumber/Login.feature", "src/test/resources/cucumber/Signup.feature" }, monochrome = true, glue = "com.qa.choonz.frontend")
-public class Runner {
+public class FrontendTest {
 
 }
