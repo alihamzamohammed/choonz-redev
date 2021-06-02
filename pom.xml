@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.qa</groupId>
 	<artifactId>Choonz</artifactId>
-	<version>0.1.3-ALPHA</version>
+	<version>0.1.4-ALPHA</version>
 	<name>Choonz</name>
 	<description>Choonz is a full stack web app music management tool that allows the user to create, read, update and delete tracks, artists, albums, genres and playlists.</description>
 	<url>https://github.com/alihamzamohammed/choonz-redev/</url>
