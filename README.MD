@@ -1,5 +1,7 @@
 # Choonz
 
+![Badge](http://buildstatus.jenkins.alihamza.co.uk/buildStatus/icon?job=choonz-redev)
+
 ## Intoduction
 
 Choonz is a full stack web app music management tool that allows the user to create, read, update and delete tracks, artists, albums, genres and playlists.
