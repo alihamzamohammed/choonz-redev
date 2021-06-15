@@ -80,7 +80,7 @@ If downloading pre-compiled binary, create folder `config/` in the same director
 
 All backend classes are tested. Unit tests have been written for the Services, Controllers, Mappers, DTOs and Domain classes.  
 Frontend tests have been written with Selenium for the sign up and login page.  
-Current test coverage is at 89%.
+Current test coverage is at 87.7%.
 
 ### Non-fuctional tests
 
