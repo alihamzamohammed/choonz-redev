@@ -3,7 +3,7 @@
 ![Badge](http://buildstatus.jenkins.alihamza.co.uk/buildStatus/icon?job=choonz-redev)
 ![Quality Gate Status](http://badges.sonarqube.alihamza.co.uk/api/project_badges/measure?project=com.qa%3AChoonz&metric=alert_status)
 ![Bugs](http://badges.sonarqube.alihamza.co.uk/api/project_badges/measure?project=com.qa%3AChoonz&metric=bugs)
-![Code Smells](http://badges.sonarqube.alihamza.co.uk/api/project_badges/measure?project=com.qa%3AChoonz&metric=code_smells)
+![Code Smells](http://badges.sonarqube.alihamza.co.uk/api/project_badges/measure?project=com.qa%3AChoonz&metric=code_smells#)
 ![Coverage](http://badges.sonarqube.alihamza.co.uk/api/project_badges/measure?project=com.qa%3AChoonz&metric=coverage)
 
 
