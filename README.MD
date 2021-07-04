@@ -90,7 +90,7 @@ JMeter test files available at `src/test/resources/jmeter`
 ### Run tests
 
 Functional tests can be run with `mvn test`  
-Non-functional tests can be run with JMeter. Best reulsts are achieved from the command line. Run with `jmeter -n -t <testfile.jmx> -l <log.txt>`. Ensure program is running before executing tests.
+Non-functional tests can be run with JMeter. Best results are achieved from the command line. Run with `jmeter -n -t <testfile.jmx> -l <log.txt>`. Ensure program is running before executing tests.
 
 ### Test Reports
 
